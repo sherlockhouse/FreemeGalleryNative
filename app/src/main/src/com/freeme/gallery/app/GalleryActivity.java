@@ -828,7 +828,7 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
                     grantResults);
         } else if (PermissionHelper.isAllPermissionsGranted(permissions, grantResults)) {
             Log.i(TAG, "<onRequestPermissionsResult> all permission granted");
-            GalleryDBManager.getInstance().initDB(this, "gallery.db");
+            GalleryDBManager.getInstance().initDB(this, "freemegallery.db");
             if (mSaveInstanceState != null) {
                 getStateManager().restoreFromState(mSaveInstanceState);
             } else {

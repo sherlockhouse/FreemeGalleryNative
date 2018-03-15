@@ -356,8 +356,8 @@ public class GalleryFiles {
                 ", bucket_display_name='" + bucket_display_name + '\'' +
                 ", story_bucket_id=" + story_bucket_id +
                 ", is_hidden=" + is_hidden +
-                ", lbs_loc='" + lbs_loc  +
-                ", photo_voice_id='" + photo_voice_id + '\'' +
+                ", lbs_loc='" + lbs_loc  + '\'' +
+                ", photo_voice_id=" + photo_voice_id +
                 '}';
     }
 }

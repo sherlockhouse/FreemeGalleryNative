@@ -141,7 +141,7 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext 
         mGranted = PermissionHelper.checkAndRequestForGallery(this);
         if (mGranted) {
             //*/ Added by droi Linguanrong for freeme gallery db, 16-1-19
-            GalleryDBManager.getInstance().initDB(this, "gallery.db");
+            GalleryDBManager.getInstance().initDB(this, "freemegallery.db");
             //*/
         }
         TypedArray array = getTheme().obtainStyledAttributes(new int[] {
