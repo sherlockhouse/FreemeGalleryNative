@@ -147,9 +147,6 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         }
 
-        if (BuildConfig.SUPPORT_STABLE_BRIGHTNESS) {
-            FreemeUtils.setScreenBrightness(getWindow());
-        }
 
         setContentView(R.layout.main);
 
@@ -643,6 +640,8 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
         /*Utils.assertTrue(getStateManager().getStateCount() > 0);*/
         /// @}
         super.onResume();
+        FreemeUtils.setScreenBrightness(this,getWindow());
+
         if (mVersionCheckDialog != null) {
             mVersionCheckDialog.show();
         }
@@ -668,6 +667,8 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
     @Override
     protected void onPause() {
         super.onPause();
+        FreemeUtils.restoreScreenBrightness(this);
+
         if (mVersionCheckDialog != null) {
             mVersionCheckDialog.dismiss();
         }
