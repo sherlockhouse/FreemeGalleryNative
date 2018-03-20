@@ -72,6 +72,7 @@ public final class FreemeUtils {
     public static final String INNER_VISTOR_MODE = "inner_vistor_mode";
     private static final String TAG = "FreemeUtils";
     private static int settingsScreenlight;
+    private static float screenBrightness;
 
     public static boolean isVisitorModeInner(ContentResolver resolver) {
         return Settings.System.getInt(resolver, INNER_VISTOR_MODE, 0) != 0;
@@ -188,7 +189,7 @@ public final class FreemeUtils {
 
     public static void setScreenBrightness(AbstractGalleryActivity mActivity, Window window) {
         WindowManager.LayoutParams winParams = window.getAttributes();
-        float screenBrightness = FrameworkSupportUtils.getScreenBritness();
+        screenBrightness = FrameworkSupportUtils.getScreenBritness();
         if (screenBrightness > 0) {
 //            winParams.screenBrightness = screenBrightness;
 //            window.setAttributes(winParams);
@@ -200,7 +201,9 @@ public final class FreemeUtils {
 
     public static void restoreScreenBrightness(AbstractGalleryActivity mActivity) {
         ContentResolver resolver = mActivity.getContentResolver();
-        Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, settingsScreenlight);
+        if (screenBrightness > 0) {
+            Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, settingsScreenlight);
+        }
     }
 }
 
