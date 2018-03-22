@@ -222,14 +222,18 @@ public class FeatureHelper {
                 String mimeType = cursor.getString(1);
                 String contentUri = null;
                 Uri resultUri = null;
-                if (mimeType.startsWith("image/")) {
-                    contentUri = Media.getContentUri("external").toString();
-                } else if (mimeType.startsWith("video/")) {
-                    contentUri = MediaStore.Video.Media.getContentUri("external").toString();
+                if (mimeType == null) {
+                    return null;
                 } else {
-                    Log.i(TAG, "<getUriByPath> id = " + id + ", mimeType = " + mimeType
-                            + ", not begin with image/ or video/, return uri " + uri);
-                    return uri;
+                    if (mimeType.startsWith("image/")) {
+                        contentUri = Media.getContentUri("external").toString();
+                    } else if (mimeType.startsWith("video/")) {
+                        contentUri = MediaStore.Video.Media.getContentUri("external").toString();
+                    } else {
+                        Log.i(TAG, "<getUriByPath> id = " + id + ", mimeType = " + mimeType
+                                + ", not begin with image/ or video/, return uri " + uri);
+                        return uri;
+                    }
                 }
                 resultUri = Uri.parse(contentUri + "/" + id);
                 Log.i(TAG, "<getUriByPath> got " + resultUri);

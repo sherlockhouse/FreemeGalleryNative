@@ -1550,14 +1550,16 @@ public abstract class PhotoPage extends ActivityState implements
         }
         //end
 
-        if (mCurrentPhoto.getMediaType() == MediaObject.MEDIA_TYPE_IMAGE_REFOCUS
-                || mCurrentPhoto.getMimeType().startsWith("refocusImage/")) {
-            supportedOperations &= ~MediaObject.SUPPORT_SHARE;
-            supportedOperations &= ~MediaObject.SUPPORT_ROTATE;
-            supportedOperations &= ~MediaObject.SUPPORT_CROP;
+        if(mCurrentPhoto.getMimeType() != null) {
+            if (mCurrentPhoto.getMediaType() == MediaObject.MEDIA_TYPE_IMAGE_REFOCUS
+                    || mCurrentPhoto.getMimeType().startsWith("refocusImage/")) {
+                supportedOperations &= ~MediaObject.SUPPORT_SHARE;
+                supportedOperations &= ~MediaObject.SUPPORT_ROTATE;
+                supportedOperations &= ~MediaObject.SUPPORT_CROP;
             /*if (GalleryUtils.isBlendingEnable()) {
                 supportedOperations |= MediaObject.SUPPORT_BLENDING;
             }*/
+            }
         }
         MenuExecutor.updateMenuOperation(menu, supportedOperations);
 
@@ -1788,7 +1790,7 @@ public abstract class PhotoPage extends ActivityState implements
             mActivity.startActivity(intent);
         } else if (launchCamera) {
             launchCamera();
-        } else if (item.getMimeType().startsWith("refocusImage/") && clickCenter) {
+        } else if (item.getMimeType() != null && item.getMimeType().startsWith("refocusImage/") && clickCenter) {
             if (FrameworkSupportUtils.isSupportRefocusImage()) {
                 startRefocusActivity(item.getPlayUri(), item);
             }

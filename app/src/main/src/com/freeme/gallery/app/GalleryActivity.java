@@ -567,6 +567,12 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
                 MediaFilter mf = MediaFilterSetting.getCurrentFilter();
                 uri = FeatureHelper.tryContentMediaUri(this, uri);
                 Log.d(TAG, "<startViewAction> uri:" + uri);
+                if (uri == null) {
+                    Toast.makeText(this, R.string.VideoView_error_text_type_not_supported,
+                            Toast.LENGTH_LONG).show();
+                    startDefaultPage();
+                    return;
+                }
 
                 Path itemPath = dm.findPathByUri(uri, contentType);
 
