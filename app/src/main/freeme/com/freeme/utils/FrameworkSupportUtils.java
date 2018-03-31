@@ -1,6 +1,11 @@
 package com.freeme.utils;
 
+import android.content.Context;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.android.gallery3d.ui.Log;
+import com.freeme.gallery.R;
 
 import scott.freeme.com.mtkreflectlib.AndroidSystemProperies;
 
@@ -10,15 +15,16 @@ import scott.freeme.com.mtkreflectlib.AndroidSystemProperies;
 
 public class FrameworkSupportUtils {
     private static final String TAG = "FrameworkSupportUtils";
-    private static String   support_refocus_prop    =   "ro.freeme.sprd.refocus";
-    private static int      SUPPORT_REFOCUS         =   1;
-    private static boolean  canRefocus  = false;
+    private static String support_refocus_prop = "ro.freeme.sprd.refocus";
+    private static boolean canRefocus = false;
 
-    private static String   support_voice_prop    =   "ro.freeme.voiceimage";
-    private static int      SUPPORT_VOICE         =   1;
-    private static boolean  supportVoice  = false;
+    private static final String support_voice_prop = "ro.freeme.voiceimage";
+    private static boolean supportVoice = false;
 
-    private static String   screen_brightness_pro    =   "ro.freeme.screenbrightness";
+    private static final String support_cloud_prop = "ro.freeme.ctcc.cloudalbum";
+    private static boolean supportCloud = false;
+
+    private static final String screen_brightness_pro = "ro.freeme.screenbrightness";
 
     private static final SettingProperties mSettings;
     static {
@@ -26,21 +32,36 @@ public class FrameworkSupportUtils {
     }
 
     public static boolean isSupportRefocusImage() {
-        Log.d(TAG,"isSupportRefocusImage begin");
         if (mSettings.getBoolean(support_refocus_prop)) {
-            Log.d(TAG,"Support_refocus_image is true in /system/vendor/etc/freemegallery_custom.properties");
             canRefocus = true;
         }
         return canRefocus;
     }
 
     public static boolean isSupportVoiceImage() {
-        Log.d(TAG,"isSupportVoiceImage begin");
         if (mSettings.getBoolean(support_voice_prop)) {
-            Log.d(TAG,"Support_voice_image is true in /system/vendor/etc/freemegallery_custom.properties");
             supportVoice = true;
         }
         return supportVoice;
+    }
+
+    public static boolean isSupportCloud() {
+        return supportCloud;
+    }
+
+    public static void  setSupportCloud(boolean support) {
+        supportCloud = support;
+    }
+
+    public static void setAiMenu(Menu menu) {
+        if (FrameworkSupportUtils.isSupportCloud()) {
+            if (menu != null) {
+                MenuItem aiItem = menu.findItem(R.id.action_aialbum);
+                if (aiItem != null) {
+                    aiItem.setVisible(true);
+                }
+            }
+        }
     }
 
     public static float getScreenBritness() {

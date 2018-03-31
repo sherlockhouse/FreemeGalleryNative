@@ -1104,6 +1104,7 @@ CHAR LIMIT = NONE] -->
     <!-- settings label [CHAR LIMIT=50] -->
     <string name="camera_menu_settings_label">SETTINGS</string>
 
+
     <!-- String indicating how many photos are in an album [CHAR LIMIT=15] -->
     <plurals name="number_of_photos">
         <item quantity="one">%1$d photo</item>

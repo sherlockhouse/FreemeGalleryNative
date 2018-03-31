@@ -21,6 +21,8 @@
 
 package com.android.gallery3d.ui;
 
+import com.android.gallery3d.data.LocalAlbum;
+import com.android.gallery3d.util.MediaSetUtils;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.gallery.R;
 import com.freeme.gallery.app.AbstractGalleryActivity;
@@ -201,6 +203,11 @@ public class AlbumSetSlotRenderer extends AbstractSlotRenderer {
     protected int renderOverlay(
             GLCanvas canvas, int index, AlbumSetSlidingWindow.AlbumSetEntry entry, int width, int height) {
         int renderRequestFlags = 0;
+        if (entry.album != null && entry.album.getName().equals(LocalAlbum.getLocalizedName(mActivity.getResources(),
+                MediaSetUtils.CLOUD_BUCKET_ID, ""))) {
+            drawCloudAlbumOverlay(canvas, width, height);
+        }
+
         if (entry.album != null && entry.album.isCameraRoll()) {
             //*/ Modified by Linguanrong for pos of camera overlay
             int uncoveredHeight = height - mLabelSpec.labelBackgroundHeight;

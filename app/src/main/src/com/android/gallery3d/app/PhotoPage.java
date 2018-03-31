@@ -1352,6 +1352,10 @@ public abstract class PhotoPage extends ActivityState implements
         int action = item.getItemId();
         String confirmMsg = null;
         switch (action) {
+            case R.id.action_aialbum: {
+                ((GalleryActivity)mActivity).gotoAIActivity(GalleryActivity.UPLOAD_PIC, current.getFilePath());
+                return true;
+            }
             case android.R.id.home: {
                 onUpPressed();
                 return true;
@@ -1517,6 +1521,8 @@ public abstract class PhotoPage extends ActivityState implements
         if (menu == null) return;
 
         MenuItem item = menu.findItem(R.id.action_slideshow);
+
+        FrameworkSupportUtils.setAiMenu(menu);
         if (item != null) {
             item.setVisible((mSecureAlbum == null) && canDoSlideShow());
         }
@@ -1770,8 +1776,6 @@ public abstract class PhotoPage extends ActivityState implements
         if (playVideo && clickCenter) {
             // determine if the point is at center (1/6) of the photo view.
             // (The position of the "play" icon is at center (1/6) of the photo)
-//            int w = mPhotoView.getWidth();
-//            int h = mPhotoView.getHeight();
             playVideo = (Math.abs(x - w / 2) * 12 <= w)
                     && (Math.abs(y - h / 2) * 12 <= h);
         }

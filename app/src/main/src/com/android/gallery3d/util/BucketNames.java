@@ -36,4 +36,5 @@ public class BucketNames {
     public static final String FLOCK = "DCIM/Flock";
     public static final String FLOCK_DOWNLOAD = "DCIM/Flock_Download";
     //*/
+    public static final String CLOUD = "Cloud";
 }

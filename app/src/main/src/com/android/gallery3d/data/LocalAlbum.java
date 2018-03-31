@@ -327,6 +327,8 @@ public class LocalAlbum extends MediaSet implements IBucketAlbum {
             return res.getString(R.string.community);
         } else if (bucketId == MediaSetUtils.FLOCK_DOWNLOAD_BUCKET_ID) {
             return res.getString(R.string.flock_download);
+        } else if (bucketId == MediaSetUtils.CLOUD_BUCKET_ID) {
+            return res.getString(R.string.aialbum);
         } else {
             return name;
         }
@@ -350,6 +352,8 @@ public class LocalAlbum extends MediaSet implements IBucketAlbum {
             relativePath += BucketNames.FLOCK;
         } else if (bucketId == MediaSetUtils.FLOCK_DOWNLOAD_BUCKET_ID) {
             relativePath += BucketNames.FLOCK_DOWNLOAD;
+        } else if (bucketId == MediaSetUtils.CLOUD_BUCKET_ID) {
+            relativePath += BucketNames.CLOUD;
         } else {
             // If the first few cases didn't hit the matching path, do a
             // thorough search in the local directories.

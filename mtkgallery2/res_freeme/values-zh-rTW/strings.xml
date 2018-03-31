@@ -186,4 +186,7 @@
     <string name="share_freeme_extra_summary">"用Freeme OS相機拍照，朋友圈的好友都來點贊啦！秘密就在這裡！"</string>
 
     <string name="gesture_to_last">已是最後一個項目</string>
+    <string name="aialbum">智能雲</string>
+    <string name="ainotinstall">智能雲已被卸載</string>
+
 </resources>

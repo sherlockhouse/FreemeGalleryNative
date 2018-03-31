@@ -37,6 +37,7 @@ import com.android.photos.data.GalleryBitmapPool;
 import com.android.gallery3d.util.ThreadPool;
 import com.android.gallery3d.util.ThreadPool.JobContext;
 import com.android.photos.data.GalleryBitmapPool;
+import com.freeme.utils.FrameworkSupportUtils;
 
 public class AlbumLabelMaker {
     private static final int BORDER_SIZE = 0;
@@ -186,7 +187,9 @@ public class AlbumLabelMaker {
             drawText(canvas, x, y, title, labelWidth - s.leftMargin - x -
                     s.titleRightMargin, mTitlePaint);
             x = labelWidth - s.titleRightMargin;
-            drawText(canvas, x, y, count, labelWidth - x, mCountPaint);
+            if (!FrameworkSupportUtils.isSupportCloud()) {
+                drawText(canvas, x, y, count, labelWidth - x, mCountPaint);
+            }
             /*/
             // draw title
             if (jc.isCancelled()) return null;

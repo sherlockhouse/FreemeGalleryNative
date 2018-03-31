@@ -33,7 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.gallery.R;
 import com.android.gallery3d.anim.StateTransitionAnimation;
@@ -70,10 +69,9 @@ import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.util.Future;
 import com.freeme.jigsaw.app.JigsawEntry;
 import com.freeme.settings.GallerySettings;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
 import com.freeme.ui.AlbumTimeSlotRenderer;
 import com.freeme.ui.DateSlotView;
+import com.freeme.utils.FrameworkSupportUtils;
 import com.freeme.utils.FreemeUtils;
 
 import java.lang.ref.WeakReference;
@@ -369,7 +367,7 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
             mActionBar.enableClusterMenu(FreemeUtils.CLUSTER_BY_CAMERE, this);
             //*/
             menu.findItem(R.id.action_slideshow).setVisible(mMediaSet.getMediaItemCount() != 0);
-
+            FrameworkSupportUtils.setAiMenu(menu);
             FilterUtils.setupMenuItems(mActionBar, mMediaSetPath, true);
 
             menu.findItem(R.id.action_camera).setVisible(GalleryUtils.isCameraAvailable(mActivity));
@@ -390,6 +388,10 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
     @Override
     protected boolean onItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_aialbum: {
+                ((GalleryActivity)mActivity).gotoAIActivity(GalleryActivity.CLOUD_ALBUM, null);
+                return true;
+            }
             case android.R.id.home:
                 onBackPressed();
                 return true;

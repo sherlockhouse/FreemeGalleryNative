@@ -20,6 +20,12 @@
         android:showAsAction="never"
         android:title="@string/switch_to_camera"/>
 
+    <item
+        android:id="@+id/action_aialbum"
+        android:showAsAction="never"
+        android:title="@string/aialbum"
+        android:visible="false"/>
+
     <!-- Added by TYD Theobald_Wu on 2014/01 [begin] for jigsaw feature -->
     <item
         android:id="@+id/action_jigsaw"

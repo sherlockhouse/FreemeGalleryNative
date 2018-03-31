@@ -121,7 +121,11 @@ public class LocalAlbumSet extends MediaSet
             int offset = 0;
             // Move camera and download bucket to the front, while keeping the
             // order of others.
-            int index = findBucket(entries, MediaSetUtils.CAMERA_BUCKET_ID);
+            int index = findBucket(entries, MediaSetUtils.CLOUD_BUCKET_ID);
+            if (index != -1) {
+                circularShiftRight(entries, offset++, index);
+            }
+            index = findBucket(entries, MediaSetUtils.CAMERA_BUCKET_ID);
             if (index != -1) {
                 circularShiftRight(entries, offset++, index);
             }

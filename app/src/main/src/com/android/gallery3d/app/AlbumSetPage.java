@@ -69,6 +69,7 @@ import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.HelpUtils;
 
 import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.freeme.utils.FrameworkSupportUtils;
 import com.mediatek.gallery3d.layout.FancyHelper;
 import com.mediatek.gallery3d.layout.Layout.DataChangeListener;
 import com.mediatek.gallery3d.util.PermissionHelper;
@@ -450,6 +451,11 @@ public class AlbumSetPage extends ActivityState implements
     private void pickAlbum(int slotIndex) {
         if (!mIsActive) return;
 
+        if (isSlotIndexZero(slotIndex)) {
+            ((GalleryActivity)mActivity).gotoAIActivity(GalleryActivity.CLOUD_ALBUM, null);
+            return;
+        }
+
         MediaSet targetSet = mAlbumSetDataAdapter.getMediaSet(slotIndex);
         if (targetSet == null) return; // Content is dirty, we shall reload soon
         if (targetSet.getTotalMediaItemCount() == 0) {
@@ -515,6 +521,7 @@ public class AlbumSetPage extends ActivityState implements
     }
 
     private void onDown(int index) {
+        if (isSlotIndexZero(index)) return;
         mAlbumSetView.setPressedIndex(index);
     }
 
@@ -528,16 +535,19 @@ public class AlbumSetPage extends ActivityState implements
     }
 
     public void onLongTap(int slotIndex) {
-        if (mGetContent || mGetAlbum
-                //*/ Added by xueweili judge hide state for , 2015-7-23
-                || mIsHideAlbumSet
-            //*/
-                ) return;
+        if (mGetContent || mGetAlbum || mIsHideAlbumSet) return;
         MediaSet set = mAlbumSetDataAdapter.getMediaSet(slotIndex);
         if (set == null) return;
+        if (isSlotIndexZero(slotIndex)) return;
         mSelectionManager.setAutoLeaveSelectionMode(true);
         mSelectionManager.toggle(set.getPath());
         mSlotView.invalidate();
+    }
+
+    private boolean isSlotIndexZero(int slotIndex) {
+        if (!FrameworkSupportUtils.isSupportCloud()) return false;
+        if (0 == slotIndex) return true;
+        return false;
     }
 
     @Override
@@ -995,7 +1005,7 @@ volatile boolean mDestroyed = false;
             //inflater.inflate(R.menu.albumset, menu);
             mActionBar.createActionBarMenu(R.menu.albumset, menu);
             //*/
-
+            FrameworkSupportUtils.setAiMenu(menu);
             //*/ Modified by droi Linguanrong for freeme gallery, 2016-1-14
             MenuItem selectItem = menu.findItem(R.id.action_select);
             selectItem.setTitle(R.string.select_album);
@@ -1051,6 +1061,10 @@ volatile boolean mDestroyed = false;
     protected boolean onItemSelected(MenuItem item) {
         Activity activity = mActivity;
         switch (item.getItemId()) {
+            case R.id.action_aialbum: {
+                ((GalleryActivity)mActivity).gotoAIActivity(GalleryActivity.CLOUD_ALBUM, null);
+                return true;
+            }
             //*/ Added by Tyd Linguanrong for Gallery new style, 2014-3-5
             case android.R.id.home:
                 onBackPressed();

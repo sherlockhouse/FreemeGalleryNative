@@ -23,6 +23,7 @@ package com.freeme.gallery.app;
 
 import android.Manifest;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -59,6 +60,7 @@ import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.app.SinglePhotoPage;
 import com.android.gallery3d.app.SlideshowPage;
 import com.android.gallery3d.app.StateManager;
+import com.android.gallery3d.ui.SurfaceTextureScreenNail;
 import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.data.VisitorAlbum;
@@ -76,6 +78,8 @@ import com.android.gallery3d.util.GalleryUtils;
 import com.freeme.provider.GalleryDBManager;
 import com.freeme.provider.GalleryStore;
 import com.freeme.provider.MediaStoreImporter;
+import com.freeme.utils.FrameworkSupportUtils;
+import com.freeme.utils.SystemPropertiesProxy;
 import com.mediatek.gallery3d.adapter.FeatureHelper;
 import com.mediatek.gallery3d.util.PermissionHelper;
 import com.mediatek.gallery3d.util.TraceHelper;
@@ -117,6 +121,7 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
     public final static int INDEX_COMMUNITY = 3;
     //*/ Added by Tyd Lpublicinguanrong for secret photos, 2014-3-10
     private static final String VISITOR_MODE_ON = "com.freeme.ACTION_VISITOR_MODE_ON";
+    public static final String SYS_FREEME_XIAOLAJIAO_TELECOM_AI = "sys.freeme.xiaolajiao_telecom_ai";
     private Dialog mVersionCheckDialog;
 //    private RadioGroup radiogroup;
     private Animation bottomdown;
@@ -137,7 +142,11 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
         TraceHelper.traceBegin(">>>>Gallery-onCreate");
         /// @}
         super.onCreate(savedInstanceState);
+        if (SystemPropertiesProxy.getBoolean(this,
+                SYS_FREEME_XIAOLAJIAO_TELECOM_AI, false) == true) {
+            FrameworkSupportUtils.setSupportCloud(true);
 
+        }
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
@@ -860,4 +869,23 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
         }
     }
     // @}
+
+    public static final String UPLOAD_PIC = "com.cn21.ecloud.action.Upload_PIC";
+    public static final String CLOUD_ALBUM = "com.cn21.ecloud.action.Cloud_Album";
+
+    public void gotoAIActivity(String action, String path) {
+        try {
+            Intent intent = new Intent();
+            /// @}
+            intent.setAction(action);
+            if (path != null) {
+                intent.putExtra("filePath", path);
+            }
+            intent.setPackage("com.cn21.ecloud");
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, R.string.ainotinstall, Toast.LENGTH_SHORT).show();
+
+        }
+    }
 }

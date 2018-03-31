@@ -64,9 +64,8 @@ public class MediaStoreImportService extends IntentService {
                 } else {
                     deleyImport(mVideoDelayedImport);
                 }
-            } else if (segments.size() == 1) {
-                MediaStoreImporter.getInstance().deleteFiles();
             }
+            MediaStoreImporter.getInstance().deleteFiles();
 
         }
     };
@@ -119,7 +118,6 @@ public class MediaStoreImportService extends IntentService {
         private Long mLastImportTime = -1L;
 
         public DelayedImport(String segment) {
-
             this.mSegment = segment;
         }
 

@@ -4,11 +4,14 @@ import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
+
+import com.android.gallery3d.util.MediaSetUtils;
 import com.freeme.provider.GalleryStore;
 import com.freeme.provider.GalleryStore.Files.FileColumns;
 import com.freeme.provider.GalleryStore.Images;
 import com.freeme.provider.GalleryStore.Images.ImageColumns;
 import com.freeme.provider.GalleryStore.Video;
+import com.freeme.utils.FrameworkSupportUtils;
 import com.freeme.utils.FreemeUtils;
 
 import com.android.gallery3d.common.ApiHelper;
@@ -177,9 +180,16 @@ class BucketHelper {
                     if (!buffer.contains(entry)) {
                         buffer.add(entry);
                     }
+
+                    if (FrameworkSupportUtils.isSupportCloud() && buffer.size() == 1) {
+                        buffer.add(new BucketEntry(
+                                MediaSetUtils.CLOUD_BUCKET_ID,
+                                cursor.getString(INDEX_BUCKET_NAME)));
+                    }
                 }
                 if (jc.isCancelled()) return null;
             }
+
         } finally {
             Utils.closeSilently(cursor);
         }

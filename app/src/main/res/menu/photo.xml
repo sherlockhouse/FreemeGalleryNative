@@ -22,6 +22,12 @@
         android:title="@string/switch_to_camera"/>
 
     <item
+        android:id="@+id/action_aialbum"
+        android:showAsAction="never"
+        android:title="@string/aialbum"
+        android:visible="false"/>
+
+    <item
         android:icon="@drawable/ic_menu_ptp_holo_light"
         android:showAsAction="always|withText"
         android:title="@string/Import"
@@ -36,6 +42,8 @@
         android:showAsAction="never"
         android:title="@string/share_panorama"
         android:visible="false"/>
+
+
     <item
         android:id="@+id/action_share"
         android:actionProviderClass="android.widget.ShareActionProvider"

@@ -61,6 +61,10 @@ public class MediaSetUtils {
                     + BucketNames.FLOCK_DOWNLOAD);
     //*/
 
+    public static final int CLOUD_BUCKET_ID = GalleryUtils.getBucketId(
+            Environment.getExternalStorageDirectory().toString() + "/"
+                    + BucketNames.CLOUD);
+
     private static final Path[] CAMERA_PATHS = {
             Path.fromString("/local/all/" + CAMERA_BUCKET_ID),
             Path.fromString("/local/image/" + CAMERA_BUCKET_ID),

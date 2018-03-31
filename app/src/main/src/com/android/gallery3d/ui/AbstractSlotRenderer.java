@@ -44,6 +44,8 @@ public abstract class AbstractSlotRenderer implements SlotView.SlotRenderer {
     //*/
     private final ResourceTexture mRefocusTexture;
     private final ResourceTexture mVoiceTexture;
+    private final ResourceTexture mCloudTexture;
+    private final ResourceTexture mCloudIconTexture;
 
 
     protected AbstractSlotRenderer(Context context) {
@@ -57,6 +59,9 @@ public abstract class AbstractSlotRenderer implements SlotView.SlotRenderer {
         //*/
         mRefocusTexture = new ResourceTexture(context, R.drawable.ic_newui_indicator_refocus);
         mVoiceTexture = new ResourceTexture(context, R.drawable.ic_newui_indicator_voice);
+        mCloudTexture = new ResourceTexture(context, R.drawable.ic_cloud_album_background);
+        mCloudIconTexture = new ResourceTexture(context, R.drawable.ic_cloud_album);
+
 
     }
 
@@ -152,4 +157,14 @@ public abstract class AbstractSlotRenderer implements SlotView.SlotRenderer {
         drawFrame(canvas, mFrameOutSide.getPaddings(), mFrameOutSide, x, y, width, height);
     }
     //*/
+
+    protected void drawCloudAlbumOverlay(GLCanvas canvas, int width, int height) {
+        int iconSize = Math.min(width, height) ;
+        mCloudTexture.draw(canvas, (width - iconSize) / 2, (height - iconSize) / 2,
+                iconSize, iconSize);
+        iconSize /= 3;
+        mCloudIconTexture.draw(canvas, (width - iconSize) / 2, (height - iconSize) / 2,
+                iconSize, iconSize);
+    }
+
 }

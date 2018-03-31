@@ -211,4 +211,7 @@
     <string name="refocus_save_fail">"Save failed"</string>
     <string name="play_audio_failed">play audio failed</string>
 
+    <string name="aialbum">Ai Cloud</string>
+    <string name="ainotinstall">Ai Cloud is not installed</string>
+
 </resources>
