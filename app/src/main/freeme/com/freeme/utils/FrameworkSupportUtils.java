@@ -46,6 +46,9 @@ public class FrameworkSupportUtils {
     }
 
     public static boolean isSupportCloud() {
+        if (mSettings.getBoolean(support_cloud_prop)) {
+            supportCloud = true;
+        }
         return supportCloud;
     }
 

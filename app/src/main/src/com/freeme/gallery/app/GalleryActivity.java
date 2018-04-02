@@ -142,11 +142,6 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
         TraceHelper.traceBegin(">>>>Gallery-onCreate");
         /// @}
         super.onCreate(savedInstanceState);
-        if (SystemPropertiesProxy.getBoolean(this,
-                SYS_FREEME_XIAOLAJIAO_TELECOM_AI, false) == true) {
-            FrameworkSupportUtils.setSupportCloud(true);
-
-        }
 
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
