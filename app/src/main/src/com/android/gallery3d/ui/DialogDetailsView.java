@@ -49,7 +49,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map.Entry;
 
-public class DialogDetailsView implements DetailsViewContainer {
+public class    DialogDetailsView implements DetailsViewContainer {
     @SuppressWarnings("unused")
     private static final String TAG = "Gallery2/DialogDetailsView";
 
@@ -239,8 +239,12 @@ public class DialogDetailsView implements DetailsViewContainer {
                         value = toLocalNumber(focalLength);
                         break;
                     case MediaDetails.INDEX_ORIENTATION:
+                        //*/ remove orientation column
+                        continue;
+                        /*/
                         value = toLocalInteger(detail.getValue());
                         break;
+                        //*/
                     default: {
                         Object valueObj = detail.getValue();
                         // This shouldn't happen, log its key to help us diagnose the problem.
