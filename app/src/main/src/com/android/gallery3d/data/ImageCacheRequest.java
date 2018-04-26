@@ -43,6 +43,8 @@ import com.mediatek.galleryframework.base.MediaData.MediaType;
 import com.mediatek.galleryframework.base.ThumbType;
 import com.mediatek.galleryframework.util.DebugUtils;
 
+import static com.android.gallery3d.data.MediaItem.TYPE_HIGHQUALITYTHUMBNAIL;
+
 abstract class ImageCacheRequest implements Job<Bitmap> {
     private static final String TAG = "Gallery2/ImageCacheRequest";
 
@@ -93,6 +95,11 @@ abstract class ImageCacheRequest implements Job<Bitmap> {
             MediaItem item = ((MediaItem) mPath.getObject());
             if (item != null) {
                 extItem = item.getExtItem();
+                //*/ todo need to pay attention to the cause of bmp decode issue
+                if (item.getMimeType().equals("image/x-ms-bmp") && mType != MediaItem.TYPE_MICROTHUMBNAIL) {
+                   return onDecodeOriginal(jc, TYPE_HIGHQUALITYTHUMBNAIL);
+                }
+                //*/
 //                ThumbType thumbType = FeatureHelper.convertToThumbType(mType);
 //                needToReadCache = (mType != MediaItem.TYPE_HIGHQUALITYTHUMBNAIL && extItem
 //                        .isNeedToGetThumbFromCache(thumbType));
