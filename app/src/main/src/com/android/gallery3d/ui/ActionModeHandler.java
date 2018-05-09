@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.droi.sdk.analytics.DroiAnalytics;
+import com.freeme.community.utils.ToastUtil;
 import com.freeme.gallery.R;
 import com.freeme.gallery.app.AbstractGalleryActivity;
 import com.android.gallery3d.app.ActivityState;
@@ -81,6 +82,7 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
     private static final int SUPPORT_MULTIPLE_MASK = MediaObject.SUPPORT_DELETE
             | MediaObject.SUPPORT_ROTATE | MediaObject.SUPPORT_SHARE
             | MediaObject.SUPPORT_CACHE;
+    private static final int MAX_SHARE_COUNT = 100;
     private final AbstractGalleryActivity mActivity;
     private final MenuExecutor            mMenuExecutor;
     private final SelectionManager        mSelectionManager;
@@ -349,10 +351,16 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
             int itemid = getActionItemId(actioncode);
 
             if (itemid == R.id.action_share) {
-                mSelectionManager.leaveSelectionMode();
-                mActivity.startActivity(FreemeCustomUtils.createCustomChooser(mActivity, mShareIntent,
-                        mActivity.getResources().getString(R.string.share)));
-                return true;
+                if(mSelectionManager.getSelectedCount() > MAX_SHARE_COUNT){
+                    mSelectionManager.leaveSelectionMode();
+                    ToastUtil.showToast(mActivity,mActivity.getResources().getString(R.string.max_share_count));
+                    return true;
+                }else {
+                    mSelectionManager.leaveSelectionMode();
+                    mActivity.startActivity(FreemeCustomUtils.createCustomChooser(mActivity, mShareIntent,
+                            mActivity.getResources().getString(R.string.share)));
+                    return true;
+                }
             }
 
             boolean result;
