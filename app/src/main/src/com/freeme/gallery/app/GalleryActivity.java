@@ -34,7 +34,6 @@ import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,8 +47,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.gallery3d.app.ActivityState;
@@ -61,7 +58,6 @@ import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.app.SinglePhotoPage;
 import com.android.gallery3d.app.SlideshowPage;
 import com.android.gallery3d.app.StateManager;
-import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.data.VisitorAlbum;
 import com.freeme.data.VisitorAlbumVideo;
@@ -76,23 +72,18 @@ import com.android.gallery3d.picasasource.PicasaSource;
 import com.android.gallery3d.util.GalleryUtils;
 
 import com.freeme.provider.GalleryDBManager;
-import com.freeme.provider.GalleryStore;
 import com.freeme.provider.MediaStoreImporter;
 import com.freeme.scott.galleryui.design.adapter.GalleryPageAdapter;
 import com.freeme.scott.galleryui.design.widget.FreemeBottomSelectedController;
-import com.freeme.scott.galleryui.design.widget.FreemeBottomSelectedView;
 import com.freeme.scott.galleryui.design.widget.GalleryViewPager;
 import com.mediatek.gallery3d.adapter.FeatureHelper;
 import com.mediatek.gallery3d.util.PermissionHelper;
 import com.mediatek.gallery3d.util.TraceHelper;
-import com.mediatek.galleryfeature.config.FeatureConfig;
 import com.android.gallery3d.common.Utils;
 import com.freeme.page.AlbumCameraPage;
 import com.freeme.page.AlbumStorySetPage;
 import com.freeme.page.AlbumTimeShaftPage;
 import com.freeme.page.AlbumVisitorPage;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
 import com.freeme.utils.FreemeUtils;
 import com.freeme.utils.LogcatHelper;
 import com.mediatek.galleryframework.base.MediaFilter;
@@ -127,6 +118,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
 
     //*/ Added by Tyd Lpublicinguanrong for secret photos, 2014-3-10
     private static final String VISITOR_MODE_ON = "com.freeme.ACTION_VISITOR_MODE_ON";
+    public static final int CHOOSER_REQUEST_CODE = 2018;
     private Dialog mVersionCheckDialog;
 //    private RadioGroup radiogroup;
     private Animation bottomdown;
@@ -287,6 +279,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
     @Override
     protected void onStop() {
         super.onStop();
+        finishActivity(CHOOSER_REQUEST_CODE);
 
         //*/ Added by Tyd Linguanrong for secret photos, 2014-3-10
         if (mVisitorMode) {
