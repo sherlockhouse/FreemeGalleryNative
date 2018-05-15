@@ -100,7 +100,7 @@ import com.freeme.utils.FreemeCustomUtils;
 import com.freeme.utils.FreemeUtils;
 import java.io.File;
 import java.util.ArrayList;
-
+import com.android.gallery3d.ui.DetailsHelper.OpenListener;
 import com.sprd.gallery3d.refocus.RefocusPhotoEditActivity;
 
 public abstract class PhotoPage extends ActivityState implements
@@ -171,6 +171,7 @@ public abstract class PhotoPage extends ActivityState implements
     private int mCurrentIndex = 0;
     private Handler mHandler;
     private          boolean mShowBars         = true;
+    private boolean mDialogOpen = false;
 
     private volatile boolean mActionBarAllowed = true;
     private GalleryActionBar mActionBar;
@@ -756,6 +757,7 @@ public abstract class PhotoPage extends ActivityState implements
         }
         //end
         if (!mShowBars) return;
+        if(mDialogOpen) return;
         mShowBars = false;
 //        mActionBar.hide();
         mActivity.getGLRoot().setLightsOutMode(true);
@@ -1849,6 +1851,14 @@ public abstract class PhotoPage extends ActivityState implements
                 @Override
                 public void onClose() {
                     hideDetails();
+                    mDialogOpen = false;
+                    hideBars();
+                }
+            });
+            mDetailsHelper.setOpenListener(new OpenListener() {
+                @Override
+                public void onOpen() {
+                    mDialogOpen = true;
                 }
             });
         }
