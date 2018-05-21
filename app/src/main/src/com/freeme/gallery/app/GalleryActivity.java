@@ -38,6 +38,7 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
 import android.view.InputDevice;
@@ -279,7 +280,10 @@ public final class GalleryActivity extends AbstractGalleryActivity
     @Override
     protected void onStop() {
         super.onStop();
-        finishActivity(CHOOSER_REQUEST_CODE);
+        PowerManager manager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+        if (!manager.isInteractive()) {
+            finishActivity(CHOOSER_REQUEST_CODE);
+        }
 
         //*/ Added by Tyd Linguanrong for secret photos, 2014-3-10
         if (mVisitorMode) {
