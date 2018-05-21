@@ -1310,7 +1310,6 @@ public abstract class PhotoPage extends ActivityState implements
  
    @Override
     protected void onResume() {
-        toggleBars();
         super.onResume();
         mActivity.getNavigationWidgetManager().observe();
         //*/ freeme.gulincheng. 20170920. #0018664 move from onCreate to onResume
