@@ -59,6 +59,7 @@ public class PhotoView extends GLView {
     public static final int INVALID_SIZE = -1;
     public static final long INVALID_DATA_VERSION =
             MediaObject.INVALID_DATA_VERSION;
+    private final int mUndoBarHeight;
 
     public static class Size {
         public int width;
@@ -264,6 +265,7 @@ public class PhotoView extends GLView {
         addComponent(mEdgeView);
         mUndoBar = new UndoBarView(mContext);
         addComponent(mUndoBar);
+        mUndoBarHeight = GalleryUtils.dpToPixel(48); //mUndoBarHeight is defined in UndoBarView.java
         mUndoBar.setVisibility(GLView.INVISIBLE);
         mUndoBar.setOnClickListener(new OnClickListener() {
                 @Override
@@ -495,7 +497,7 @@ public class PhotoView extends GLView {
     protected void onLayout(
             boolean changeSize, int left, int top, int right, int bottom) {
         int w = right - left;
-        int h = bottom - top;
+        int h = bottom - top - mUndoBarHeight;
         mTileView.layout(0, 0, w, h);
         mEdgeView.layout(0, 0, w, h);
         mUndoBar.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
