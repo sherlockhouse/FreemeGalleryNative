@@ -43,6 +43,7 @@ import com.freeme.provider.GalleryDBManager;
 //import com.freeme.updateself.update.UpdateMonitor;
 import com.freeme.utils.CustomJsonParser;
 import com.freeme.utils.SettingProperties;
+import com.mediatek.gallery3d.adapter.FeatureManager;
 import com.squareup.okhttp.OkHttpClient;
 
 import java.io.File;
@@ -89,6 +90,7 @@ public class GalleryAppImpl extends MultiDexApplication implements GalleryApp {
         GalleryUtils.initialize(this);
         WidgetUtils.initialize(this);
         PicasaSource.initialize(this);
+        FeatureManager.setup(getAndroidContext());
         /*UsageStatistics.initialize(this);
         AccountUtil.getInstance(this);*/
         //*/ Added by droi Linguanrong for droi push, 16-3-7
