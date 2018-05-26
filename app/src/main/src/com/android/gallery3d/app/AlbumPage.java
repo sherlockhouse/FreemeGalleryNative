@@ -522,6 +522,7 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
             /// M: [DEBUG.ADD] @{
             Log.d(TAG, "<onGetContent> start CropActivity for extra crop, uri: " + uri);
             /// @}
+            intent.setPackage("com.freeme.gallery");
             activity.startActivity(intent);
             activity.finish();
         } else {
