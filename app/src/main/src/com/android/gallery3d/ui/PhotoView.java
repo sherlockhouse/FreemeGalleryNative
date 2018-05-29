@@ -497,11 +497,11 @@ public class PhotoView extends GLView {
     protected void onLayout(
             boolean changeSize, int left, int top, int right, int bottom) {
         int w = right - left;
-        int h = bottom - top - mUndoBarHeight;
+        int h = bottom - top ;
         mTileView.layout(0, 0, w, h);
         mEdgeView.layout(0, 0, w, h);
         mUndoBar.measure(MeasureSpec.UNSPECIFIED, MeasureSpec.UNSPECIFIED);
-        mUndoBar.layout(0, h - mUndoBar.getMeasuredHeight(), w, h);
+        mUndoBar.layout(0, h - mUndoBar.getMeasuredHeight() - mUndoBarHeight, w, h - mUndoBarHeight);
 
         GLRoot root = getGLRoot();
         int displayRotation = root.getDisplayRotation();
