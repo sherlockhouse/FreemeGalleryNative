@@ -127,7 +127,7 @@
     <string name="baby_album">人物</string>
     <string name="love_album">植物</string>
     <string name="face_album">人物</string>
-    <string name="flower_album">植物</string>
+    <string name="plant_album">植物</string>
     <string name="add_story_album">创建相册</string>
     <string name="add_story_album_hint">给相册起个名字</string>
     <string name="add_story_album_tip">不能为空且长度不得大于10</string>

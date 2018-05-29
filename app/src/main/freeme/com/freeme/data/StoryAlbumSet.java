@@ -124,7 +124,7 @@ public class StoryAlbumSet extends MediaSet implements FutureListener<ArrayList<
 
         name = mSharedPref.getString(ALBUM_KEY + ALBUM_LOVE_ID, "");
         if ("".equals(name)) {
-            name = mRes.getString(R.string.flower_album);
+            name = mRes.getString(R.string.plant_album);
             mEditor.putString(ALBUM_KEY + ALBUM_LOVE_ID, name);
             mEditor.apply();
         }
@@ -281,12 +281,43 @@ public class StoryAlbumSet extends MediaSet implements FutureListener<ArrayList<
         for (int i = 2; i < mAlbumAddId; i++) {
             name = mSharedPref.getString(ALBUM_KEY + i, "");
             if (!"".equals(name)) {
-                mAlbumNameMap.put(i, name);
+                mAlbumNameMap.put(i, displayName(name));
             }
         }
     }
 
-
+    private String displayName(String name) {
+        String disPlayName = null;
+        switch (name) {
+            case "合影":
+                disPlayName = mRes.getString(R.string.group);
+                break;
+            case "美食":
+                disPlayName = mRes.getString(R.string.food);
+                break;
+            case "车":
+                disPlayName = mRes.getString(R.string.car);
+                break;
+            case "建筑":
+                disPlayName = mRes.getString(R.string.architecture);
+                break;
+            case "风景":
+                disPlayName = mRes.getString(R.string.landscape);
+                break;
+            case "萌宝":
+                disPlayName = mRes.getString(R.string.baby);
+                break;
+            case "狗":
+                disPlayName = mRes.getString(R.string.dog);
+                break;
+            case "猫":
+                disPlayName = mRes.getString(R.string.cat);
+                break;
+            default:
+                break;
+        }
+        return disPlayName;
+    }
 
     public void removeInvalidNewAlbum() {
         MediaSet album = mAlbumMap.get(mMaxStoryBucketId);
@@ -421,6 +452,8 @@ public class StoryAlbumSet extends MediaSet implements FutureListener<ArrayList<
                     storyBucketId = entry.storyBucketId;
                     mAlbumMap.put(entry.storyBucketId, album);
                 }
+                mAlbumMap.put(ALBUM_BABY_ID, generateAlbum(ALBUM_BABY_ID, mRes.getString(R.string.face_album)));
+                mAlbumMap.put(ALBUM_LOVE_ID, generateAlbum(ALBUM_LOVE_ID, mRes.getString(R.string.plant_album)));
             }
 
             for (int i = 0; i < mAlbumAddId; i++) {
