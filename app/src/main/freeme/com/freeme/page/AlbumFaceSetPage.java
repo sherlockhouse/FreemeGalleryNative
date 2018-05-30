@@ -64,6 +64,7 @@ import android.widget.Toast;
 import com.android.gallery3d.app.AlbumClassifierPage;
 import com.android.gallery3d.data.Face;
 import com.droi.sdk.analytics.DroiAnalytics;
+import com.freeme.community.utils.ToastUtil;
 import com.freeme.data.FaceAlbum;
 import com.freeme.data.FaceAlbumSet;
 import com.freeme.data.FaceMergeAlbum;
@@ -943,8 +944,7 @@ public class AlbumFaceSetPage extends ActivityState implements
             switch (i.getAction()) {
                 case GalleryClassifierService.ACTION_COMPLETE:
                     if (!isDestroyed()) {
-                        Toast.makeText(mActivity, "正在处理未分类图片:" + i.getStringExtra("storycount"),
-                                Toast.LENGTH_SHORT).show();
+                        ToastUtil.showToast(mActivity, mActivity.getResources().getString(R.string.is_classifying) + i.getStringExtra("storycount"));
                     }
                     break;
                 case GalleryClassifierService.ACTION_ADDFACEALBUM:
