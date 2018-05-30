@@ -82,6 +82,14 @@ public class StoryAlbumSet extends MediaSet implements FutureListener<ArrayList<
 
     private int mMaxStoryBucketId = ALBUM_LOVE_ID;
     private int mAlbumAddId       = ALBUM_LOVE_ID + 1;
+    private static final String GROUP = "合影";
+    private static final String FOOD = "美食";
+    private static final String CAR = "车";
+    private static final String ARCHITECTURE = "建筑";
+    private static final String LANDSCAPE = "风景";
+    private static final String BABY = "萌宝";
+    private static final String DOG = "狗";
+    private static final String CAT = "猫";
 
     public StoryAlbumSet(Path path, GalleryApp application) {
         super(path, nextVersionNumber());
@@ -289,28 +297,28 @@ public class StoryAlbumSet extends MediaSet implements FutureListener<ArrayList<
     private String displayName(String name) {
         String disPlayName = null;
         switch (name) {
-            case "合影":
+            case GROUP:
                 disPlayName = mRes.getString(R.string.group);
                 break;
-            case "美食":
+            case FOOD:
                 disPlayName = mRes.getString(R.string.food);
                 break;
-            case "车":
+            case CAR:
                 disPlayName = mRes.getString(R.string.car);
                 break;
-            case "建筑":
+            case ARCHITECTURE:
                 disPlayName = mRes.getString(R.string.architecture);
                 break;
-            case "风景":
+            case LANDSCAPE:
                 disPlayName = mRes.getString(R.string.landscape);
                 break;
-            case "萌宝":
+            case BABY:
                 disPlayName = mRes.getString(R.string.baby);
                 break;
-            case "狗":
+            case DOG:
                 disPlayName = mRes.getString(R.string.dog);
                 break;
-            case "猫":
+            case CAT:
                 disPlayName = mRes.getString(R.string.cat);
                 break;
             default:
