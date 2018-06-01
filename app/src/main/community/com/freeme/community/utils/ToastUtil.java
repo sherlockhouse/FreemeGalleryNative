@@ -44,10 +44,15 @@ public class ToastUtil {
         }
     };
 
+    private static Toast mToast;
     public static void showToast(Context context, String text) {
         mContext = context;
+        if (mToast != null) {
+            mToast.cancel();
+        }
         if (!StrUtil.isEmpty(text)) {
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            mToast = Toast.makeText(context, text, Toast.LENGTH_SHORT);
+            mToast.show();
         }
 
     }
