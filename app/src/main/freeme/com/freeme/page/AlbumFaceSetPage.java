@@ -944,7 +944,9 @@ public class AlbumFaceSetPage extends ActivityState implements
             switch (i.getAction()) {
                 case GalleryClassifierService.ACTION_COMPLETE:
                     if (!isDestroyed()) {
-                        ToastUtil.showToast(mActivity, mActivity.getResources().getString(R.string.is_classifying) + i.getStringExtra("storycount"));
+                        // freeme.gulincheng 2018.0601 don't modify showToast here ,or it will get crushed.
+                        showToast(mActivity, mActivity.getResources().getString(R.string.is_classifying)
+                                + i.getStringExtra("storycount"));
                     }
                     break;
                 case GalleryClassifierService.ACTION_ADDFACEALBUM:
@@ -1199,5 +1201,14 @@ public class AlbumFaceSetPage extends ActivityState implements
         mDetailsHelper.show();
     }
 
+    private Toast mToast;
 
+    private void showToast(Activity activity, String storycount) {
+        if (mToast != null) {
+            mToast.cancel();
+        }
+
+        mToast = Toast.makeText(activity, storycount, Toast.LENGTH_SHORT);
+        mToast.show();
+    }
 }
