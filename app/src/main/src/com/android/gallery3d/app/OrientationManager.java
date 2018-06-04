@@ -102,7 +102,7 @@ public class OrientationManager implements OrientationSource {
         if (mRotationLockedSetting) return;
         mOrientationLocked = false;
         Log.d(TAG, "unlock orientation");
-        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        mActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
     }
     private int calculateCurrentScreenOrientation() {
         int displayRotation = getDisplayRotation();
