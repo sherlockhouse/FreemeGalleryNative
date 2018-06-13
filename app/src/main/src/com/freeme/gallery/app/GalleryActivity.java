@@ -50,6 +50,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
+import com.aiwinn.wrapper.FaceSimManager;
 import com.android.gallery3d.app.ActivityState;
 import com.android.gallery3d.app.AlbumPage;
 import com.android.gallery3d.app.AlbumSetPage;
@@ -687,6 +688,9 @@ public final class GalleryActivity extends AbstractGalleryActivity
         /*Utils.assertTrue(getStateManager().getStateCount() > 0);*/
         /// @}
         super.onResume();
+        //*/gulincheng 20180614 add statistic info for aiwinn
+        FaceSimManager.uLink(getApplicationContext());
+        //*/
         if (mVersionCheckDialog != null) {
             mVersionCheckDialog.show();
         }
