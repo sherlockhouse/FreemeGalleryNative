@@ -356,9 +356,14 @@ public class ActionModeHandler implements Callback, PopupList.OnPopupItemClickLi
                     ToastUtil.showToast(mActivity,mActivity.getResources().getString(R.string.max_share_count));
                     return true;
                 }else {
-                    mSelectionManager.leaveSelectionMode();
-                    mActivity.startActivity(FreemeCustomUtils.createCustomChooser(mActivity, mShareIntent,
-                            mActivity.getResources().getString(R.string.share)));
+                    if (mSelectionManager.getSelected(true).size() > MAX_SHARE_COUNT) {
+                        mSelectionManager.leaveSelectionMode();
+                        ToastUtil.showToast(mActivity,mActivity.getResources().getString(R.string.max_share_count));
+                    } else {
+                        mSelectionManager.leaveSelectionMode();
+                        mActivity.startActivity(FreemeCustomUtils.createCustomChooser(mActivity, mShareIntent,
+                                mActivity.getResources().getString(R.string.share)));
+                    }
                     return true;
                 }
             }
