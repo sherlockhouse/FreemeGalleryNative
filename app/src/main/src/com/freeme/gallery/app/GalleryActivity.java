@@ -159,9 +159,6 @@ public final class GalleryActivity extends AbstractGalleryActivity
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         }
 
-        if (BuildConfig.SUPPORT_STABLE_BRIGHTNESS) {
-            FreemeUtils.setScreenBrightness(getWindow());
-        }
 
         setContentView(R.layout.main);
         setViewPager();
@@ -691,6 +688,8 @@ public final class GalleryActivity extends AbstractGalleryActivity
         //*/gulincheng 20180614 add statistic info for aiwinn
         FaceSimManager.uLink(getApplicationContext());
         //*/
+
+        FreemeUtils.setScreenBrightness(this,getWindow());
         if (mVersionCheckDialog != null) {
             mVersionCheckDialog.show();
         }
@@ -716,6 +715,8 @@ public final class GalleryActivity extends AbstractGalleryActivity
     @Override
     protected void onPause() {
         super.onPause();
+        FreemeUtils.restoreScreenBrightness(this);
+
         if (mVersionCheckDialog != null) {
             mVersionCheckDialog.dismiss();
         }
