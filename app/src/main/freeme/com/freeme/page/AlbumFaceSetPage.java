@@ -64,7 +64,6 @@ import android.widget.Toast;
 import com.android.gallery3d.app.AlbumClassifierPage;
 import com.android.gallery3d.data.Face;
 import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.community.utils.ToastUtil;
 import com.freeme.data.FaceAlbum;
 import com.freeme.data.FaceAlbumSet;
 import com.freeme.data.FaceMergeAlbum;

@@ -14,6 +14,10 @@ public class FrameworkSupportUtils {
     private static int      SUPPORT_REFOCUS         =   1;
     private static boolean  canRefocus  = false;
 
+    private static String   support_bst_refocus_prop    =   "ro.freeme.bst.refocus";
+    private static int      SUPPORT_BST_REFOCUS         =   1;
+    private static boolean  canBstRefocus  = false;
+
     private static String   support_voice_prop    =   "ro.freeme.voiceimage";
     private static int      SUPPORT_VOICE         =   1;
     private static boolean  supportVoice  = false;
@@ -27,10 +31,19 @@ public class FrameworkSupportUtils {
     public static boolean isSupportRefocusImage() {
         Log.d(TAG,"isSupportRefocusImage begin");
         if (mSettings.getBoolean(support_refocus_prop)) {
-            Log.d(TAG,"Support_refocus_image is true in /system/vendor/etc/freemegallery_custom.properties");
+            Log.d(TAG,"Support_refocus_image is true in /vendor/etc/freemegallery_custom.properties");
             canRefocus = true;
         }
         return canRefocus;
+    }
+
+    public static boolean isSupportBstRefocusImage() {
+        Log.d(TAG,"isSupportRefocusImage begin");
+        if (mSettings.getBoolean(support_bst_refocus_prop)) {
+            Log.d(TAG,"Support_refocus_image is true in /vendor/etc/freemegallery_custom.properties");
+            canBstRefocus = true;
+        }
+        return canBstRefocus;
     }
 
     public static boolean isSupportVoiceImage() {

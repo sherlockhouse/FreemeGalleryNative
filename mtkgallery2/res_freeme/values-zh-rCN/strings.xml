@@ -187,5 +187,6 @@
 
     <string name="gesture_to_last">已是最后一个项目</string>
     <string name="is_classifying">正在处理未分类图片:</string>
+    <string name="refocus_save_success">"保存成功"</string>
 
 </resources>

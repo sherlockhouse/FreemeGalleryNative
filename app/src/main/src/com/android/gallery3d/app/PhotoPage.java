@@ -373,6 +373,11 @@ public abstract class PhotoPage extends ActivityState implements
                     Log.d(TAG, "updateCurrentPhoto   isRefocusImage = " + isRefocus);
                     return isRefocus;
                 }
+                if (mCurrentPhoto instanceof LocalImage ) {
+                    LocalImage localImage = (LocalImage) mCurrentPhoto;
+                    boolean isRefocus = (localImage.getMediaType() == LocalImage.MEDIA_TYPE_IMAGE_REFOCUS);
+                    return isRefocus;
+                }
                 return false;
             default:
                 return true;
@@ -507,6 +512,12 @@ public abstract class PhotoPage extends ActivityState implements
                     Log.d(TAG, "updateCurrentPhoto   isRefocusImage = " + isRefocus);
                     if (isRefocus) {
                         startRefocusActivity(localImage.getPlayUri(), localImage);
+                        return;
+                    }
+                    boolean isbstRefocus = (localImage.getMediaType() == LocalImage.MEDIA_TYPE_IMAGE_REFOCUS);
+                    if (isbstRefocus) {
+                        startBstRefocusActivity();
+                        return;
                     }
                 }
                 return;
@@ -2240,6 +2251,7 @@ public abstract class PhotoPage extends ActivityState implements
     //********************************************************************
 
     private static final String ACTION_REFOCUS_EDIT = "com.android.sprd.gallery3d.refocusedit";
+    private static final String ACTION_REFOCUS_EDIT_BST = "cn.com.bst.librefocus.refocusedit";
 
     public void startRefocusActivity(Uri uri, MediaItem item) {
         if (uri == null || item == null)
@@ -2252,6 +2264,24 @@ public abstract class PhotoPage extends ActivityState implements
         intent.putExtra(RefocusPhotoEditActivity.REFOCUS_WIDTH, refocusPhotoWidth);
         intent.putExtra(RefocusPhotoEditActivity.REFOCUS_HEIGHT, refocusPhotoHeight);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        try {
+            Log.d(TAG, "startRefocusActivity");
+            mActivity.startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            Log.e(TAG, "Refocus activity previously detected but cannot be found", e);
+        }
+    }
+    
+    public void startBstRefocusActivity() {
+        if (mCurrentPhoto == null || mCurrentPhoto.getFilePath() == null)
+            return;
+
+        Intent intent = new Intent();
+        intent.setClassName(mActivity, "cn.com.bst.librefocus.RefocusActivity");
+        intent.setAction(ACTION_REFOCUS_EDIT_BST);
+        intent.setData(Uri.parse(mCurrentPhoto.getFilePath()));
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION  | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         try {
             Log.d(TAG, "startRefocusActivity");
             mActivity.startActivity(intent);

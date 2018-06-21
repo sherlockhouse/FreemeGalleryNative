@@ -188,4 +188,6 @@
 
     <string name="gesture_to_last">已是最後一個項目</string>
     <string name="is_classifying">正在處理未分類圖片:</string>
+    <string name="refocus_save_success">"保存成功"</string>
+
 </resources>
