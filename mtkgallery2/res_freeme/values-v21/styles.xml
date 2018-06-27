@@ -168,7 +168,8 @@
          <!--AlertDialog attributes-->
         <item name="android:alertDialogTheme">@style/Theme.Freeme.Light.Dialog.Alert</item>
         <!--<item name="android:alertDialogStyle">@style/AlertDialog.Freeme.Light</item>-->
-        <item name="*android:alertDialogCenterButtons">false</item>
+        <!-- alertDialogCenterButtons false will cause panelmenu show white texts -->
+        <!--<item name="*android:alertDialogCenterButtons">false</item>-->
         <!--<item name="android:alertDialogIcon">@drawable/ic_dialog_alert_freeme</item>-->
 
         <!-- Presentation attributes -->
