@@ -289,6 +289,7 @@ public class AlbumStorySetPage extends ActivityState implements
             }
             case SelectionManager.LEAVE_SELECTION_MODE: {
                 mActionModeHandler.finishActionMode();
+                observe();
                 mRootPane.invalidate();
                 break;
             }
@@ -656,6 +657,9 @@ public class AlbumStorySetPage extends ActivityState implements
     @Override
     public void observe() {
 
+        if (mActivity.mHintLayout != null) {
+            mActivity.setAiwinnHintVisible(View.VISIBLE);
+        }
     }
     //*/
 
@@ -1026,6 +1030,7 @@ public class AlbumStorySetPage extends ActivityState implements
       //*/
         mActionBar.initActionBar();
         mActivity.getNavigationWidgetManager().changeStateTo(this);
+        mActivity.getNavigationWidgetManager().observe();
         //*/ Added by droi Linguanrong for lock orientation, 16-3-1
         mOrientationManager.lockOrientation(true);
         //*/

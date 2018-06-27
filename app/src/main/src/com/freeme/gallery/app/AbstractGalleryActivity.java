@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.aiwinn.wrapper.FaceSimManager;
 import com.android.gallery3d.app.GalleryActionBar;
@@ -148,6 +149,8 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext,
     public ViewPagerTabs mViewPagerTabs;
     public FreemeBottomSelectedView mFreemeBottomSelectedView;
     public FreemeActionBarUpContainerLayout mFreemeActionBarContainer;
+    public LinearLayout mHintLayout;
+
 
     public static final String FREEMEGALLERY_DB = "freemegalleryai.db";
     private int mCurrentState;
@@ -550,33 +553,39 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext,
                 setViewPagerVisible(View.INVISIBLE);
                 setFreemeActionbarContainerVisible(View.INVISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.INVISIBLE);
+                setAiwinnHintVisible(View.GONE);
                 break;
             case IN_ALBUMSETPAGE:// in albumsetpage
                 setViewPagerVisible(View.VISIBLE);
                 setFreemeActionbarContainerVisible(View.INVISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.INVISIBLE);
+                setAiwinnHintVisible(View.GONE);
                 break;
             case IN_ALBUMPAGE:
                 setViewPagerVisible(View.INVISIBLE);
                 setFreemeActionbarContainerVisible(View.VISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.INVISIBLE);
+                setAiwinnHintVisible(View.GONE);
                 break;
 
             case IN_SELECTMODE:
                 setViewPagerVisible(View.INVISIBLE);
                 setFreemeActionbarContainerVisible(View.INVISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.VISIBLE);
+                setAiwinnHintVisible(View.GONE);
                 break;
             case IN_STORYPAGE:
                 setViewPagerVisible(View.INVISIBLE);
                 setFreemeActionbarContainerVisible(View.VISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.INVISIBLE);
                 mFreemeActionBarContainer.setBackgroundColor(Color.TRANSPARENT);
+                setAiwinnHintVisible(View.GONE);
                 break;
             case IN_ADD_STORYPAGE:
                 setViewPagerVisible(View.INVISIBLE);
                 setFreemeActionbarContainerVisible(View.VISIBLE);
                 setmFreemeBottomSelectedViewVisible(View.INVISIBLE);
+                setAiwinnHintVisible(View.GONE);
                 break;
             default:
                 break;
@@ -603,7 +612,11 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext,
         }
     }
 
-
+    public void setAiwinnHintVisible(int visibility) {
+        if (mHintLayout != null) {
+            mHintLayout.setVisibility(visibility);
+        }
+    }
     public interface onGestureSensorListener {
         void onGestureSensorChanged(SensorEvent event);
     }

@@ -48,6 +48,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.aiwinn.wrapper.FaceSimManager;
@@ -162,6 +163,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
 
         setContentView(R.layout.main);
         setViewPager();
+        initHintLayout();
 
         //*/freemeos.xueweili 16-6-20  add for set cover visable when app first in
 
@@ -270,6 +272,11 @@ public final class GalleryActivity extends AbstractGalleryActivity
         mFreemeBottomSelectedView = findViewById(R.id.bottom_container_freeme);
         mBottomSelectedController = new FreemeBottomSelectedController(mFreemeBottomSelectedView);
         controller = new FreemeBottomSelectedController(mFreemeBottomSelectedView);
+
+    }
+
+    private void  initHintLayout(){
+        mHintLayout = (LinearLayout) findViewById(R.id.aiwin_hint);
 
     }
 
@@ -686,7 +693,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
         /// @}
         super.onResume();
         //*/gulincheng 20180614 add statistic info for aiwinn
-        FaceSimManager.uLink(getApplicationContext());
+        //FaceSimManager.uLink(getApplicationContext());
         //*/
 
         FreemeUtils.setScreenBrightness(this,getWindow());
