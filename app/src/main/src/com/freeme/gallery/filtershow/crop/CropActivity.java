@@ -198,6 +198,9 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
         if (granted) {
             if (intent.getData() != null) {
                 mSourceUri = intent.getData();
+                grantUriPermission("com.freeme.gallery", mSourceUri,
+                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION // for app lock , it has to regain this permission
+                        | Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 startLoadBitmap(mSourceUri);
             } else {
                 pickImage();
