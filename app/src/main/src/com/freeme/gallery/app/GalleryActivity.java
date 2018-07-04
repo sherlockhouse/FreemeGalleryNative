@@ -693,7 +693,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
         /// @}
         super.onResume();
         //*/gulincheng 20180614 add statistic info for aiwinn
-        //FaceSimManager.uLink(getApplicationContext());
+        FaceSimManager.uLink(getApplicationContext());
         //*/
 
         FreemeUtils.setScreenBrightness(this,getWindow());
