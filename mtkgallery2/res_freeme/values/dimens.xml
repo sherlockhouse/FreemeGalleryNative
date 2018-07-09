@@ -43,6 +43,8 @@
 
     <dimen name="tab_bar_default_height">60dip</dimen>
     <dimen name="storyset_bottompadding">100dip</dimen>
+    <dimen name="albumset_bottompadding">100dip</dimen>
+    <dimen name="album_bottompadding">50dip</dimen>
     <!--Linguanrong-->
 
     <dimen name="status_bar_height">24dip</dimen>

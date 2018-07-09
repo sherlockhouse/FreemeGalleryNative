@@ -59,7 +59,7 @@ final class Config {
             slotViewSpec.slotHeightAdditional = 0;
             //*/Added by droi Linguanrong for Gallery new style, 2013-12-17
             slotViewSpec.slotPadding = r.getDimensionPixelSize(R.dimen.album_slot_padding);
-            slotViewSpec.bottomPadding = r.getDimensionPixelSize(R.dimen.tab_bar_default_height);
+            slotViewSpec.bottomPadding = r.getDimensionPixelSize(R.dimen.albumset_bottompadding);
             paddingLeftRight = r.getDimensionPixelSize(R.dimen.albumstory_padding_left_right);
 
             slotViewSpec.slotGapV = r.getDimensionPixelSize(R.dimen.albumstory_slot_gap_vertical);
