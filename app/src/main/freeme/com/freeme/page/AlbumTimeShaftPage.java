@@ -33,9 +33,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.data.StoryAlbumSet;
-import com.freeme.gallery.R;
 import com.android.gallery3d.anim.StateTransitionAnimation;
 import com.android.gallery3d.app.ActivityState;
 import com.android.gallery3d.app.AlbumDataLoader;
@@ -43,14 +40,13 @@ import com.android.gallery3d.app.AlbumSetPage;
 import com.android.gallery3d.app.FilmstripPage;
 import com.android.gallery3d.app.FilterUtils;
 import com.android.gallery3d.app.GalleryActionBar;
-import com.freeme.gallery.app.AbstractGalleryActivity;
-import com.freeme.gallery.app.GalleryActivity;
 import com.android.gallery3d.app.LoadingListener;
 import com.android.gallery3d.app.OrientationManager;
 import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.app.SinglePhotoPage;
 import com.android.gallery3d.app.SlideshowPage;
 import com.android.gallery3d.app.TransitionStore;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaDetails;
 import com.android.gallery3d.data.MediaItem;
@@ -66,16 +62,16 @@ import com.android.gallery3d.ui.GLView;
 import com.android.gallery3d.ui.RelativePosition;
 import com.android.gallery3d.ui.SelectionManager;
 import com.android.gallery3d.ui.SynchronizedHandler;
-import com.android.gallery3d.util.GalleryUtils;
-import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.util.Future;
+import com.android.gallery3d.util.GalleryUtils;
+import com.freeme.data.StoryAlbumSet;
+import com.freeme.gallery.R;
+import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.freeme.gallery.app.GalleryActivity;
 import com.freeme.jigsaw.app.JigsawEntry;
 import com.freeme.settings.GallerySettings;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
 import com.freeme.ui.AlbumTimeSlotRenderer;
 import com.freeme.ui.DateSlotView;
-import com.freeme.ui.manager.NaviController;
 import com.freeme.ui.manager.State;
 import com.freeme.utils.FreemeUtils;
 
@@ -159,6 +155,10 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
             int slotViewTop = mActionBar.getHeight() + mActivity.mStatusBarHeight + mTopPadding;
             int slotViewBottom = bottom - top;
             int slotViewRight = right - left;
+            if(mSelectionManager.inSelectionMode()) {
+                slotViewBottom -= mActivity.getResources().getDimension(R.dimen.album_bottompadding);
+            }
+
 
             if (mShowDetails) {
                 mDetailsHelper.layout(left, slotViewTop, right, bottom);
@@ -822,6 +822,7 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
                     performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
                 }
                 mResumeSelection = false;
+                mRootPane.requestLayout();
                 break;
             }
             case SelectionManager.LEAVE_SELECTION_MODE: {
@@ -829,6 +830,7 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
                 mSlotView.updateSelection(false);
                 mActionModeHandler.finishActionMode();
                 mRootPane.invalidate();
+                mRootPane.requestLayout();
                 break;
             }
 
