@@ -23,6 +23,7 @@
             android:elevation="1dp"
             android:orientation="horizontal"
             android:textAllCaps="true"
+            android:visibility="invisible"
             android:textColor="@color/freeme_dialer_tab_text_color" />
 
         <com.freeme.scott.galleryui.design.widget.GalleryViewPager

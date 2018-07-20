@@ -61,11 +61,7 @@ import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.app.SinglePhotoPage;
 import com.android.gallery3d.app.SlideshowPage;
 import com.android.gallery3d.app.StateManager;
-import com.freeme.data.StoryAlbumSet;
-import com.freeme.data.VisitorAlbum;
-import com.freeme.data.VisitorAlbumVideo;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.R;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaSet;
@@ -73,24 +69,28 @@ import com.android.gallery3d.data.Path;
 import com.android.gallery3d.gadget.WidgetUtils;
 import com.android.gallery3d.picasasource.PicasaSource;
 import com.android.gallery3d.util.GalleryUtils;
-
+import com.freeme.data.StoryAlbumSet;
+import com.freeme.data.VisitorAlbum;
+import com.freeme.data.VisitorAlbumVideo;
+import com.freeme.gallery.BuildConfig;
+import com.freeme.gallery.R;
+import com.freeme.page.AlbumCameraPage;
+import com.freeme.page.AlbumStorySetPage;
+import com.freeme.page.AlbumTimeShaftPage;
+import com.freeme.page.AlbumVisitorPage;
 import com.freeme.provider.GalleryDBManager;
 import com.freeme.provider.MediaStoreImporter;
 import com.freeme.scott.galleryui.design.adapter.GalleryPageAdapter;
 import com.freeme.scott.galleryui.design.widget.FreemeBottomSelectedController;
 import com.freeme.scott.galleryui.design.widget.GalleryViewPager;
+import com.freeme.utils.FreemeUtils;
+import com.freeme.utils.LogcatHelper;
 import com.mediatek.gallery3d.adapter.FeatureHelper;
 import com.mediatek.gallery3d.util.PermissionHelper;
 import com.mediatek.gallery3d.util.TraceHelper;
-import com.android.gallery3d.common.Utils;
-import com.freeme.page.AlbumCameraPage;
-import com.freeme.page.AlbumStorySetPage;
-import com.freeme.page.AlbumTimeShaftPage;
-import com.freeme.page.AlbumVisitorPage;
-import com.freeme.utils.FreemeUtils;
-import com.freeme.utils.LogcatHelper;
 import com.mediatek.galleryframework.base.MediaFilter;
 import com.mediatek.galleryframework.base.MediaFilterSetting;
+
 import java.util.ArrayList;
 
 public final class GalleryActivity extends AbstractGalleryActivity
@@ -160,16 +160,9 @@ public final class GalleryActivity extends AbstractGalleryActivity
                     WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
         }
 
-
         setContentView(R.layout.main);
         setViewPager();
         initHintLayout();
-
-        //*/freemeos.xueweili 16-6-20  add for set cover visable when app first in
-
-
-        //*/
-
         mContext = this;
 
         if (BuildConfig.DEBUG) {
@@ -197,8 +190,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
                     MediaStoreImporter.getInstance().deleteFiles();
                 }
             });
-
-
+            mViewPagerTabs.setVisibility(View.VISIBLE);
             /// M: [BUG.ADD] set gl_root_cover visible if open from widget or launch by @{
             // launcher, or else it will flash
             Intent intent = getIntent();
