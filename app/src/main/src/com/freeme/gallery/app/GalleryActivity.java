@@ -38,6 +38,8 @@ import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.view.ViewPager;
@@ -184,7 +186,10 @@ public final class GalleryActivity extends AbstractGalleryActivity
         if (mGranted) {
 
             MediaStoreImporter.getInstance().setmResolver(this.getContentResolver());
-            new Handler().post(new Runnable() {
+            HandlerThread handlerThread = new HandlerThread("background-handler");
+            handlerThread.start();
+            Looper looper = handlerThread.getLooper();
+            new Handler(looper).post(new Runnable() {
                 @Override
                 public void run() {
                     MediaStoreImporter.getInstance().deleteFiles();
