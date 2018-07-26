@@ -9,8 +9,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
@@ -232,6 +230,7 @@ public class RefocusActivity extends Activity {
         mDisplayImage = Refocuser._getDisplayImage(mImageHandle);
         Refocuser._displayHelperDisplayRefocusImage(mImageHandle);
         // refresh ui
+        if (mDisplayImage != null) {
         int uniformedX = mDisplayImage.focusX * 1000 / mDisplayImage.width;
         int uniformedY = mDisplayImage.focusY * 1000 / mDisplayImage.height;
         float[] windowPos = Refocuser._displayHelperGetPointRelativeToSurface(
@@ -242,7 +241,7 @@ public class RefocusActivity extends Activity {
         }
         String fString = String.valueOf(mDisplayImage.fNumber);
         mFNumberText.setText("F" + fString);
-
+        }
 
     }
 
