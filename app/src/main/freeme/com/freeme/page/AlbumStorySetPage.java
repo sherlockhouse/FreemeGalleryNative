@@ -23,7 +23,6 @@ package com.freeme.page;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Application;
 import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
@@ -36,7 +35,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -60,29 +58,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.android.gallery3d.app.AlbumClassifierPage;
-import com.android.gallery3d.data.Face;
-import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.community.utils.ToastUtil;
-import com.freeme.data.FaceAlbumSet;
-import com.freeme.data.StoryAlbum;
-import com.freeme.data.StoryAlbumSet;
-import com.freeme.data.StoryMergeAlbum;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.GalleryClassifierService;
-import com.freeme.gallery.R;
 import com.android.gallery3d.app.ActivityState;
-import com.android.gallery3d.app.AlbumPage;
-import com.freeme.gallery.app.AbstractGalleryActivity;
-import com.freeme.gallery.app.AlbumPicker;
+import com.android.gallery3d.app.AlbumClassifierPage;
 import com.android.gallery3d.app.AlbumSetDataLoader;
 import com.android.gallery3d.app.AlbumSetPage;
 import com.android.gallery3d.app.EyePosition;
 import com.android.gallery3d.app.FilterUtils;
 import com.android.gallery3d.app.GalleryActionBar;
-import com.freeme.gallery.app.GalleryActivity;
 import com.android.gallery3d.app.LoadingListener;
 import com.android.gallery3d.app.OrientationManager;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaDetails;
 import com.android.gallery3d.data.MediaObject;
@@ -91,7 +76,6 @@ import com.android.gallery3d.data.Path;
 import com.android.gallery3d.glrenderer.FadeTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
 import com.android.gallery3d.ui.ActionModeHandler;
-import com.android.gallery3d.ui.AlbumSetSlotRenderer;
 import com.android.gallery3d.ui.DetailsHelper;
 import com.android.gallery3d.ui.GLRoot;
 import com.android.gallery3d.ui.GLView;
@@ -99,19 +83,22 @@ import com.android.gallery3d.ui.MenuExecutor;
 import com.android.gallery3d.ui.SelectionManager;
 import com.android.gallery3d.ui.SlotView;
 import com.android.gallery3d.ui.SynchronizedHandler;
-import com.android.gallery3d.util.GalleryUtils;
-import com.android.gallery3d.util.HelpUtils;
-import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.util.Future;
+import com.android.gallery3d.util.GalleryUtils;
+import com.freeme.data.FaceAlbumSet;
+import com.freeme.data.StoryAlbum;
+import com.freeme.data.StoryAlbumSet;
+import com.freeme.data.StoryMergeAlbum;
+import com.freeme.gallery.GalleryClassifierService;
+import com.freeme.gallery.R;
+import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.freeme.gallery.app.AlbumPicker;
+import com.freeme.gallery.app.GalleryActivity;
 import com.freeme.settings.GallerySettings;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
 import com.freeme.ui.StoryAlbumSetSlotRender;
 import com.freeme.ui.StorySlotView;
 import com.freeme.ui.manager.State;
 import com.freeme.utils.FreemeUtils;
-import com.freeme.utils.LogUtil;
-import com.freeme.utils.ShareFreemeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -981,7 +968,7 @@ public class AlbumStorySetPage extends ActivityState implements
         public void onReceive(Context ctxt, Intent i) {
             switch (i.getAction()) {
                 case GalleryClassifierService.ACTION_COMPLETE:
-                    if (!isDestroyed()) {
+                    if (!isDestroyed() || mIsActive) {
                         // freeme.gulincheng 2018.0601 don't modify showToast here ,or it will get crushed.
                         showToast(mActivity,mActivity.getResources().
                                 getString(R.string.is_classifying) + i.getStringExtra("storycount"));
