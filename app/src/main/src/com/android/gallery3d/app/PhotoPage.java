@@ -1782,7 +1782,7 @@ public abstract class PhotoPage extends ActivityState implements
 
         if (playVideo) {
             if (mSecureAlbum == null) {
-                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getName());
+                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getMimeType(), item.getName());
             } else {
                 mActivity.getStateManager().finishState(this);
             }

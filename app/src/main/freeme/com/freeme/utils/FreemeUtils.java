@@ -92,10 +92,10 @@ public final class FreemeUtils {
         return dm.heightPixels;
     }
 
-    public static void playVideo(Activity activity, Uri uri, String title) {
+    public static void playVideo(Activity activity, Uri uri, String mimeType, String title) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW)
-                    .setDataAndType(convertUri(uri), "video/*")
+                    .setDataAndType(convertUri(uri), mimeType)
                     .putExtra(Intent.EXTRA_TITLE, title)
                     .putExtra(MovieActivity.KEY_TREAT_UP_AS_BACK, true);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
