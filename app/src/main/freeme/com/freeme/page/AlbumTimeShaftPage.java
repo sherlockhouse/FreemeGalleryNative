@@ -660,7 +660,7 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
         } else {
             //*/ Added by Linguanrong for play video directly, 2015-6-19
             if (!startInFilmstrip && canBePlayed(item)) {
-                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getName());
+                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getMimeType(), item.getName());
                 return;
             }
             //*/

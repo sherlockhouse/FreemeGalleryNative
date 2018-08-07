@@ -55,16 +55,15 @@ import android.widget.RelativeLayout;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.data.LocalImage;
-import com.freeme.extern.PhotopageComments;
-import com.freeme.gallery.R;
 import com.android.gallery3d.data.CameraShortcutImage;
 import com.android.gallery3d.data.ComboAlbum;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.EmptyAlbumImage;
 import com.android.gallery3d.data.FilterDeleteSet;
 import com.android.gallery3d.data.FilterSource;
+import com.android.gallery3d.data.LocalImage;
 import com.android.gallery3d.data.MediaDetails;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
@@ -76,15 +75,11 @@ import com.android.gallery3d.data.SecureSource;
 import com.android.gallery3d.data.SnailAlbum;
 import com.android.gallery3d.data.SnailItem;
 import com.android.gallery3d.data.SnailSource;
-import com.freeme.gallery.app.AbstractGalleryActivity;
-import com.freeme.gallery.app.GalleryActivity;
-import com.freeme.gallery.app.TrimVideo;
-import com.freeme.gallery.filtershow.FilterShowActivity;
-import com.freeme.gallery.filtershow.crop.CropActivity;
 import com.android.gallery3d.picasasource.PicasaSource;
 import com.android.gallery3d.ui.DetailsHelper;
 import com.android.gallery3d.ui.DetailsHelper.CloseListener;
 import com.android.gallery3d.ui.DetailsHelper.DetailsSource;
+import com.android.gallery3d.ui.DetailsHelper.OpenListener;
 import com.android.gallery3d.ui.GLRootView;
 import com.android.gallery3d.ui.GLView;
 import com.android.gallery3d.ui.MenuExecutor;
@@ -93,15 +88,21 @@ import com.android.gallery3d.ui.SelectionManager;
 import com.android.gallery3d.ui.SynchronizedHandler;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.UsageStatistics;
-import com.android.gallery3d.common.ApiHelper;
+import com.freeme.extern.PhotopageComments;
+import com.freeme.gallery.R;
+import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.freeme.gallery.app.GalleryActivity;
+import com.freeme.gallery.app.TrimVideo;
+import com.freeme.gallery.filtershow.FilterShowActivity;
+import com.freeme.gallery.filtershow.crop.CropActivity;
 import com.freeme.ui.manager.State;
 import com.freeme.utils.FrameworkSupportUtils;
 import com.freeme.utils.FreemeCustomUtils;
 import com.freeme.utils.FreemeUtils;
+import com.sprd.gallery3d.refocus.RefocusPhotoEditActivity;
+
 import java.io.File;
 import java.util.ArrayList;
-import com.android.gallery3d.ui.DetailsHelper.OpenListener;
-import com.sprd.gallery3d.refocus.RefocusPhotoEditActivity;
 
 public abstract class PhotoPage extends ActivityState implements
         PhotoView.Listener, AppBridge.Server, ShareActionProvider.OnShareTargetSelectedListener,
@@ -1902,7 +1903,7 @@ public abstract class PhotoPage extends ActivityState implements
 
         if (playVideo && clickCenter) {
             if (mSecureAlbum == null) {
-                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getName());
+                FreemeUtils.playVideo(mActivity, item.getPlayUri(), item.getMimeType(), item.getName());
             } else {
                 mActivity.getStateManager().finishState(this);
             }
