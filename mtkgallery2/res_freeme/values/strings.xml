@@ -216,4 +216,6 @@
     <string name="is_classifying">processing uncategorized pictures:</string>
     <string name="classifying_faces">processing uncategorized faces:</string>
     <string name="aiwin_hint_title">This tech is provide by AIWINN</string>
+
+    <string name="hide">hide</string>
 </resources>

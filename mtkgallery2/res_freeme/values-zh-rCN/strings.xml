@@ -190,4 +190,6 @@
     <string name="classifying_faces">正在处理未分类人脸:</string>
     <string name="refocus_save_success">"保存成功"</string>
     <string name="aiwin_hint_title">相关技术由 爱华盈通 提供</string>
+
+    <string name="hide">隐藏</string>
 </resources>
