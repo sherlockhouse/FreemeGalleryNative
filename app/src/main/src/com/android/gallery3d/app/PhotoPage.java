@@ -1286,7 +1286,6 @@ public abstract class PhotoPage extends ActivityState implements
         mPhotoView.pause();
         mHandler.removeMessages(MSG_HIDE_BARS);
         mHandler.removeMessages(MSG_REFRESH_BOTTOM_CONTROLS);
-        refreshBottomControlsWhenReady();
         /*mActionBar.removeOnMenuVisibilityListener(mMenuVisibilityListener);
         if (mShowSpinner) {
             mActionBar.disableAlbumModeMenu(true);
