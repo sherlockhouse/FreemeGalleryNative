@@ -66,7 +66,7 @@ final class Config {
             //*/
 
             paddingTop = r.getDimensionPixelSize(R.dimen.albumstory_padding_top);
-            paddingBottom = r.getDimensionPixelSize(R.dimen.albumset_bottompadding);
+            paddingBottom = 0;
 
 
             labelSpec = new AlbumSetSlotRenderer.LabelSpec();
