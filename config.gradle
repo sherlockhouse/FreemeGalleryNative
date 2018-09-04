@@ -5,8 +5,8 @@ ext {
             applicationId    : "com.freeme.gallery",
             minSdkVersion    : 19,
             targetSdkVersion : 27,
-            versionCode      : 90052,
-            versionName      : "1.0.8"
+            versionCode      : 90080,
+            versionName      : "1.1.0"
             // release 20160927
     ]
 
