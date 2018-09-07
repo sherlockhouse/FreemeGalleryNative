@@ -56,6 +56,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.gallery3d.app.ActivityState;
@@ -89,6 +90,7 @@ import com.freeme.data.FaceAlbumSet;
 import com.freeme.data.StoryAlbum;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.data.StoryMergeAlbum;
+import com.freeme.droiad.DroiAdViewController;
 import com.freeme.gallery.GalleryClassifierService;
 import com.freeme.gallery.R;
 import com.freeme.gallery.app.AbstractGalleryActivity;
@@ -103,6 +105,7 @@ import com.freeme.utils.FreemeUtils;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 public class AlbumStorySetPage extends ActivityState implements
         SelectionManager.SelectionListener, GalleryActionBar.ClusterRunner,
@@ -211,6 +214,9 @@ public class AlbumStorySetPage extends ActivityState implements
     //*/
     //*/ Added by droi Linguanrong for lock orientation, 16-3-1
     private OrientationManager mOrientationManager;
+
+    private DroiAdViewController mDroiAdviewController;
+    private RelativeLayout container;
 
     @Override
     protected int getBackgroundColorId() {
@@ -643,7 +649,6 @@ public class AlbumStorySetPage extends ActivityState implements
 
     @Override
     public void observe() {
-
         if (mActivity.mHintLayout != null) {
             mActivity.setAiwinnHintVisible(View.VISIBLE);
         }
@@ -913,6 +918,7 @@ public class AlbumStorySetPage extends ActivityState implements
                 .unregisterReceiver(onEvent);
 
         mActionModeHandler.destroy();
+        mDroiAdviewController.destoryAdview();
     }
 
     private void clearLoadingBit(int loadingBit) {
@@ -1003,6 +1009,7 @@ public class AlbumStorySetPage extends ActivityState implements
     @Override
     public void onResume() {
         super.onResume();
+
         IntentFilter f=new IntentFilter(GalleryClassifierService.ACTION_COMPLETE);
         f.addAction(GalleryClassifierService.ACTION_ADDALBUM);
         f.addAction(GalleryClassifierService.ACTION_DONE);
@@ -1059,6 +1066,8 @@ public class AlbumStorySetPage extends ActivityState implements
 
         GalleryClassifierService.enqueueWork(mActivity, i);
 
+        mDroiAdviewController.addToParent(container);
+        mDroiAdviewController.enterSafe();
     }
 
     private void initializeData(Bundle data) {
@@ -1123,6 +1132,10 @@ public class AlbumStorySetPage extends ActivityState implements
         mOrientationManager = mActivity.getOrientationManager();
         mActivity.getGLRoot().setOrientationSource(mOrientationManager);
         //*/
+        container = (RelativeLayout) mActivity
+                .findViewById(com.android.gallery3d.R.id.gallery_root);
+        mDroiAdviewController = new DroiAdViewController(mActivity);
+        mDroiAdviewController.timeout(8000, TimeUnit.MILLISECONDS);
     }
 
     @Override

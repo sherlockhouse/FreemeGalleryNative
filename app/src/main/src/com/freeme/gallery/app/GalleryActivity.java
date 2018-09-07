@@ -909,6 +909,12 @@ public final class GalleryActivity extends AbstractGalleryActivity
                     PermissionHelper.showDeniedPrompt(this);
                     break;
                 }
+
+                if (Manifest.permission.READ_PHONE_STATE.equals(permissions[i])
+                        && grantResults[i] == PackageManager.PERMISSION_DENIED) {
+                    PermissionHelper.showDeniedPrompt(this);
+                    break;
+                }
             }
             Log.i(TAG, "<onRequestPermissionsResult> permission denied, finish");
             finish();
