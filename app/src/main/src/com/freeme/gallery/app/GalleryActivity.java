@@ -110,6 +110,7 @@ public final class GalleryActivity extends AbstractGalleryActivity
     public static final String KEY_TYPE_BITS = "type-bits";
     public static final String KEY_MEDIA_TYPES = "mediaTypes";
     public static final String KEY_DISMISS_KEYGUARD = "dismiss-keyguard";
+    public static final String IS_IKO_START = "isIkoStart";
 
     private static final String TAG = "GalleryActivity";
     //*/ Added by tyd Linguanrong for freeme gallery, 16-1-13

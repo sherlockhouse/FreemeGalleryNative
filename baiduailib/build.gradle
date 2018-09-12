@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.jakewharton.butterknife'
+
+def libs = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion 28
+
+        lintOptions {
+            abortOnError false
+        }
+
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+
+    testImplementation ('androidx.appcompat:appcompat:1.0.0-alpha1')
+    testImplementation 'junit:junit:4.12'
+    // Required for instrumented tests
+    androidTestImplementation 'androidx.test:rules:1.1.0-alpha4'
+    androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'
+
+    implementation libs['appcompat-v7']
+    implementation libs['butterknife']
+    implementation libs['avi']
+    implementation libs['glide']
+    implementation libs['gson']
+    annotationProcessor libs['butterknife-compiler']
+}
