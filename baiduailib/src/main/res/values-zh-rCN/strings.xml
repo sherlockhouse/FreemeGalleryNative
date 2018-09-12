@@ -1,5 +1,6 @@
 <resources>
-    <string name="not_search_image">没有找到想要图片？</string>
+    <string name="not_search_image">没有找到想要图片</string>
     <string name="try_search_image">重新拍一下</string>
     <string name="iko_title">识别信息</string>
+    <string name="activity_not_found">应用未安装</string>
 </resources>

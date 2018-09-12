@@ -1,6 +1,7 @@
 package com.freeme.camera.mode.ai;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -55,8 +56,6 @@ public class IKOActivity extends Activity implements ResponseListener, View.OnCl
         IKOSearchUtil.getInstance().setResponseListener(this);
         mImageIko.setOnClickListener(this);
         mTextIko.setOnClickListener(this);
-        mErrorTextRetry.setOnClickListener(this);
-        mErrorTextRetry.setOnClickListener(IKOActivity.this);
         new Thread(new IKORunnable()).start();
         mIkoToolbar.setNavigationIcon(R.drawable.ic_iko_back);
         mIkoToolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -137,7 +136,7 @@ public class IKOActivity extends Activity implements ResponseListener, View.OnCl
         mImageIko.setTag(mIkoResultBean.getmResultBean().getResult().get(0).getBaike_info().getImage_url());
         mImageOriginal.setImageBitmap(BitmapFactory.decodeByteArray(mIkoResultBean.getmResultByte(), 0,
                 mIkoResultBean.getmResultByte().length, null));
-        mTextIko.setText("\u3000\u3000" + mIkoResultBean.getmResultBean().getResult().get(0).getBaike_info().getDescription());
+        mTextIko.setText(mIkoResultBean.getmResultBean().getResult().get(0).getBaike_info().getDescription());
         mTextIko.setTag(mIkoResultBean.getmResultBean().getResult().get(0).getBaike_info().getBaike_url());
         mIkoName.setText(mIkoResultBean.getmResultBean().getResult().get(0).getKeyword());
     }
@@ -150,9 +149,7 @@ public class IKOActivity extends Activity implements ResponseListener, View.OnCl
                 IKOSearchUtil.getInstance().stopLoading();
                 mIkoScrollview.setVisibility(View.GONE);
                 mErrorText.setVisibility(View.VISIBLE);
-                mErrorTextRetry.setVisibility(View.VISIBLE);
                 mErrorText.setText(getResources().getString(R.string.not_search_image));
-                mErrorTextRetry.setText(getResources().getString(R.string.try_search_image));
             }
         });
     }
@@ -161,18 +158,12 @@ public class IKOActivity extends Activity implements ResponseListener, View.OnCl
     public void onClick(View view) {
         String url = null;
         final int id = view.getId();
-        switch (id) {
-            case R2.id.image_iko:
-            case R2.id.text_iko:
-                url = (String) view.getTag();
-                break;
-            case R2.id.error_text_retry:
-                finish();
-//                overridePendingTransition(R.anim.camera_zoom, R.anim.zoom_out);
-                break;
-            default:
-                break;
+        if (id == R.id.image_iko || id == R.id.text_iko) {
+            url = (String) view.getTag();
+        } else if (id == R.id.error_text_retry) {
+            finish();
         }
+
         if (url != null) {
             startSearch(url);
         }
@@ -181,14 +172,13 @@ public class IKOActivity extends Activity implements ResponseListener, View.OnCl
     public void startSearch(String url) {
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        intent.setPackage(IKO_IMAGE_SEARCH_URL);
-//        if (CameraCustomXmlParser.sCameraGenerParamMap.containsKey(CameraCustomXmlParser.IKO_USE_SPECIFIED_BROWSER_PKG)) {
-//            String value = CameraCustomXmlParser.sCameraGenerParamMap.get(CameraCustomXmlParser.IKO_USE_SPECIFIED_BROWSER_PKG);
-//            if (!TextUtils.isEmpty(value)) {
-//                intent.setPackage(value);
-//            }
-//        }
-        startActivity(intent);
+        try {
+            intent.setPackage(IKO_IMAGE_SEARCH_URL);
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            intent.setPackage(null);
+            IKOSearchUtil.startActivitySafely(this, intent);
+        }
     }
 
     @Override

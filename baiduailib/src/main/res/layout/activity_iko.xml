@@ -20,7 +20,7 @@
             android:layout_gravity="center"
             android:gravity="center_vertical"
             android:text="@string/iko_title"
-            android:textColor="#767171"
+            android:textColor="#000000"
             android:textSize="20sp" />
     </android.support.v7.widget.Toolbar>
 
@@ -73,12 +73,20 @@
                     android:layout_marginTop="5dp"
                     android:scaleType="centerCrop" />
 
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#efeded"
+                    />
+
                 <TextView
                     android:id="@+id/iko_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:gravity="center_horizontal"
+                    android:textColor="#000000"
                     android:textSize="20sp" />
 
                 <ImageView
@@ -95,9 +103,11 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="8dp"
                     android:gravity="center_vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:lineSpacingExtra="5dp"
                     android:textColor="@color/iko_text_click"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
             </LinearLayout>
 

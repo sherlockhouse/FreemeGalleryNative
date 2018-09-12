@@ -1,7 +1,9 @@
 package com.freeme.camera.mode.ai;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -12,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.baidu.aip.imageclassify.AipImageClassify;
 import com.google.gson.Gson;
@@ -157,5 +160,18 @@ public class IKOSearchUtil {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean startActivitySafely(Context context, Intent intent) {
+        try {
+            context.startActivity(intent);
+            return true;
+        } catch (SecurityException e) {
+            Toast.makeText(context, R.string.app_name, Toast.LENGTH_SHORT).show();
+
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(context, R.string.activity_not_found, Toast.LENGTH_SHORT).show();
+        }
+        return false;
     }
 }
