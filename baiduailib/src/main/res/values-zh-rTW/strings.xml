@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">baiduailib</string>
     <string name="not_search_image">沒有找到想要圖片</string>
     <string name="try_search_image">重新拍一下</string>
     <string name="iko_title">識別信息</string>

@@ -2,8 +2,6 @@ package com.freeme.utils;
 
 import com.android.gallery3d.ui.Log;
 
-import scott.freeme.com.mtkreflectlib.AndroidSystemProperies;
-
 /*
 对于一些需要framework支持的特性,把相关配置和说明放在这里
  */
@@ -16,7 +14,7 @@ public class FrameworkSupportUtils {
 
     private static String   support_bst_refocus_prop    =   "ro.freeme.bst.refocus";
     private static int      SUPPORT_BST_REFOCUS         =   1;
-    private static boolean  canBstRefocus  = false;
+    private static boolean  canBstRefocus  = true;
 
     private static String   support_voice_prop    =   "ro.freeme.voiceimage";
     private static int      SUPPORT_VOICE         =   1;

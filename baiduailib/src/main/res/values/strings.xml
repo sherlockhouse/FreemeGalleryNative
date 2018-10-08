@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">baiduailib</string>
     <string name="not_search_image">Did not find the wanted picture</string>
     <string name="try_search_image">Take another shot</string>
     <string name="iko_title">Identification information</string>

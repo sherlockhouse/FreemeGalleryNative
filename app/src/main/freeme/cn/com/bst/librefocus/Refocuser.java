@@ -21,9 +21,8 @@ public class Refocuser {
         public final int focusX;
         public final int focusY;
         public final float fNumber;
-        public final int displayRotation;
 
-        private Image(ByteBuffer b, int w, int h, int t, int fx, int fy, float fn, int dispRotat) {
+        private Image(ByteBuffer b, int w, int h, int t, int fx, int fy, float fn) {
             buffer = b;
             width = w;
             height = h;
@@ -32,7 +31,6 @@ public class Refocuser {
             focusX = fx;
             focusY = fy;
             fNumber = fn;
-            displayRotation = dispRotat;
         }
     }
 
@@ -41,7 +39,6 @@ public class Refocuser {
     public static native int _doRefocus(long handle, float x, float y, float fNumber); // upper left of image is (0, 0)
     public static native void _destroyRefocus(long handle);
     public static native int _saveImage(long handle, String path);
-    public static native byte[] _saveImageToBuffer(long handle);
     /**
      * Return: 0 : is refocus image.
      *        -1 : not mpo image

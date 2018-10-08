@@ -47,7 +47,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.aiwinn.wrapper.FaceSimManager;
 import com.android.gallery3d.app.GalleryActionBar;
 import com.android.gallery3d.app.GalleryApp;
 import com.android.gallery3d.app.GalleryContext;
@@ -55,9 +54,7 @@ import com.android.gallery3d.app.Log;
 import com.android.gallery3d.app.OrientationManager;
 import com.android.gallery3d.app.StateManager;
 import com.android.gallery3d.app.TransitionStore;
-import com.android.gallery3d.util.MediaSetUtils;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.R;
+import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.filtershow.cache.ImageLoader;
@@ -65,10 +62,10 @@ import com.android.gallery3d.ui.GLRoot;
 import com.android.gallery3d.ui.GLRootView;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.PanoramaViewHelper;
-import com.android.gallery3d.common.ApiHelper;
 import com.android.gallery3d.util.ThreadPool;
-import com.freeme.gesturesensor.GestureSensorManger;
 import com.android.photos.data.GalleryBitmapPool;
+import com.freeme.gallery.BuildConfig;
+import com.freeme.gallery.R;
 import com.freeme.provider.GalleryDBManager;
 import com.freeme.scott.galleryui.design.widget.FreemeActionBarUpContainerLayout;
 import com.freeme.scott.galleryui.design.widget.FreemeBottomSelectedView;
@@ -634,7 +631,7 @@ public class AbstractGalleryActivity extends Activity implements GalleryContext,
 
     private void registerGestureSensorListener() {
         try {
-            mSlideByGestureEnable = GestureSensorManger.isGestureSensorEnable(this, GestureSensorManger.FREEME_GESTURE_GALLERY_SLIDE);
+//            mSlideByGestureEnable = GestureSensorManger.isGestureSensorEnable(this, GestureSensorManger.FREEME_GESTURE_GALLERY_SLIDE);
         } catch (Exception e) {
             e.printStackTrace();
         }
