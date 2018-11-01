@@ -87,12 +87,11 @@
                         android:layout_height="fill_parent"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
+                        android:textColor="@color/primary_text_default_freeme_light"
                         android:text="@string/apply_effect"
                         android:textSize="18dip"
                         android:drawableEnd="@drawable/filtershow_menu_marker_rtl"
-                        android:textAllCaps="true"
-
-                        />
+                        android:textAllCaps="true"/>
 
             </LinearLayout>
 
