@@ -47,7 +47,6 @@ import com.android.gallery3d.ui.PreparePageFadeoutTexture;
 import com.android.gallery3d.util.GalleryUtils;
 import com.freeme.gallery.app.AbstractGalleryActivity;
 import com.freeme.page.AlbumStoryPage;
-import com.freeme.utils.FreemeUtils;
 
 abstract public class ActivityState {
     protected static final int FLAG_HIDE_ACTION_BAR = 1;
@@ -200,16 +199,16 @@ abstract public class ActivityState {
                             | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR);
                 } else {
                     win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-                    if (!FreemeUtils.hasNotch()) {
-                        win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-                    }
+//                    if (!FreemeUtils.hasNotch()) {
+//                        win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+//                    }
                 }
                 win.setStatusBarColor(Color.TRANSPARENT);
 
             } else {
 //                win.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-                win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-                        | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+//                win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+//                        | View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
 
                 win.setStatusBarColor(mActivity.getResources().getColor(R.color.theme_title_color));
             }

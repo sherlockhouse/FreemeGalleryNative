@@ -29,13 +29,7 @@ import com.freeme.bigmodel.filter.Origin;
 import com.freeme.gallery.R;
 import com.google.gson.Gson;
 
-import org.apache.http.util.ByteArrayBuffer;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -471,26 +465,26 @@ public class TranslateActivity extends com.freeme.bigmodel.BlockBaseActivity {
         protected String doInBackground(String... params) {
             // TODO Auto-generated method stub
             String myString = "";
-            try {
-                URL uri = new URL(params[0]);
-                URLConnection ucon = uri.openConnection();
-                InputStream is = ucon.getInputStream();
-                BufferedInputStream bis = new BufferedInputStream(is);
-                ByteArrayBuffer baf = new ByteArrayBuffer(100);
-                int current = 0;
-                while ((current = bis.read()) != -1) {
-                    baf.append((byte) current);
-                }
-
-                myString = new String(baf.toByteArray(), "GBK");
-            } catch (Exception e) {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(TranslateActivity.this, getString(R.string.translatefailed), Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
+//            try {
+//                URL uri = new URL(params[0]);
+//                URLConnection ucon = uri.openConnection();
+//                InputStream is = ucon.getInputStream();
+//                BufferedInputStream bis = new BufferedInputStream(is);
+//                ByteArrayBuffer baf = new ByteArrayBuffer(100);
+//                int current = 0;
+//                while ((current = bis.read()) != -1) {
+//                    baf.append((byte) current);
+//                }
+//
+//                myString = new String(baf.toByteArray(), "GBK");
+//            } catch (Exception e) {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Toast.makeText(TranslateActivity.this, getString(R.string.translatefailed), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//            }
 
             return myString;
         }
