@@ -29,7 +29,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.print.PrintHelper;
@@ -37,23 +36,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.android.gallery3d.app.ActivityState;
-import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.R;
-import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.Path;
-import com.freeme.gallery.filtershow.crop.CropActivity;
-import com.android.gallery3d.util.GalleryUtils;
-import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.util.Future;
+import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.ThreadPool.Job;
 import com.android.gallery3d.util.ThreadPool.JobContext;
-import com.android.gallery3d.util.ThreadPool;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
+import com.freeme.gallery.BuildConfig;
+import com.freeme.gallery.R;
+import com.freeme.gallery.app.AbstractGalleryActivity;
+import com.freeme.gallery.filtershow.crop.CropActivity;
 
 import java.util.ArrayList;
 
@@ -440,6 +435,7 @@ public class MenuExecutor {
     public static String getMimeType(int type) {
         switch (type) {
             case MediaObject.MEDIA_TYPE_IMAGE :
+            case MediaObject.MEDIA_TYPE_IMAGE_REFOCUS :
                 return GalleryUtils.MIME_TYPE_IMAGE;
             case MediaObject.MEDIA_TYPE_VIDEO :
                 return GalleryUtils.MIME_TYPE_VIDEO;
