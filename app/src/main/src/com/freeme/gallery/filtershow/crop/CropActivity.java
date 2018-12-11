@@ -63,6 +63,7 @@ import com.android.gallery3d.filtershow.crop.CropExtras;
 import com.android.gallery3d.filtershow.crop.CropMath;
 import com.android.gallery3d.filtershow.crop.CropView;
 import com.android.gallery3d.filtershow.tools.SaveImage;
+import com.android.gallery3d.util.ImageUtils;
 import com.freeme.bigmodel.filter.DecodeSpecLimitor;
 import com.freeme.extern.SaveWallpaper;
 import com.freeme.gallery.R;
@@ -203,7 +204,8 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
         boolean granted = PermissionHelper.checkAndRequestForGallery(this);
         if (granted) {
             if (intent.getData() != null) {
-                mSourceUri = intent.getData();
+                File file = new File(ImageUtils.getImageAbsolutePath(this, intent.getData()));
+                mSourceUri = Uri.fromFile(file);
 //                grantUriPermission("com.freeme.gallery", mSourceUri,
 //                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION // for app lock , it has to regain this permission
 //                        | Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);

@@ -31,10 +31,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +43,6 @@ import android.widget.Toast;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.data.ClusterAlbum;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.LocalImage;
 import com.android.gallery3d.data.MediaDetails;
@@ -53,12 +50,10 @@ import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.MediaSet;
 import com.android.gallery3d.data.Path;
-//import com.android.gallery3d.filtershow.crop.CropActivity;
 import com.android.gallery3d.filtershow.crop.CropExtras;
 import com.android.gallery3d.glrenderer.FadeTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
 import com.android.gallery3d.ui.ActionModeHandler;
-import com.android.gallery3d.ui.ActionModeHandler.ActionModeListener;
 import com.android.gallery3d.ui.AlbumSlotRenderer;
 import com.android.gallery3d.ui.DetailsHelper;
 import com.android.gallery3d.ui.DetailsHelper.CloseListener;
@@ -71,8 +66,6 @@ import com.android.gallery3d.ui.SlotView;
 import com.android.gallery3d.ui.SynchronizedHandler;
 import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.GalleryUtils;
-import com.android.gallery3d.util.MediaSetUtils;
-import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbum;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.data.VisitorAlbum;
@@ -84,24 +77,17 @@ import com.freeme.gallery.app.MovieActivity;
 import com.freeme.gallery.filtershow.crop.CropActivity;
 import com.freeme.jigsaw.app.JigsawEntry;
 import com.freeme.page.AlbumStoryPage;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
+import com.freeme.provider.GalleryStore;
 import com.freeme.ui.manager.State;
-import com.mediatek.gallery3d.layout.FancyHelper;
 import com.mediatek.gallery3d.util.PermissionHelper;
-import com.mediatek.galleryfeature.config.FeatureConfig;
+
+import java.util.ArrayList;
+
+//import com.android.gallery3d.filtershow.crop.CropActivity;
 //import com.mediatek.galleryfeature.platform.PlatformHelper;
-import com.mediatek.galleryframework.base.MediaData;
 /// M: [FEATURE.ADD] Gallery picker plugin @{
 //import com.mediatek.galleryframework.util.GalleryPluginUtils;
 /// @}
-import java.util.ArrayList;
-
-import com.freeme.provider.GalleryStore;
-import com.mediatek.galleryframework.util.DebugUtils;
-
-
-import com.android.gallery3d.app.OrientationManager;
 
 public class AlbumPage extends ActivityState implements GalleryActionBar.ClusterRunner,
         SelectionManager.SelectionListener, MediaSet.SyncListener, GalleryActionBar.OnAlbumModeSelectedListener
@@ -441,9 +427,9 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         if (mSelectionManager.inSelectionMode()) {
             MediaItem item = mAlbumDataAdapter.get(slotIndex);
             if (item == null) return; // Item not ready yet, ignore the click
-            if (!mSubPaths.contains(item.getPath())) {
+//            if (!mSubPaths.contains(item.getPath())) {
                 mSelectionManager.toggle(item.getPath());
-            }
+//            }
             mSlotView.invalidate();
         } else {
             // Render transition in pressed state
@@ -711,12 +697,12 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         }
         mInCameraAndWantQuitOnPause = mInCameraApp;
 
-        //*/ Added by Tyd Linguanrong for secret photos, 2014-2-21
-        if (mVisitorMode || mStorySelectMode) {
-            mSecretMenu.refreshMenu();
-        }
-        //*/
-        getSubMediaPath(mMediaSet);
+//        //*/ Added by Tyd Linguanrong for secret photos, 2014-2-21
+//        if (mVisitorMode || mStorySelectMode) {
+//            mSecretMenu.refreshMenu();
+//        }
+//        //*/
+//        getSubMediaPath(mMediaSet);
 
     }
 
