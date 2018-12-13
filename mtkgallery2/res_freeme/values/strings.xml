@@ -218,4 +218,5 @@
     <string name="aiwin_hint_title">This tech is provide by AIWINN</string>
 
     <string name="hide">hide</string>
+    <string name="reselect">Please reselect operation after permission reset</string>
 </resources>

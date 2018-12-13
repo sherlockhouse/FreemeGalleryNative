@@ -192,4 +192,5 @@
     <string name="aiwin_hint_title">相关技术由 爱华盈通 提供</string>
 
     <string name="hide">隐藏</string>
+    <string name="reselect">应用权限更新后请重新执行操作</string>
 </resources>

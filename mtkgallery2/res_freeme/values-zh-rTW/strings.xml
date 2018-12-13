@@ -194,4 +194,6 @@
     <string name="aiwin_hint_title">相關技術由 愛華盈通 提供</string>
 
     <string name="hide">隱藏</string>
+    <string name="reselect">應用權限更新後請重新執行操作</string>
+
 </resources>

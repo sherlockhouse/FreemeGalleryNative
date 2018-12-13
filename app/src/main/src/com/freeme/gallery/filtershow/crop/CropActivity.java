@@ -92,6 +92,7 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
         View.OnClickListener {
     private static final String LOGTAG = "Gallery2/CropActivity";
     public static final String CROP_ACTION = "com.android.camera.action.CROP";
+    public static final String GOOGLE = "com.google.android.apps.photos";
     private CropExtras mCropExtras = null;
     private LoadBitmapTask mLoadBitmapTask = null;
 
@@ -204,8 +205,11 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
         boolean granted = PermissionHelper.checkAndRequestForGallery(this);
         if (granted) {
             if (intent.getData() != null) {
-                File file = new File(ImageUtils.getImageAbsolutePath(this, intent.getData()));
-                mSourceUri = Uri.fromFile(file);
+                mSourceUri = intent.getData();
+                if (mSourceUri.toString().contains(GOOGLE)) {
+                    File file = new File(ImageUtils.getImageAbsolutePath(this, intent.getData()));
+                    mSourceUri = Uri.fromFile(file);
+                }
 //                grantUriPermission("com.freeme.gallery", mSourceUri,
 //                        Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION // for app lock , it has to regain this permission
 //                        | Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -277,6 +281,10 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == SELECT_PICTURE) {
             mSourceUri = data.getData();
+            if (mSourceUri.toString().contains(GOOGLE)) {
+                File file = new File(ImageUtils.getImageAbsolutePath(this, data.getData()));
+                mSourceUri = Uri.fromFile(file);
+            }
             startLoadBitmap(mSourceUri);
         }
     }
@@ -964,7 +972,13 @@ public class CropActivity extends Activity implements SaveWallpaper.SaveWallPape
             Log.i(LOGTAG, "<onRequestPermissionsResult> all permission granted");
             Intent intent = getIntent();
             if (intent.getData() != null) {
+
                 mSourceUri = intent.getData();
+                if (mSourceUri.toString().contains(GOOGLE)) {
+                    Toast.makeText(this, R.string.reselect, Toast.LENGTH_SHORT).show();
+                    finish();
+                    return;
+                }
                 startLoadBitmap(mSourceUri);
             } else {
                 pickImage();

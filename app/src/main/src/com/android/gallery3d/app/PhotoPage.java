@@ -572,8 +572,8 @@ public abstract class PhotoPage extends ActivityState implements
 
     private void actionShare() {
         Intent shareIntent = createShareIntent(mCurrentPhoto);
-        mActivity.startActivityForResult(FreemeCustomUtils.createCustomChooser(mActivity, shareIntent,
-                mActivity.getResources().getString(R.string.share)), GalleryActivity.CHOOSER_REQUEST_CODE);
+        mActivity.startActivity(FreemeCustomUtils.createCustomChooser(mActivity, shareIntent,
+                mActivity.getResources().getString(R.string.share)));
     }
 
     @TargetApi(ApiHelper.VERSION_CODES.JELLY_BEAN)
