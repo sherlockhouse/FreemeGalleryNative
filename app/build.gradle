@@ -88,10 +88,10 @@ android {
         }
 
         platform {
-            storeFile file("/droi/work/freemeos/FreemeGallery/out/signature/droigallery_platform.jks")
-            storePassword 'zhuoyigallery'
-            keyAlias 'droigallery'
-            keyPassword 'zhuoyigallery'
+            storeFile file("/droi/SDK/extras/freeme/signings/freeme_platform.jks")
+            storePassword 'freeme'
+            keyAlias 'platform'
+            keyPassword 'freeme'
         }
     }
 
@@ -131,23 +131,7 @@ android {
                            'src/main/bigModel/res']
         }
 
-        domestic {
-            java.srcDirs = ['src/domestic/freeme']
-        }
 
-        international {
-            java.srcDirs = ['src/international/freeme']
-            res.srcDirs = ['src/international/res']
-        }
-
-        devOfficial.java.srcDirs = domestic.java.srcDirs
-        devTest.java.srcDirs = domestic.java.srcDirs
-        devInternationalOfficial.java.srcDirs = international.java.srcDirs
-        devInternationalOfficial.res.srcDirs = international.res.srcDirs
-        devInternatinalTest.java.srcDirs = international.java.srcDirs
-        devInternatinalTest.res.srcDirs = international.res.srcDirs
-        freemeos_6_0_native_test.java.srcDirs = domestic.java.srcDirs
-        freemeos_6_0_native.java.srcDirs = domestic.java.srcDirs
     }
 
     productFlavors {
@@ -167,48 +151,7 @@ android {
             buildConfigField BOOLEAN, SUPPORT_PRINT, TRUE
             manifestPlaceholders = META_TEST
         }
-        devInternationalOfficial {
-            // Community official url
-            buildConfigField STRING, COMMUNITY_REQUEST_URL, COMMUNITY_REQUEST_URL_INTERNATIONAL_OFFICIAL
-            // Support print
-            buildConfigField BOOLEAN, SUPPORT_PRINT, FALSE
-            // 是否海外版
-            buildConfigField BOOLEAN, VERSION_FOREIGN, TRUE
-            manifestPlaceholders = META_OFFICIAL
-        }
-        devInternatinalTest {
-            // Community test url
-            buildConfigField STRING, COMMUNITY_REQUEST_URL, COMMUNITY_REQUEST_URL_INTERNATIONAL_TEST
-            // Support print
-            buildConfigField BOOLEAN, SUPPORT_PRINT, TRUE
-            // 是否海外版
-            buildConfigField BOOLEAN, VERSION_FOREIGN, TRUE
-            manifestPlaceholders = META_TEST
-        }
-        freemeos_6_0_native {
-            applicationId cfg_freeme_6_0.applicationId
-            versionCode cfg_freeme_6_0.versionCode
-            versionName cfg_freeme_6_0.versionName
-            // Community official url
-            buildConfigField STRING, COMMUNITY_REQUEST_URL, COMMUNITY_REQUEST_URL_OFFICIAL
-            // Support print
-            buildConfigField BOOLEAN, SUPPORT_PRINT, TRUE
-            buildConfigField BOOLEAN, SUPPORT_LAGACY_FREEMEOS_PLATFORM, TRUE
-            manifestPlaceholders = META_OFFICIAL
-        }
-        freemeos_6_0_native_test {
-            applicationId cfg_freeme_6_0.applicationId
-            versionCode cfg_freeme_6_0.versionCode
-            versionName cfg_freeme_6_0.versionName
-            // Community official url
-            buildConfigField STRING, COMMUNITY_REQUEST_URL, COMMUNITY_REQUEST_URL_TEST
-            // Support print
-            buildConfigField BOOLEAN, SUPPORT_PRINT, TRUE
-            buildConfigField BOOLEAN, SUPPORT_LAGACY_FREEMEOS_PLATFORM, TRUE
-            manifestPlaceholders = META_TEST
-            //add key
-            signingConfig signingConfigs.platform
-        }
+
     }
 
     lintOptions {
@@ -227,24 +170,8 @@ android {
         }
     }
 
-    afterEvaluate {
-        for (variant in android.applicationVariants) {
-            def scope = variant.getVariantData().getScope()
-            String mergeTaskName = scope.getMergeResourcesTask().name
-            def mergeTask = tasks.getByName(mergeTaskName)
-            mergeTask.doLast {
-                copy {
-                    int i=0
-                    from(android.sourceSets.main.res.srcDirs) {
-                        include 'values/public.xml'
-                        rename 'public.xml', (i++ == 0? "public.xml": "public_${i}.xml")
-                    }
-                    into(mergeTask.outputDir)
-                }
-            }
-        }
-    }
-    buildToolsVersion '26.0.2'
+
+    buildToolsVersion '27.0.3'
 }
 
 
@@ -257,13 +184,11 @@ dependencies {
     compile libs['gson']
     devOfficialCompile project(':freemeEC')
     devTestCompile project(':freemeEC')
-    devInternationalOfficialCompile project(':freemeECInternational')
-    devInternatinalTestCompile project(':freemeECInternational')
+
     compile project(':swipemenu')
     compile files('libs/gestureSensor.jar')
     compile project(':freemeabout')
-    freemeos_6_0_nativeCompile project(':freemeEC')
-//    compile 'com.freeme.multimedia:freemeupdate:1.0.10@aar'
+
     compile project(':baas_analytics')
     compile project(':mtkgallery2')
     implementation project(':mtkreflectlib-release')
