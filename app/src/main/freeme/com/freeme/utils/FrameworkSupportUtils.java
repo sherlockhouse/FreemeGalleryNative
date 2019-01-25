@@ -11,7 +11,7 @@ import com.freeme.gallery.R;
 
 public class FrameworkSupportUtils {
     private static final String TAG = "FrameworkSupportUtils";
-    public static final float SCALE_LIMIT = 1;
+    public static final float SCALE_LIMIT = 4;
     public static final float SCALE_MAX_EXTRA = 1.5f;
     private static String support_refocus_prop = "ro.freeme.sprd.refocus";
     private static boolean canRefocus = false;
