@@ -25,13 +25,12 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.widget.Scroller;
 
-import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.ui.PhotoView.Size;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.RangeArray;
 import com.android.gallery3d.util.RangeIntArray;
-
+import com.freeme.utils.FrameworkSupportUtils;
 import com.mediatek.gallery3d.util.Log;
 import com.mediatek.galleryframework.base.MediaData;
 
@@ -89,12 +88,12 @@ public class PositionController {
 
     // We try to scale up the image to fill the screen. But in order not to
     // scale too much for small icons, we limit the max up-scaling factor here.
-    private static final float SCALE_LIMIT = 4;
+    private static final float SCALE_LIMIT = FrameworkSupportUtils.getSCaleLimit();
 
     // For user's gestures, we give a temporary extra scaling range which goes
     // above or below the usual scaling limits.
     private static final float SCALE_MIN_EXTRA = 0.7f;
-    private static final float SCALE_MAX_EXTRA = 1.4f;
+    private static final float SCALE_MAX_EXTRA = FrameworkSupportUtils.getScaleMaxExtra();
 
     // Setting this true makes the extra scaling range permanent (until this is
     // set to false again).
