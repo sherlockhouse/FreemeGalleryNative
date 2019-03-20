@@ -92,6 +92,14 @@ public final class FreemeUtils {
         return dm.heightPixels;
     }
 
+    @SuppressLint("NewApi")
+    public static int getRealWidth(Context context) {
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics dm = new DisplayMetrics();
+        wm.getDefaultDisplay().getRealMetrics(dm);
+        return dm.widthPixels;
+    }
+
     public static void playVideo(Activity activity, Uri uri, String mimeType, String title) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW)

@@ -20,6 +20,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import com.freeme.utils.FreemeUtils;
+
 import junit.framework.Assert;
 
 // ResourceTexture is a texture whose Bitmap is decoded from a resource.
@@ -40,8 +42,14 @@ public class ResourceTexture extends UploadedTexture {
     protected Bitmap onGetBitmap() {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
-        return BitmapFactory.decodeResource(
+        Bitmap bitmap = BitmapFactory.decodeResource(
                 mContext.getResources(), mResId, options);
+        int screenWidth = FreemeUtils.getRealWidth(mContext);
+        if (bitmap.getWidth() > screenWidth) {
+            return Bitmap.createScaledBitmap(bitmap, screenWidth, bitmap.getHeight() * screenWidth / bitmap.getWidth(), false);
+        } else {
+            return bitmap;
+        }
     }
 
     @Override
