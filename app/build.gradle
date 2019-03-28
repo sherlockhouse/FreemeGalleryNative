@@ -77,6 +77,9 @@ android {
         buildConfigField BOOLEAN, VERSION_FOREIGN, FALSE
 
         flavorDimensions "versionCode"
+        ndk {
+            abiFilters 'armeabi-v7a'
+        }
     }
 
     signingConfigs {
@@ -177,14 +180,13 @@ android {
 
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile libs['appcompat-v7']
     compile libs['support-v4']
     compile libs["greendao"]
     compile libs['gson']
-    devOfficialCompile project(':freemeEC')
-    devTestCompile project(':freemeEC')
-
+    devOfficialImplementation project(':freemeEC')
+    devTestImplementation project(':freemeEC')
     compile project(':swipemenu')
     compile files('libs/gestureSensor.jar')
     compile project(':freemeabout')
@@ -195,5 +197,5 @@ dependencies {
     compile 'com.facebook.stetho:stetho:1.5.0'
     compile 'com.facebook.stetho:stetho-okhttp:1.5.0'
     compile project(':freeme-support-design')
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.android.support:multidex:1.0.1'
 }

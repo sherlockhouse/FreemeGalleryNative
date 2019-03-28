@@ -418,17 +418,17 @@
             <meta-data android:name="android.appwidget.provider"
                     android:resource="@xml/widget_info" />
         </receiver>
-        <receiver android:name=".app.PackagesMonitor">
-            <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
-                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
-                <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+        <!--<receiver android:name=".app.PackagesMonitor">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.PACKAGE_ADDED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_REMOVED"/>-->
+                <!--<action android:name="android.intent.action.PACKAGE_CHANGED"/>-->
 
-                <data android:scheme="package"/>
-            </intent-filter>
-        </receiver>
+                <!--<data android:scheme="package"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <service android:name=".app.PackagesMonitor$AsyncService"/>
+        <!--<service android:name=".app.PackagesMonitor$AsyncService"/>-->
          <!--MTK_MODIFY android:process=":WidgetService" for MediaFilterSetting-->
         <service android:name=".gadget.WidgetService"
                 android:permission="android.permission.BIND_REMOTEVIEWS"

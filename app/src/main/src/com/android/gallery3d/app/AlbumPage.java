@@ -28,10 +28,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
 import android.view.HapticFeedbackConstants;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,7 +42,6 @@ import android.widget.Toast;
 
 import com.android.gallery3d.R;
 import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.data.ClusterAlbum;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.LocalImage;
 import com.android.gallery3d.data.MediaDetails;
@@ -50,15 +49,12 @@ import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.MediaSet;
 import com.android.gallery3d.data.Path;
-//import com.android.gallery3d.filtershow.crop.CropActivity;
 import com.android.gallery3d.filtershow.crop.CropExtras;
 import com.android.gallery3d.glrenderer.FadeTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
 import com.android.gallery3d.ui.ActionModeHandler;
-import com.android.gallery3d.ui.ActionModeHandler.ActionModeListener;
 import com.android.gallery3d.ui.AlbumSlotRenderer;
 import com.android.gallery3d.ui.DetailsHelper;
-import com.android.gallery3d.ui.DetailsHelper.CloseListener;
 import com.android.gallery3d.ui.GLRoot;
 import com.android.gallery3d.ui.GLView;
 import com.android.gallery3d.ui.PhotoFallbackEffect;
@@ -68,8 +64,6 @@ import com.android.gallery3d.ui.SlotView;
 import com.android.gallery3d.ui.SynchronizedHandler;
 import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.GalleryUtils;
-import com.android.gallery3d.util.MediaSetUtils;
-import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbum;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.data.VisitorAlbum;
@@ -80,19 +74,16 @@ import com.freeme.gallery.app.MovieActivity;
 import com.freeme.gallery.filtershow.crop.CropActivity;
 import com.freeme.jigsaw.app.JigsawEntry;
 import com.freeme.page.AlbumStoryPage;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
-import com.mediatek.gallery3d.layout.FancyHelper;
+import com.freeme.provider.GalleryStore;
 import com.mediatek.gallery3d.util.PermissionHelper;
-import com.mediatek.galleryfeature.config.FeatureConfig;
+
+import java.util.ArrayList;
+
+//import com.android.gallery3d.filtershow.crop.CropActivity;
 //import com.mediatek.galleryfeature.platform.PlatformHelper;
-import com.mediatek.galleryframework.base.MediaData;
 /// M: [FEATURE.ADD] Gallery picker plugin @{
 //import com.mediatek.galleryframework.util.GalleryPluginUtils;
 /// @}
-import java.util.ArrayList;
-
-import com.freeme.provider.GalleryStore;
 public class AlbumPage extends ActivityState implements GalleryActionBar.ClusterRunner,
         SelectionManager.SelectionListener, MediaSet.SyncListener, GalleryActionBar.OnAlbumModeSelectedListener
         , SecretMenuHandler.MenuListener {
@@ -170,28 +161,36 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
     // Added by TYD Theobald_Wu on 2014/01 [begin] for jigsaw feature
     private boolean mJigsawPicker;
     // Added by TYD Theobald_Wu on 2014/01 [end]
+ private PhotoFallbackEffect.PositionProvider mPositionProvider =
+            new PhotoFallbackEffect.PositionProvider() {
+        @Override
+        public Rect getPosition(int index) {
+            Rect rect = mSlotView.getSlotRect(index);
+            Rect bounds = mSlotView.bounds();
+            rect.offset(bounds.left - mSlotView.getScrollX(),
+                    bounds.top - mSlotView.getScrollY());
+            return rect;
+        }
+
+        @Override
+        public int getItemIndex(Path path) {
+            int start = mSlotView.getVisibleStart();
+            int end = mSlotView.getVisibleEnd();
+            for (int i = start; i < end; ++i) {
+                MediaItem item = mAlbumDataAdapter.get(i);
+                if (item != null && item.getPath() == path) return i;
+            }
+            return -1;
+        }
+    };
+
+    @Override
+    protected int getBackgroundColorId() {
+        return R.color.album_background;
+    }
     private final GLView mRootPane = new GLView() {
         private final float mMatrix[] = new float[16];
 
-        @Override
-        protected void render(GLCanvas canvas) {
-            canvas.save(GLCanvas.SAVE_FLAG_MATRIX);
-            canvas.multiplyMatrix(mMatrix, 0);
-            super.render(canvas);
-
-            if (mResumeEffect != null) {
-                boolean more = mResumeEffect.draw(canvas);
-                if (!more) {
-                    mResumeEffect = null;
-                    mAlbumView.setSlotFilter(null);
-                }
-                // We want to render one more time even when no more effect
-                // required. So that the animated thumbnails could be draw
-                // with declarations in super.render().
-                invalidate();
-            }
-            canvas.restore();
-        }
 
         @Override
         protected void onLayout(
@@ -229,36 +228,27 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
             GalleryUtils.setViewPointMatrix(mMatrix,
                     (right - left) / 2, (bottom - top) / 2, -mUserDistance);
         }
-    };
-    private PhotoFallbackEffect.PositionProvider mPositionProvider =
-            new PhotoFallbackEffect.PositionProvider() {
-        @Override
-        public Rect getPosition(int index) {
-            Rect rect = mSlotView.getSlotRect(index);
-            Rect bounds = mSlotView.bounds();
-            rect.offset(bounds.left - mSlotView.getScrollX(),
-                    bounds.top - mSlotView.getScrollY());
-            return rect;
-        }
 
         @Override
-        public int getItemIndex(Path path) {
-            int start = mSlotView.getVisibleStart();
-            int end = mSlotView.getVisibleEnd();
-            for (int i = start; i < end; ++i) {
-                MediaItem item = mAlbumDataAdapter.get(i);
-                if (item != null && item.getPath() == path) return i;
+        protected void render(GLCanvas canvas) {
+            canvas.save(GLCanvas.SAVE_FLAG_MATRIX);
+            canvas.multiplyMatrix(mMatrix, 0);
+            super.render(canvas);
+
+            if (mResumeEffect != null) {
+                boolean more = mResumeEffect.draw(canvas);
+                if (!more) {
+                    mResumeEffect = null;
+                    mAlbumView.setSlotFilter(null);
+                }
+                // We want to render one more time even when no more effect
+                // required. So that the animated thumbnails could be draw
+                // with declarations in super.render().
+                invalidate();
             }
-            return -1;
+            canvas.restore();
         }
     };
-
-    @Override
-    protected int getBackgroundColorId() {
-        return R.color.album_background;
-    }
-
-
 
     //*/ Added by Tyd Linguanrong for secret photos, 2014-2-17
     @Override
@@ -310,33 +300,7 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         }
     }
 
-    @Override
-    public void onButtonClicked(int id) {
-        switch (id) {
-            case R.id.btn_confirm:
-                GLRoot root = mActivity.getGLRoot();
-                root.lockRenderThread();
-                //*/ Modified by Linguanrong for story album, 2015-5-28
-                if (mVisitorMode) {
-                    handleVisitor();
-                } else if (mStorySelectMode) {
-                    handleStoryImages();
-                }
-                //*/
-                root.unlockRenderThread();
-                break;
 
-            case R.id.btn_cancel:
-                root = mActivity.getGLRoot();
-                root.lockRenderThread();
-                if (mSelectionManager.inSelectionMode()) {
-                    mStoryActionType = 0;
-                    mSelectionManager.leaveSelectionMode();
-                }
-                root.unlockRenderThread();
-                break;
-        }
-    }
 
     private void onUpPressed() {
 
@@ -385,76 +349,12 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
             }
     }
 
-    private void handleVisitor() {
-        ArrayList<Path> path = mSelectionManager.getSelected(false);
-        if (mIsSecretImages) {
-            /*/ Disabled by Linguanrong for story album, 2015-6-4
-            MediaItem item;
-            for(int i = 0; i < mSelectionManager.getSelectedCount(); i++) {
-                item = mAlbumDataAdapter.getItem(mAlbumDataAdapter.findItem(path.get(i)));
-                if(item != null && item.isContainer() && item.isConShot()) {
-                    setPrepareConShots(item.getRelatedMediaSet());
-                    VisitorAlbum.addVisitorImage(mActivity.getAndroidContext().getContentResolver(),
-                        mSelectionManager.getPrepared());
-                }
-            }
-            //*/
-
-            VisitorAlbum.addVisitorImage(mActivity.getAndroidContext().getContentResolver(), path);
-        } else {
-            VisitorAlbumVideo.addVisitorVideo(mActivity.getAndroidContext().getContentResolver(), path);
-        }
-
-        mSelectionManager.leaveSelectionMode();
-    }
 
     private void onDown(int index) {
         mAlbumView.setPressedIndex(index);
     }
 
-    //*/ Added by Linguanrong for story album, 2015-4-9
-    private void handleStoryImages() {
-        ArrayList<Path> path = mSelectionManager.getSelected(false);
-        ArrayList<Path> videoPath = new ArrayList<Path>();
-        MediaItem item;
-        int id;
 
-        for (int i = 0; i < mSelectionManager.getSelectedCount(); i++) {
-            id = Math.max(0, mAlbumDataAdapter.findItem(path.get(i)));
-            item = mAlbumDataAdapter.getItem(id);
-            if (item != null && item.getMediaType() == MediaObject.MEDIA_TYPE_VIDEO) {
-                videoPath.add(path.get(i));
-            }
-        }
-
-        if (videoPath.size() > 0) {
-            for (int i = 0; i < videoPath.size(); i++) {
-                path.remove(videoPath.get(i));
-            }
-            StoryAlbum.addStoryImage(mActivity.getAndroidContext().getContentResolver(),
-                    videoPath, mStoryBucketId, false);
-        }
-
-        StoryAlbum.addStoryImage(mActivity.getAndroidContext().getContentResolver(),
-                path, mStoryBucketId, true);
-
-        mStoryActionType = 1;
-
-        mSelectionManager.leaveSelectionMode();
-
-        //*/ Added by tyd Linguanrong for statistic, 15-12-18
-        if(mStoryBucketId == StoryAlbumSet.ALBUM_LOVE_ID
-                || mStoryBucketId == StoryAlbumSet.ALBUM_BABY_ID) {
-            boolean baby = mStoryBucketId == StoryAlbumSet.ALBUM_BABY_ID;
-//            StatisticUtil.generateStatisticInfo(mActivity,
-//                    baby ? StatisticData.OPTION_BABY_ADD : StatisticData.OPTION_LOVE_ADD);
-
-            // for baas analytics
-//            DroiAnalytics.onEvent(mActivity,
-//                    baby ? StatisticData.OPTION_BABY_ADD : StatisticData.OPTION_LOVE_ADD);
-        }
-        //*/
-    }
 
     private void onUp(boolean followedByLongPress) {
         if (followedByLongPress) {
@@ -478,10 +378,9 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         //mSelectionManager.setPrepared(conshot);
     }
 
-    ArrayList<Path> mSubPaths;
+    ArrayList<Path> mSubPaths = new ArrayList<Path>();
 
     public void getSubMediaPath(MediaSet mediaset) {
-        mSubPaths = new ArrayList<Path>();
         int total = mediaset.getMediaItemCount();
 
         ArrayList<MediaItem> list = mediaset.getMediaItem(0, total);
@@ -489,11 +388,10 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
             Path id = item.getPath();
             if (StoryAlbum.isPathAdded(mActivity.getAndroidContext().getContentResolver(), id,
                     mStoryBucketId, true)) {
-                mSelectionManager.toggle(id);
+
                 mSubPaths.add(id);
             }
         }
-        mSelectionManager.setSelectedPaths(mSubPaths);
     }
 
     private void onSingleTapUp(int slotIndex) {
@@ -648,7 +546,9 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         } else {
             pickPhoto(targetPhoto, true);
         }
-    }    @Override
+    }
+
+    @Override
     protected void onCreate(Bundle data, Bundle restoreState) {
         super.onCreate(data, restoreState);
         mUserDistance = GalleryUtils.meterToPixel(USER_DISTANCE_METER);
@@ -753,10 +653,9 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         //*/ Added by Tyd Linguanrong for secret photos, 2014-2-21
         if (mVisitorMode || mStorySelectMode) {
             mSecretMenu.refreshMenu();
+            new getSubMediaTask().execute(mMediaSet);
         }
         //*/
-        getSubMediaPath(mMediaSet);
-
     }
 
 
@@ -869,6 +768,8 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         mAlbumDataAdapter = new AlbumDataLoader(mActivity, mMediaSet);
         mAlbumDataAdapter.setLoadingListener(new MyLoadingListener());
         mAlbumView.setModel(mAlbumDataAdapter);
+        mSlotView.setSlotRenderer(mAlbumView);
+
     }
 
     private void showDetails() {
@@ -1066,7 +967,9 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
                 break;
             }
         }
-    }    private void pickPhoto(int slotIndex) {
+    }
+
+    private void pickPhoto(int slotIndex) {
         pickPhoto(slotIndex, false);
     }
 
@@ -1104,7 +1007,7 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
                 }
             }
         });
-    } 
+    }
     private void setLoadingBit(int loadTaskBit) {
         mLoadingBits |= loadTaskBit;
     }
@@ -1162,7 +1065,7 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
                 return null;
             }
         }
-    } 
+    }
     //********************************************************************
     //*                              MTK                                 *
     //********************************************************************
@@ -1241,4 +1144,124 @@ public class AlbumPage extends ActivityState implements GalleryActionBar.Cluster
         }
     }
     /// @}
+
+    @Override
+    public void onButtonClicked(int id) {
+        switch (id) {
+            case R.id.btn_confirm:
+                GLRoot root = mActivity.getGLRoot();
+                root.lockRenderThread();
+                //*/ Modified by Linguanrong for story album, 2015-5-28
+                if (mVisitorMode) {
+                    handleVisitor();
+                } else if (mStorySelectMode) {
+                    handleStoryImages();
+                }
+                //*/
+                root.unlockRenderThread();
+                break;
+
+            case R.id.btn_cancel:
+                root = mActivity.getGLRoot();
+                root.lockRenderThread();
+                if (mSelectionManager.inSelectionMode()) {
+                    mStoryActionType = 0;
+                    mSelectionManager.leaveSelectionMode();
+                }
+                root.unlockRenderThread();
+                break;
+        }
+    }
+
+    private void handleVisitor() {
+        ArrayList<Path> path = mSelectionManager.getSelected(false);
+        if (mIsSecretImages) {
+            /*/ Disabled by Linguanrong for story album, 2015-6-4
+            MediaItem item;
+            for(int i = 0; i < mSelectionManager.getSelectedCount(); i++) {
+                item = mAlbumDataAdapter.getItem(mAlbumDataAdapter.findItem(path.get(i)));
+                if(item != null && item.isContainer() && item.isConShot()) {
+                    setPrepareConShots(item.getRelatedMediaSet());
+                    VisitorAlbum.addVisitorImage(mActivity.getAndroidContext().getContentResolver(),
+                        mSelectionManager.getPrepared());
+                }
+            }
+            //*/
+
+            VisitorAlbum.addVisitorImage(mActivity.getAndroidContext().getContentResolver(), path);
+        } else {
+            VisitorAlbumVideo.addVisitorVideo(mActivity.getAndroidContext().getContentResolver(), path);
+        }
+
+        mSelectionManager.leaveSelectionMode();
+    }
+
+    //*/ Added by Linguanrong for story album, 2015-4-9
+    private void handleStoryImages() {
+        ArrayList<Path> path = mSelectionManager.getSelected(false);
+        ArrayList<Path> videoPath = new ArrayList<Path>();
+        MediaItem item;
+        int id;
+
+        for (int i = 0; i < mSelectionManager.getSelectedCount(); i++) {
+            id = Math.max(0, mAlbumDataAdapter.findItem(path.get(i)));
+            item = mAlbumDataAdapter.getItem(id);
+            if (item != null && item.getMediaType() == MediaObject.MEDIA_TYPE_VIDEO) {
+                videoPath.add(path.get(i));
+            }
+        }
+
+        if (videoPath.size() > 0) {
+            for (int i = 0; i < videoPath.size(); i++) {
+                path.remove(videoPath.get(i));
+            }
+            StoryAlbum.addStoryImage(mActivity.getAndroidContext().getContentResolver(),
+                    videoPath, mStoryBucketId, false);
+        }
+
+        StoryAlbum.addStoryImage(mActivity.getAndroidContext().getContentResolver(),
+                path, mStoryBucketId, true);
+
+        mStoryActionType = 1;
+
+        mSelectionManager.leaveSelectionMode();
+
+        //*/ Added by tyd Linguanrong for statistic, 15-12-18
+        if(mStoryBucketId == StoryAlbumSet.ALBUM_LOVE_ID
+                || mStoryBucketId == StoryAlbumSet.ALBUM_BABY_ID) {
+            boolean baby = mStoryBucketId == StoryAlbumSet.ALBUM_BABY_ID;
+        }
+        //*/
+    }
+
+    class getSubMediaTask extends AsyncTask<MediaSet, Path, Void> {
+
+        @Override
+        protected Void doInBackground(MediaSet... mediaSets) {
+            int total = mediaSets[0].getMediaItemCount();
+
+            ArrayList<MediaItem> list = mediaSets[0].getMediaItem(0, total);
+            for (MediaItem item : list) {
+                Path id = item.getPath();
+                if (StoryAlbum.isPathAdded(mActivity.getAndroidContext().getContentResolver(),
+                        id, mStoryBucketId, true)) {
+                    mSubPaths.add(id);
+                    publishProgress(id);
+                }
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Path... paths) {
+            mSelectionManager.setSelected(paths[0]);
+            mSlotView.invalidate();
+        }
+
+        @Override
+        protected void onPostExecute(Void unused) {
+            mSelectionManager.setSelectedPaths(mSubPaths);
+        }
+
+    }
 }

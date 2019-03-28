@@ -34,11 +34,12 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
 import android.database.ContentObserver;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.provider.Settings;
 import android.view.InputDevice;
 import android.view.MotionEvent;
@@ -47,8 +48,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.gallery3d.app.ActivityState;
@@ -60,13 +59,7 @@ import com.android.gallery3d.app.PhotoPage;
 import com.android.gallery3d.app.SinglePhotoPage;
 import com.android.gallery3d.app.SlideshowPage;
 import com.android.gallery3d.app.StateManager;
-import com.android.gallery3d.ui.SurfaceTextureScreenNail;
-import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.data.StoryAlbumSet;
-import com.freeme.data.VisitorAlbum;
-import com.freeme.data.VisitorAlbumVideo;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.R;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
 import com.android.gallery3d.data.MediaSet;
@@ -74,25 +67,22 @@ import com.android.gallery3d.data.Path;
 import com.android.gallery3d.gadget.WidgetUtils;
 import com.android.gallery3d.picasasource.PicasaSource;
 import com.android.gallery3d.util.GalleryUtils;
-
-import com.freeme.provider.GalleryDBManager;
-import com.freeme.provider.GalleryStore;
-import com.freeme.provider.MediaStoreImporter;
-import com.freeme.utils.FrameworkSupportUtils;
-import com.freeme.utils.SystemPropertiesProxy;
-import com.mediatek.gallery3d.adapter.FeatureHelper;
-import com.mediatek.gallery3d.util.PermissionHelper;
-import com.mediatek.gallery3d.util.TraceHelper;
-import com.mediatek.galleryfeature.config.FeatureConfig;
-import com.android.gallery3d.common.Utils;
+import com.freeme.data.StoryAlbumSet;
+import com.freeme.data.VisitorAlbum;
+import com.freeme.data.VisitorAlbumVideo;
+import com.freeme.gallery.BuildConfig;
+import com.freeme.gallery.R;
 import com.freeme.page.AlbumCameraPage;
 import com.freeme.page.AlbumStorySetPage;
 import com.freeme.page.AlbumTimeShaftPage;
 import com.freeme.page.AlbumVisitorPage;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
+import com.freeme.provider.GalleryDBManager;
+import com.freeme.provider.MediaStoreImporter;
 import com.freeme.utils.FreemeUtils;
 import com.freeme.utils.LogcatHelper;
+import com.mediatek.gallery3d.adapter.FeatureHelper;
+import com.mediatek.gallery3d.util.PermissionHelper;
+import com.mediatek.gallery3d.util.TraceHelper;
 import com.mediatek.galleryframework.base.MediaFilter;
 import com.mediatek.galleryframework.base.MediaFilterSetting;
 
@@ -180,7 +170,10 @@ public final class GalleryActivity extends AbstractGalleryActivity implements On
         if (mGranted) {
 
             MediaStoreImporter.getInstance().setmResolver(this.getContentResolver());
-            new Handler().post(new Runnable() {
+            HandlerThread handlerThread = new HandlerThread("background-handler");
+            handlerThread.start();
+            Looper looper = handlerThread.getLooper();
+            new Handler(looper).post(new Runnable() {
                 @Override
                 public void run() {
                     MediaStoreImporter.getInstance().deleteFiles();

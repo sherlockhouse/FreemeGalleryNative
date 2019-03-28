@@ -554,8 +554,4 @@ public class AlbumSetSlidingWindow implements AlbumSetDataLoader.DataListener {
 
         void onContentChanged();
     }
-
-
-
- 
 }

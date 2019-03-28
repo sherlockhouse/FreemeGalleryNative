@@ -22,18 +22,16 @@
 package com.android.gallery3d.ui;
 
 import android.os.Handler;
-import com.freeme.gallery.app.AbstractGalleryActivity;
+
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaItem;
-import com.android.gallery3d.data.MediaObject;
 import com.android.gallery3d.data.MediaSet;
 import com.android.gallery3d.data.Path;
 import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.FutureListener;
 import com.android.gallery3d.util.ThreadPool.Job;
 import com.android.gallery3d.util.ThreadPool.JobContext;
-
-import com.mediatek.galleryframework.base.MediaData;
+import com.freeme.gallery.app.AbstractGalleryActivity;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -210,6 +208,14 @@ public class SelectionManager {
         if (count == 0 && mAutoLeave) {
             leaveSelectionMode();
         }
+    }
+
+    public void setSelected(Path path) {
+        if (!mClickedSet.contains(path)) {
+            enterSelectionMode();
+            mClickedSet.add(path);
+        }
+        if (mListener != null) mListener.onSelectionChange(path, true);
     }
 
     private static boolean expandMediaSet(ArrayList<Path> items, MediaSet set, int maxSelection) {

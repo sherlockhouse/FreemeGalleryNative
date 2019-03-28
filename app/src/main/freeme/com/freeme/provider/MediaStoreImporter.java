@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.provider.BaseColumns;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.freeme.utils.LogUtil;
 
@@ -59,16 +58,21 @@ public class MediaStoreImporter {
 
         Cursor cursor = mResolver.query(MediaStore.Files.getContentUri("external"),
                 GalleryStore.PROJECTION, where, null, null);
-
+        LogUtil.i("import Data cursor count" , "" + cursor.getCount());
+        //todo store cursor count to compare story count aialbum; cursor count - story count
         if (cursor != null && cursor.moveToFirst()) {
             for (int i = 0; i < cursor.getCount(); i++) {
                 long _id = cursor.getLong(0);
                 GalleryFiles galleryFiles = getGalleryFiles(_id);
                 setGalleryFile(galleryFiles, cursor, _id);
-                if (containIds.contains(_id)) {
-                    updateFilesList.add(galleryFiles);
-                } else {
-                    addFilesList.add(galleryFiles);
+                if(galleryFiles.getMime_type() != null) {
+                    if (containIds.contains(_id)) {
+                        updateFilesList.add(galleryFiles);
+                    } else {
+                        addFilesList.add(galleryFiles);
+                    }
+                }else{
+                    galleryFilesDao.delete(galleryFiles);
                 }
                 cursor.moveToNext();
             }
@@ -82,6 +86,8 @@ public class MediaStoreImporter {
             LogUtil.i("SQLiteConstraintException : " + e);
         }
         galleryFilesDao.updateInTx(updateFilesList);
+
+
     }
 
     private List<Long> getContainIds() {
@@ -258,9 +264,11 @@ public class MediaStoreImporter {
             long _id = cursor.getLong(0);
             if (!containIds.contains(_id)) {
                 GalleryFiles galleryFiles = getGalleryFiles(_id);
-                setGalleryFile(galleryFiles, cursor, _id);
-                galleryFilesDao.insertInTx(galleryFiles);
-                notifyUriChange(type);
+                if(galleryFiles.getMime_type() != null) {
+                    setGalleryFile(galleryFiles, cursor, _id);
+                    galleryFilesDao.insertInTx(galleryFiles);
+                    notifyUriChange(type);
+                }
             } else {
                 updateFiles(type);
             }

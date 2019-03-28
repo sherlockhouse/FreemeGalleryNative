@@ -26,19 +26,23 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 import android.util.DisplayMetrics;
 import android.view.HapticFeedbackConstants;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.gallery3d.R;
@@ -52,8 +56,6 @@ import com.android.gallery3d.data.MediaSet;
 import com.android.gallery3d.data.Path;
 import com.android.gallery3d.glrenderer.FadeTexture;
 import com.android.gallery3d.glrenderer.GLCanvas;
-import com.android.gallery3d.picasasource.PicasaSource;
-//import com.android.gallery3d.settings.GallerySettings;
 import com.android.gallery3d.ui.ActionModeHandler;
 import com.android.gallery3d.ui.ActionModeHandler.ActionModeListener;
 import com.android.gallery3d.ui.AlbumSetSlotRenderer;
@@ -67,25 +69,9 @@ import com.android.gallery3d.ui.SynchronizedHandler;
 import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.HelpUtils;
-
-import com.freeme.gallery.app.AbstractGalleryActivity;
-import com.freeme.utils.FrameworkSupportUtils;
-import com.mediatek.gallery3d.layout.FancyHelper;
-import com.mediatek.gallery3d.layout.Layout.DataChangeListener;
-import com.mediatek.gallery3d.util.PermissionHelper;
-
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-
-import android.widget.TextView;
-import android.view.LayoutInflater;
-import com.droi.sdk.analytics.DroiAnalytics;
 import com.freeme.data.StoryAlbumSet;
 import com.freeme.extern.HideModeHandler;
 import com.freeme.extern.IBucketAlbum;
-import android.graphics.drawable.Drawable;
-import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.util.Future;
 import com.freeme.gallery.app.AlbumPicker;
 import com.freeme.gallery.app.GalleryActivity;
 import com.freeme.jigsaw.app.JigsawEntry;
@@ -93,12 +79,14 @@ import com.freeme.page.AlbumCameraPage;
 import com.freeme.page.AlbumStorySetPage;
 import com.freeme.page.AlbumTimeShaftPage;
 import com.freeme.settings.GallerySettings;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
+import com.freeme.utils.FrameworkSupportUtils;
 import com.freeme.utils.FreemeUtils;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
+import com.mediatek.gallery3d.util.PermissionHelper;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+
+//import com.android.gallery3d.settings.GallerySettings;
 
 
 
@@ -317,6 +305,7 @@ public class AlbumSetPage extends ActivityState implements
     @Override
     public void onSelectionChange(Path path, boolean selected) {
         mActionModeHandler.setTitle(getSelectedString());
+
         mActionModeHandler.updateSupportedOperation(path, selected);
         //*/ Added by xueweili for change title when select hide , 2015-7-23
         if (mIsHideAlbumSet) {
@@ -613,7 +602,7 @@ public class AlbumSetPage extends ActivityState implements
         /// @}
         mEyePosition = new EyePosition(mActivity.getAndroidContext(), this);
         mDetailsSource = new MyDetailsSource();
-        if (mGetContent) {
+        if (mGetContent || mGetAlbum) {
             mActionBar = mActivity.getGalleryActionBarWithoutTap();
         } else {
             mActionBar = mActivity.getGalleryActionBar();
@@ -662,7 +651,7 @@ public class AlbumSetPage extends ActivityState implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-mDestroyed = true;
+        mDestroyed = true;
         /*/ Added by droi Linguanrong for lock orientation, 16-3-1
         mOrientationManager.unlockOrientation();
         //*/
@@ -727,7 +716,7 @@ mDestroyed = true;
         }
         //*/
     }
-volatile boolean mDestroyed = false;
+    volatile boolean mDestroyed = false;
     private void hideCameraButton() {
         if (mEmptyView == null) return;
         mEmptyView.setVisibility(View.GONE);
@@ -819,6 +808,7 @@ volatile boolean mDestroyed = false;
             mActivity.mIsSelectionMode = mSelectionManager != null && mSelectionManager.inSelectionMode();
             //*/
         }
+
         //*/
         mAlbumSetDataAdapter.pause();
         mAlbumSetView.pause();
@@ -1255,7 +1245,7 @@ volatile boolean mDestroyed = false;
                         hideCameraButton();
                     }
                 }
-            }, 50);
+            }, 500);
             boolean inSelectionMode = (mSelectionManager != null && mSelectionManager
                     .inSelectionMode());
             int setCount = mMediaSet != null ? mMediaSet.getSubMediaSetCount() : 0;
