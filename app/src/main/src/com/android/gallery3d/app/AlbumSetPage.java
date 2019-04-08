@@ -198,6 +198,10 @@ public class AlbumSetPage extends ActivityState implements
             /*/
             int slotViewLeft = left + mConfig.paddingLeftRight;
             int slotViewRight = right - left - mConfig.paddingLeftRight;
+
+            if (FreemeUtils.hasNotch()) {
+                slotViewTop += FreemeUtils.getNotchHeight() - mActivity.mStatusBarHeight;
+            }
             //*/
 
             // Added by TYD Theobald_Wu on 2014/01 [begin] for jigsaw feature

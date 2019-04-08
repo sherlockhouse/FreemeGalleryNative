@@ -155,6 +155,10 @@ public class AlbumTimeShaftPage extends ActivityState implements GalleryActionBa
             int slotViewBottom = bottom - top;
             int slotViewRight = right - left;
 
+            if (FreemeUtils.hasNotch()) {
+                slotViewTop += FreemeUtils.getNotchHeight() - mActivity.mStatusBarHeight;
+            }
+
             if (mShowDetails) {
                 mDetailsHelper.layout(left, slotViewTop, right, bottom);
             } else {

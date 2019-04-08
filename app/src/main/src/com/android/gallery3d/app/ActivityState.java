@@ -48,6 +48,7 @@ import com.android.gallery3d.util.GalleryUtils;
 import com.freeme.gallery.app.AbstractGalleryActivity;
 import com.freeme.gallery.app.GalleryActivity;
 import com.freeme.page.AlbumStoryPage;
+import com.freeme.utils.FreemeUtils;
 
 abstract public class ActivityState {
     protected static final int FLAG_HIDE_ACTION_BAR = 1;
@@ -193,7 +194,10 @@ abstract public class ActivityState {
             //*/ Added by Linguanrong for story album, 2015-08-05
             if (topState instanceof AlbumStoryPage) {
                 win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-                win.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+                if (!FreemeUtils.hasNotch()) {
+                    win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                }
                 win.setStatusBarColor(Color.TRANSPARENT);
             } else {
                 win.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);

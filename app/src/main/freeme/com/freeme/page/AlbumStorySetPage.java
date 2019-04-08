@@ -55,23 +55,16 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.droi.sdk.analytics.DroiAnalytics;
-import com.freeme.data.StoryAlbum;
-import com.freeme.data.StoryAlbumSet;
-import com.freeme.data.StoryMergeAlbum;
-import com.freeme.gallery.BuildConfig;
-import com.freeme.gallery.R;
 import com.android.gallery3d.app.ActivityState;
 import com.android.gallery3d.app.AlbumPage;
-import com.freeme.gallery.app.AlbumPicker;
 import com.android.gallery3d.app.AlbumSetDataLoader;
 import com.android.gallery3d.app.AlbumSetPage;
 import com.android.gallery3d.app.EyePosition;
 import com.android.gallery3d.app.FilterUtils;
 import com.android.gallery3d.app.GalleryActionBar;
-import com.freeme.gallery.app.GalleryActivity;
 import com.android.gallery3d.app.LoadingListener;
 import com.android.gallery3d.app.OrientationManager;
+import com.android.gallery3d.common.Utils;
 import com.android.gallery3d.data.DataManager;
 import com.android.gallery3d.data.MediaDetails;
 import com.android.gallery3d.data.MediaObject;
@@ -88,15 +81,17 @@ import com.android.gallery3d.ui.MenuExecutor;
 import com.android.gallery3d.ui.SelectionManager;
 import com.android.gallery3d.ui.SlotView;
 import com.android.gallery3d.ui.SynchronizedHandler;
+import com.android.gallery3d.util.Future;
 import com.android.gallery3d.util.GalleryUtils;
 import com.android.gallery3d.util.HelpUtils;
-import com.android.gallery3d.common.Utils;
-import com.android.gallery3d.util.Future;
+import com.freeme.data.StoryAlbum;
+import com.freeme.data.StoryAlbumSet;
+import com.freeme.data.StoryMergeAlbum;
+import com.freeme.gallery.R;
+import com.freeme.gallery.app.AlbumPicker;
+import com.freeme.gallery.app.GalleryActivity;
 import com.freeme.settings.GallerySettings;
-import com.freeme.statistic.StatisticData;
-import com.freeme.statistic.StatisticUtil;
 import com.freeme.utils.FreemeUtils;
-import com.freeme.utils.ShareFreemeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -173,6 +168,10 @@ public class AlbumStorySetPage extends ActivityState implements
             int slotViewBottom = bottom - top - mConfig.paddingBottom;
             int slotViewLeft = left + mConfig.paddingLeftRight;
             int slotViewRight = right - left - mConfig.paddingLeftRight;
+
+            if (FreemeUtils.hasNotch()) {
+                slotViewTop += FreemeUtils.getNotchHeight() - mActivity.mStatusBarHeight;
+            }
 
             if (mShowDetails) {
                 mDetailsHelper.layout(left, slotViewTop, right, bottom);

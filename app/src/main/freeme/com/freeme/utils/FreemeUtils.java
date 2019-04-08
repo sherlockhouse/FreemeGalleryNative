@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -213,5 +214,27 @@ public final class FreemeUtils {
             Settings.System.putInt(resolver, Settings.System.SCREEN_BRIGHTNESS, settingsScreenlight);
         }
     }
+
+    public static boolean hasNotch(){
+        try {
+            final ReflectUtils reflectUtils = ReflectUtils.reflect("com.freeme.util.FreemeNotchUtil").method("hasNotch");
+            return reflectUtils.get();
+        } catch ( Exception e) {
+            Log.i(TAG, e.toString());
+        }
+        return false;
+    }
+
+    public static int getNotchHeight() {
+        try {
+            final ReflectUtils reflectUtils = ReflectUtils.reflect("com.freeme.util.FreemeNotchUtil").method
+                    ("getNotchHeight");
+            return reflectUtils.get();
+        } catch (Exception e) {
+            com.android.gallery3d.ui.Log.i(TAG, e.toString());
+        }
+        return 0;
+    }
+
 }
 
