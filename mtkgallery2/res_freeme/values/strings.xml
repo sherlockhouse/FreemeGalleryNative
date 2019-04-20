@@ -127,7 +127,7 @@
 
     <!-- Added by Linguanrong for story album, 2015-4-2 -->
     <string name="tab_by_camera">Photos</string>
-    <string name="tab_by_story">Stories</string>
+    <string name="tab_by_story">Discover</string>
     <string name="tab_by_all">Albums</string>
     <string name="tab_by_community">@string/community</string>
 

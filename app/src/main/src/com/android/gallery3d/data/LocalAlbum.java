@@ -65,8 +65,6 @@ public class LocalAlbum extends MediaSet implements IBucketAlbum {
     private String mWhereClause;
     private int mCachedCount = INVALID_COUNT;
 
-
-
     public LocalAlbum(Path path, GalleryApp application, int bucketId,
             boolean isImage, String name) {
         super(path, nextVersionNumber());

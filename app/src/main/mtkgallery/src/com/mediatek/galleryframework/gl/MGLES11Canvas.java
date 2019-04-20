@@ -8,9 +8,6 @@ import android.opengl.GLUtils;
 import android.opengl.Matrix;
 
 import com.mediatek.gallery3d.util.Log;
-import com.mediatek.galleryframework.gl.MGLCanvas.Generator;
-
-import junit.framework.Assert;
 
 import java.nio.Buffer;
 import java.nio.ByteBuffer;
@@ -22,6 +19,8 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.microedition.khronos.opengles.GL11;
 import javax.microedition.khronos.opengles.GL11Ext;
 import javax.microedition.khronos.opengles.GL11ExtensionPack;
+
+//import junit.framework.Assert;
 
 public class MGLES11Canvas implements MGLCanvas {
     @SuppressWarnings("unused")
@@ -112,7 +111,7 @@ public class MGLES11Canvas implements MGLCanvas {
 
     @Override
     public void setSize(int width, int height) {
-        Assert.assertTrue(width >= 0 && height >= 0);
+//        Assert.assertTrue(width >= 0 && height >= 0);
 
         if (mTargetTexture == null) {
             mScreenWidth = width;
@@ -140,7 +139,7 @@ public class MGLES11Canvas implements MGLCanvas {
 
     @Override
     public void setAlpha(float alpha) {
-        Assert.assertTrue(alpha >= 0 && alpha <= 1);
+//        Assert.assertTrue(alpha >= 0 && alpha <= 1);
         mAlpha = alpha;
     }
 
@@ -151,7 +150,7 @@ public class MGLES11Canvas implements MGLCanvas {
 
     @Override
     public void multiplyAlpha(float alpha) {
-        Assert.assertTrue(alpha >= 0 && alpha <= 1);
+//        Assert.assertTrue(alpha >= 0 && alpha <= 1);
         mAlpha *= alpha;
     }
 

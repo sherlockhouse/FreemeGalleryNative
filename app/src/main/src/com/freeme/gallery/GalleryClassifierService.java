@@ -1,5 +1,6 @@
 package com.freeme.gallery;
 
+import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -7,8 +8,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.app.JobIntentService;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Base64;
 
@@ -24,6 +24,7 @@ import com.freeme.utils.FreemeUtils;
 import com.freeme.utils.LogUtil;
 import com.mediatek.galleryframework.util.BitmapUtils;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -37,7 +38,7 @@ import static com.freeme.data.StoryAlbumSet.ALBUM_LOVE_ID;
 import static com.freeme.data.StoryAlbumSet.MAX_BUCKET_ID;
 
 
-public class GalleryClassifierService extends JobIntentService {
+public class GalleryClassifierService extends IntentService {
     public static final String DEFAULT = "default";
     public static final String EMPTY = "empty";
     public static final String NOFEATURE = "nofeature";
@@ -50,8 +51,8 @@ public class GalleryClassifierService extends JobIntentService {
     ));
 
     public static List<String> mAddedFaceAlbums  = new ArrayList<>();
-    public static List<byte[]> mAddedFaceAlbumsFeatures  = new ArrayList<>();
-    public static List<byte[]> mNewFaceAlbumsFeatures  = new ArrayList<>();
+    public static List<float[]> mAddedFaceAlbumsFeatures  = new ArrayList<>();
+    public static List<float[]> mNewFaceAlbumsFeatures  = new ArrayList<>();
 
     private ArrayList<Path> mFacePaths = new ArrayList<>();
     private HashMap<Integer, ArrayList<Path>> mPathsGroupbyFace = new HashMap<>();
@@ -112,7 +113,6 @@ public class GalleryClassifierService extends JobIntentService {
     public static final String ACTION_FACE =
             "com.freeme.gallery.galleryclassifierservice.action.FACE";
     private static final int UNIQUE_JOB_ID = 7758;
-    private static Context mContext;
     private int mStoryCount;
     private int mTotalCount;
     private static volatile boolean dealing;
@@ -124,20 +124,20 @@ public class GalleryClassifierService extends JobIntentService {
     private float degree;
     private int mMaxStoryBucketId;
     private int max;
-//    private SharedPreferences.Editor mEditor;
+
+    public GalleryClassifierService() {
+        super("default");
+    }
 
     public static void enqueueWork(Context ctxt, Intent i) {
-        mContext = ctxt;
-
         if (!dealing) {
             dealing = true;
-            enqueueWork(ctxt, GalleryClassifierService.class, UNIQUE_JOB_ID, i);
+            ctxt.startService(i);
         }
-
     }
 
     @Override
-    protected void onHandleWork(@NonNull Intent intent) {
+    protected void onHandleIntent(@Nullable Intent intent) {
         if (intent.getAction() != null && intent.getAction().equals(ACTION_FACE)) {
             dealFace();
             return;
@@ -187,7 +187,12 @@ public class GalleryClassifierService extends JobIntentService {
                 if (recognitions != null) {
                     Recognition mRecognitionCategory = recognitions.get(0);
                     if (mRecognitionCategory.getTitle().equals("baby")) {
-                        mRecognitionCategory = recognitions.get(1);
+                        if (recognitions.size() == 1) {
+                            addStoryImageUncategoried(aiPath);
+                            continue;
+                        } else {
+                            mRecognitionCategory = recognitions.get(1);
+                        }
                     }
                     String mTitle = defaultAlbumsChinese.get(mRecognitionCategory.getTitle());
                     if (mRecognitionCategory.getConfidence() > 0.41) {
@@ -254,9 +259,9 @@ public class GalleryClassifierService extends JobIntentService {
                 if ( !mAddedFaceAlbums.contains(addedAlumname)) {
                     mAddedFaceAlbums.add(addedAlumname);
                     if (addedAlbumFeature.equals(NOFEATURE)) {
-                        mAddedFaceAlbumsFeatures.add(new byte[]{(byte) i});
+                        mAddedFaceAlbumsFeatures.add(new float[]{(float) i});
                     } else {
-                        byte[] decodedFeatures = Base64.decode(addedAlbumFeature, Base64.DEFAULT);
+                        float[] decodedFeatures = byteToFloat(Base64.decode(addedAlbumFeature, Base64.DEFAULT));
                         mAddedFaceAlbumsFeatures.add(decodedFeatures);
                     }
                 }
@@ -379,16 +384,33 @@ public class GalleryClassifierService extends JobIntentService {
 
     }
 
-    private void sendLocalAddFacealbumBd(String title, byte[] mFeatures) {
+    public static byte[] floatToByte(float[] input) {
+        byte[] ret = new byte[input.length*4];
+        for (int x = 0; x < input.length; x++) {
+            ByteBuffer.wrap(ret, x*4, 4).putFloat(input[x]);
+        }
+        return ret;
+    }
+
+    public static float[] byteToFloat(byte[] input) {
+        float[] ret = new float[input.length/4];
+        for (int x = 0; x < input.length; x+=4) {
+            ret[x/4] = ByteBuffer.wrap(input, x, 4).getFloat();
+        }
+        return ret;
+    }
+
+    private void sendLocalAddFacealbumBd(String title, float[] mFeatures) {
         LogUtil.i("testface :" + title);
         mAddedFaceAlbums.add(title);
         mAddedFaceAlbumsFeatures.add(mFeatures);
+
 
         mMaxStoryBucketId = mFaceSharedPref.getInt(MAX_BUCKET_ID, 0);
 
         mFaceEditor.putString(ALBUM_KEY + mMaxStoryBucketId, title);
         mFaceEditor.putString(ALBUM_FACE_FEATURE + mMaxStoryBucketId,
-                Base64.encodeToString(mFeatures, Base64.DEFAULT));
+                Base64.encodeToString(floatToByte(mFeatures), Base64.DEFAULT));
         mMaxStoryBucketId++;
 
         mFaceEditor.putInt(MAX_BUCKET_ID, mMaxStoryBucketId);

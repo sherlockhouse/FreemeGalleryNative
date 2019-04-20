@@ -2,7 +2,7 @@ package com.mediatek.galleryframework.gl;
 
 import android.graphics.Bitmap;
 
-import junit.framework.Assert;
+//import junit.framework.Assert;
 
 // BitmapTexture is a texture whose content is specified by a fixed Bitmap.
 //
@@ -16,7 +16,7 @@ public class MBitmapTexture extends MUploadedTexture {
 
     public MBitmapTexture(Bitmap bitmap, boolean hasBorder) {
         super(hasBorder);
-        Assert.assertTrue(bitmap != null && !bitmap.isRecycled());
+//        Assert.assertTrue(bitmap != null && !bitmap.isRecycled());
         mContentBitmap = bitmap;
     }
 

@@ -28,7 +28,7 @@ import android.opengl.GLUtils;
 import com.mediatek.gallery3d.util.Log;
 import com.mediatek.gallery3d.util.TraceHelper;
 
-import junit.framework.Assert;
+//import junit.framework.Assert;
 
 import java.util.HashMap;
 
@@ -161,7 +161,7 @@ public abstract class UploadedTexture extends BasicTexture {
     }
 
     private void freeBitmap() {
-        Assert.assertTrue(mBitmap != null);
+//        Assert.assertTrue(mBitmap != null);
         onFreeBitmap(mBitmap);
         mBitmap = null;
     }
@@ -253,7 +253,7 @@ public abstract class UploadedTexture extends BasicTexture {
                             + ", texHeight=" + texHeight);
                 }
                 /// @}
-                Assert.assertTrue(bWidth <= texWidth && bHeight <= texHeight);
+//                Assert.assertTrue(bWidth <= texWidth && bHeight <= texHeight);
 
                 // Upload the bitmap to a new texture.
                 mId = canvas.getGLId().generateTexture();
