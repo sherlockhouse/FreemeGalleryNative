@@ -23,7 +23,6 @@
             android:layout_above="@+id/filtershow_imageview_imageViewbottom"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:visibility="gone"
             android:gravity="center">
 
             <ImageView

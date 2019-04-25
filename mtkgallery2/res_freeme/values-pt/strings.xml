@@ -129,7 +129,7 @@
     <string name="tab_by_community">@string/community</string>
 
     <string name="baby_album">Baby album</string>
-    <string name="love_album">Love album</string>
+    <string name="love_album">Plant</string>
     <string name="add_story_album">Adicionar novo album</string>
     <string name="add_story_album_hint">Make name for album</string>
     <string name="add_story_album_tip">Can not be null and 10 characters maximum</string>
