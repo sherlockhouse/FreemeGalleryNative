@@ -20,6 +20,7 @@
             android:id="@+id/filtershow_content"
             android:layout_width="match_parent"
             android:layout_height="38dp"
+            android:visibility="gone"
             android:layout_above="@+id/filtershow_imageview_imageViewbottom"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"

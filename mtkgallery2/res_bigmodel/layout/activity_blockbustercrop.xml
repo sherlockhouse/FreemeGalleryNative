@@ -40,6 +40,7 @@
                     android:id="@+id/filtershow_content_iv"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
+                    android:visibility="gone"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentRight="true"
