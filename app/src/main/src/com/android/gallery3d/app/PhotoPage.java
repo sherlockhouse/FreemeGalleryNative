@@ -180,7 +180,10 @@ public abstract class PhotoPage extends ActivityState implements
         @Override
         protected void onLayout(
                 boolean changed, int left, int top, int right, int bottom) {
-            mPhotoView.layout(0, 0, right - left, bottom - top);
+            if (FreemeUtils.hasNotch()) {
+                top  = FreemeUtils.getNotchHeight();
+            }
+            mPhotoView.layout(0, top, right - left, bottom - top);
             if (mShowDetails) {
                 mDetailsHelper.layout(left, mActionBar.getHeight(), right, bottom);
             }

@@ -14,8 +14,8 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         google()
+        jcenter()
     }
     gradle.taskGraph.whenReady {
         tasks.each { task ->
@@ -41,7 +41,7 @@ task clean(type: Delete) {
 ext {
     compileSdkVersion = 28
     buildToolsVersion = '28.0.3'
-    minSdkVersion = 24
+    minSdkVersion = 23
     targetSdkVersion = 28
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
