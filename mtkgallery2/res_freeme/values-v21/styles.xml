@@ -19,12 +19,12 @@
     <style name="GalleryTheme" parent="@android:style/Theme.Material.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <!--<item name="@*android:panelMenuListTheme">@*android:style/Theme.Material.Light.CompactMenu</item>-->
         <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
         <item name="switchStyle">@android:style/Widget.CompoundButton</item>
         <item name="android:actionBarStyle">@style/GalleryActionBar</item>
         <item name="android:actionModeStyle">@style/GalleryActionMode</item>
-        <!--<item name="android:windowLightStatusBar">true</item>-->
         <item name="android:colorForeground">@color/foreground_freeme_light</item>
         <item name="android:colorForegroundInverse">@color/foreground_freeme_dark</item>
         <item name="android:colorBackground">@color/background_freeme_light</item>
@@ -45,78 +45,20 @@
         <!--<item name="*android:textColorSecondaryActivated">@color/secondary_text_inverse_when_activated_freeme</item>-->
         <item name="android:textColorTertiary">@color/secondary_text_freeme_light</item>
         <item name="android:textColorTertiaryInverse">@color/secondary_text_freeme_dark</item>
-        <!--<item name="android:textColorPrimaryDisableOnly">@color/primary_text_disable_only_freeme_light</item>-->
-        <!--<item name="android:textColorPrimaryInverseDisableOnly">@color/primary_text_disable_only_freeme_dark</item>-->
-        <!--<item name="android:textColorHint">@color/hint_foreground_freeme_light</item>-->
-        <!--<item name="android:textColorHintInverse">@color/hint_foreground_freeme_dark</item>-->
-        <!--<item name="android:textColorHighlight">@color/highlighted_text_freeme</item>-->
-        <!--<item name="android:textColorHighlightInverse">@color/highlighted_text_freeme</item>-->
         <item name="android:textColorLink">?android:attr/colorAccent</item>
         <item name="android:textColorLinkInverse">?android:attr/colorAccent</item>
         <!--<item name="*android:textColorSearchUrl">@color/search_url_text_freeme_light</item>-->
         <item name="android:textColorAlertDialogListItem">@color/primary_text_freeme_light</item>
 
-        <!--<item name="android:textAppearanceLarge">@style/TextAppearance.Freeme.Large</item>-->
-        <!--<item name="android:textAppearanceLargeInverse">@style/TextAppearance.Freeme.Large.Inverse</item>-->
-        <!--<item name="android:textAppearanceMedium">@style/TextAppearance.Freeme.Medium</item>-->
-        <!--<item name="android:textAppearanceMediumInverse">@style/TextAppearance.Freeme.Medium.Inverse</item>-->
-        <!--<item name="android:textAppearanceSmall">@style/TextAppearance.Freeme.Small</item>-->
-        <!--<item name="android:textAppearanceSmallInverse">@style/TextAppearance.Freeme.Small.Inverse</item>-->
-        <!--<item name="android:textAppearanceSearchResultTitle">@style/TextAppearance.Freeme.SearchResult.Title</item>-->
-        <!--<item name="android:textAppearanceSearchResultSubtitle">@style/TextAppearance.Freeme.SearchResult.Subtitle</item>-->
 
-        <!--<item name="android:textAppearanceButton">@style/TextAppearance.Freeme.Widget.Button</item>-->
 
         <item name="android:editTextColor">?android:attr/textColorPrimary</item>
-        <!--<item name="android:editTextBackground">@drawable/edit_text_freeme</item>-->
 
-        <!--<item name="android:candidatesTextStyleSpans">@*android:string/candidates_style</item>-->
-
-        <!--<item name="android:textCheckMark">@*android:drawable/indicator_check_mark_light</item>-->
-        <!--<item name="android:textCheckMarkInverse">@*android:drawable/indicator_check_mark_dark</item>-->
-
-        <!--<item name="android:textAppearanceLargePopupMenu">@style/TextAppearance.Freeme.Widget.PopupMenu.Large</item>-->
-        <!--<item name="android:textAppearanceSmallPopupMenu">@style/TextAppearance.Freeme.Widget.PopupMenu.Small</item>-->
-        <!--<item name="android:textAppearancePopupMenuHeader">@style/TextAppearance.Freeme.Widget.PopupMenu.Header</item>-->
-
-        <!-- Button styles -->
-        <!--<item name="android:buttonStyle">@style/Widget.Freeme.Light.Button</item>-->
-
-        <!--<item name="android:buttonStyleSmall">@style/Widget.Freeme.Light.Button.Small</item>-->
-        <!--<item name="android:buttonStyleInset">@style/Widget.Freeme.Light.Button.Inset</item>-->
-        <!--<item name="android:buttonStyleToggle">@style/Widget.Freeme.Light.Button.Toggle</item>-->
-
-        <!--<item name="android:switchStyle">@style/Widget.Freeme.Light.CompoundButton.Switch</item>-->
-        <!--<item name="android:mediaRouteButtonStyle">@style/Widget.Freeme.Light.MediaRouteButton</item>-->
-
-        <!--<item name="android:selectableItemBackground">@drawable/item_background_freeme</item>-->
-        <!--<item name="android:selectableItemBackgroundBorderless">@drawable/item_background_borderless_freeme</item>-->
-        <!--<item name="android:borderlessButtonStyle">@style/Widget.Freeme.Light.Button.Borderless</item>-->
-        <!--<item name="android:homeAsUpIndicator">@drawable/ic_ab_back_freeme</item>-->
 
         <!-- List attributes -->
         <item name="android:listPreferredItemHeight">58dip</item>
         <item name="android:listPreferredItemHeightSmall">54dip</item>
         <item name="android:listPreferredItemHeightLarge">80dip</item>
-        <!--<item name="*android:dropdownListPreferredItemHeight">?android:attr/listPreferredItemHeightSmall</item>-->
-        <!--<item name="android:textAppearanceListItem">@style/TextAppearance.Freeme.Subhead</item>-->
-        <!--<item name="android:textAppearanceListItemSmall">@style/TextAppearance.Freeme.Subhead</item>-->
-        <!--<item name="android:textAppearanceListItemSecondary">@style/TextAppearance.Freeme.Body1</item>-->
-        <!--<item name="android:listPreferredItemPaddingLeft">@dimen/list_item_padding_horizontal_freeme</item>-->
-        <!--<item name="android:listPreferredItemPaddingRight">@dimen/list_item_padding_horizontal_freeme</item>-->
-        <!--<item name="android:listPreferredItemPaddingStart">@dimen/list_item_padding_horizontal_freeme</item>-->
-        <!--<item name="android:listPreferredItemPaddingEnd">@dimen/list_item_padding_horizontal_freeme</item>-->
-
-        <!-- @hide -->
-        <!--<item name="*android:searchResultListItemHeight">@dimen/searchview_suggestion_item_height_freeme</item>-->
-        <!--<item name="android:listDivider">@drawable/list_divider_freeme</item>-->
-        <!--<item name="android:listSeparatorTextViewStyle">@style/Widget.Freeme.Light.TextView.ListSeparator</item>-->
-
-        <!--<item name="android:listChoiceIndicatorSingle">@drawable/btn_radio_freeme_anim</item>-->
-        <!--<item name="android:listChoiceIndicatorMultiple">@drawable/btn_check_freeme_anim</item>-->
-
-        <!--<item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_freeme_light</item>-->
-        <!--<item name="android:activatedBackgroundIndicator">@drawable/activated_background_freeme</item>-->
 
         <item name="android:listDividerAlertDialog">@null</item>
 
@@ -148,7 +90,6 @@
         <!--<item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground.Freeme</item>-->
         <!--<item name="android:windowAnimationStyle">@style/Animation.Freeme.Activity</item>-->
         <item name="android:windowSoftInputMode">stateUnspecified|adjustUnspecified</item>
-        <item name="android:windowActionBar">true</item>
         <item name="android:windowActionModeOverlay">false</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!--<item name="*android:windowActionBarFullscreenDecorLayout">@*android:layout/screen_toolbar</item>-->
@@ -199,141 +140,13 @@
         <item name="android:scrollbarTrackHorizontal">@null</item>
         <item name="android:scrollbarTrackVertical">@null</item>
 
-        <!-- Text selection handle attributes -->
-        <!--<item name="android:textSelectHandleLeft">@drawable/text_select_handle_left_freeme</item>-->
-        <!--<item name="android:textSelectHandleRight">@drawable/text_select_handle_right_freeme</item>-->
-        <!--<item name="android:textSelectHandle">@drawable/text_select_handle_middle_freeme</item>-->
-        <!--<item name="android:textSelectHandleWindowStyle">@style/Widget.Freeme.TextSelectHandle</item>-->
-        <!--<item name="android:textCursorDrawable">@drawable/text_cursor_freeme</item>-->
-
-        <!-- Suggestion window attributes -->
-        <!--<item name="android:textEditSuggestionItemLayout">@layout/text_edit_suggestion_item_freeme</item>-->
-        <!--<item name="*android:textEditSuggestionContainerLayout">@layout/text_edit_suggestion_container_freeme</item>-->
-        <!--<item name="*android:textEditSuggestionHighlightStyle">@style/TextAppearance.Freeme.TextSuggestionHighlight</item>-->
-
-        <!-- Widget styles -->
-        <!--<item name="android:absListViewStyle">@style/Widget.Freeme.Light.AbsListView</item>-->
-        <!--<item name="android:autoCompleteTextViewStyle">@style/Widget.Freeme.Light.AutoCompleteTextView</item>-->
-        <!--<item name="android:checkboxStyle">@style/Widget.Freeme.Light.CompoundButton.CheckBox</item>-->
-        <!--<item name="android:checkedTextViewStyle">@style/Widget.Freeme.Light.CheckedTextView</item>-->
-        <!--<item name="android:dropDownListViewStyle">@style/Widget.Freeme.Light.ListView.DropDown</item>-->
-        <!--<item name="android:editTextStyle">@style/Widget.Freeme.Light.EditText</item>-->
-        <!--<item name="android:expandableListViewStyle">@style/Widget.Freeme.Light.ExpandableListView</item>-->
-        <!--<item name="android:expandableListViewWhiteStyle">@style/Widget.Freeme.Light.ExpandableListView.White</item>-->
-        <!--<item name="android:fastScrollStyle">@style/Widget.Freeme.Light.FastScroll</item>-->
-        <!--<item name="android:galleryStyle">@style/Widget.Freeme.Light.Gallery</item>-->
-        <!--<item name="*android:gestureOverlayViewStyle">@style/Widget.Freeme.Light.GestureOverlayView</item>-->
-        <!--<item name="android:gridViewStyle">@style/Widget.Freeme.Light.GridView</item>-->
-        <!--<item name="android:imageButtonStyle">@style/Widget.Freeme.Light.ImageButton</item>-->
-        <!--<item name="android:imageWellStyle">@style/Widget.Freeme.Light.ImageWell</item>-->
-        <!--<item name="android:listMenuViewStyle">@style/Widget.Freeme.ListMenuView</item>-->
-        <!--<item name="android:listViewStyle">@style/Widget.Freeme.Light.ListView</item>-->
-        <!--<item name="android:listViewWhiteStyle">@style/Widget.Freeme.Light.ListView.White</item>-->
-        <!--<item name="android:popupWindowStyle">@style/Widget.Freeme.Light.PopupWindow</item>-->
-        <!--<item name="android:progressBarStyle">@style/Widget.Freeme.Light.ProgressBar</item>-->
-        <!--<item name="android:progressBarStyleHorizontal">@style/Widget.Freeme.Light.ProgressBar.Horizontal</item>-->
-        <!--<item name="android:progressBarStyleSmall">@style/Widget.Freeme.Light.ProgressBar.Small</item>-->
-        <!--<item name="android:progressBarStyleSmallTitle">@style/Widget.Freeme.Light.ProgressBar.Small.Title</item>-->
-        <!--<item name="android:progressBarStyleLarge">@style/Widget.Freeme.Light.ProgressBar.Large</item>-->
-        <!--<item name="android:progressBarStyleInverse">@style/Widget.Freeme.Light.ProgressBar.Inverse</item>-->
-        <!--<item name="android:progressBarStyleSmallInverse">@style/Widget.Freeme.Light.ProgressBar.Small.Inverse</item>-->
-        <!--<item name="android:progressBarStyleLargeInverse">@style/Widget.Freeme.Light.ProgressBar.Large.Inverse</item>-->
-        <!--<item name="android:seekBarStyle">@style/Widget.Freeme.Light.SeekBar</item>-->
-        <!--<item name="android:ratingBarStyle">@style/Widget.Freeme.Light.RatingBar</item>-->
-        <!--<item name="android:ratingBarStyleIndicator">@style/Widget.Freeme.Light.RatingBar.Indicator</item>-->
-        <!--<item name="android:ratingBarStyleSmall">@style/Widget.Freeme.Light.RatingBar.Small</item>-->
-        <!--<item name="android:radioButtonStyle">@style/Widget.Freeme.Light.CompoundButton.RadioButton</item>-->
-        <!--<item name="android:scrollViewStyle">@style/Widget.Freeme.Light.ScrollView</item>-->
-        <!--<item name="android:horizontalScrollViewStyle">@style/Widget.Freeme.Light.HorizontalScrollView</item>-->
-        <!--<item name="android:spinnerStyle">?android:dropDownSpinnerStyle</item>-->
-        <!--<item name="android:dropDownSpinnerStyle">@style/Widget.Freeme.Light.Spinner.DropDown</item>-->
-        <!--<item name="android:starStyle">@style/Widget.Freeme.Light.CompoundButton.Star</item>-->
-        <!--<item name="android:tabWidgetStyle">@style/Widget.Freeme.Light.TabWidget</item>-->
-        <!--<item name="android:textViewStyle">@style/Widget.Freeme.Light.TextView</item>-->
-        <!--<item name="*android:errorMessageBackground">@drawable/popup_inline_error_bg_freeme</item>-->
-        <!--<item name="*android:errorMessageAboveBackground">@drawable/popup_inline_error_above_bg_freeme</item>-->
-        <!--<item name="android:webTextViewStyle">@style/Widget.Freeme.Light.WebTextView</item>-->
-        <!--<item name="android:webViewStyle">@style/Widget.Freeme.Light.WebView</item>-->
-        <!--<item name="android:dropDownItemStyle">@style/Widget.Freeme.Light.DropDownItem</item>-->
-        <!--<item name="android:spinnerDropDownItemStyle">@style/Widget.Freeme.Light.DropDownItem.Spinner</item>-->
-        <!--<item name="android:spinnerItemStyle">@style/Widget.Freeme.Light.TextView.SpinnerItem</item>-->
-        <!--<item name="android:dropDownHintAppearance">@style/TextAppearance.Freeme.Widget.DropDownHint</item>-->
-        <!--<item name="*android:keyboardViewStyle">@style/Widget.Freeme.KeyboardView</item>-->
-        <!--<item name="android:quickContactBadgeStyleWindowSmall">@style/Widget.Freeme.QuickContactBadge.WindowSmall</item>-->
-        <!--<item name="android:quickContactBadgeStyleWindowMedium">@style/Widget.Freeme.QuickContactBadge.WindowMedium</item>-->
-        <!--<item name="android:quickContactBadgeStyleWindowLarge">@style/Widget.Freeme.QuickContactBadge.WindowLarge</item>-->
-        <!--<item name="android:quickContactBadgeStyleSmallWindowSmall">@style/Widget.Freeme.QuickContactBadgeSmall.WindowSmall</item>-->
-        <!--<item name="android:quickContactBadgeStyleSmallWindowMedium">@style/Widget.Freeme.QuickContactBadgeSmall.WindowMedium</item>-->
-        <!--<item name="android:quickContactBadgeStyleSmallWindowLarge">@style/Widget.Freeme.QuickContactBadgeSmall.WindowLarge</item>-->
-        <!--<item name="android:listPopupWindowStyle">@style/Widget.Freeme.Light.ListPopupWindow</item>-->
-        <!--<item name="android:popupMenuStyle">@style/Widget.Freeme.Light.PopupMenu</item>-->
-        <!--<item name="android:popupTheme">@null</item>-->
-        <!--<item name="android:stackViewStyle">@style/Widget.Freeme.Light.StackView</item>-->
-        <!--<item name="*android:activityChooserViewStyle">@style/Widget.Freeme.Light.ActivityChooserView</item>-->
-        <!--<item name="*android:fragmentBreadCrumbsStyle">@style/Widget.Freeme.Light.FragmentBreadCrumbs</item>-->
-        <!--<item name="android:contextPopupMenuStyle">@style/Widget.Freeme.ContextPopupMenu</item>-->
-
-        <!-- Preference styles -->
-        <!--<item name="android:preferenceScreenStyle">@style/Preference.Freeme.PreferenceScreen</item>-->
-        <!--<item name="*android:preferenceActivityStyle">@style/PreferenceActivity.Freeme</item>-->
-        <!--<item name="android:preferenceFragmentStyle">@style/PreferenceFragment.Freeme</item>-->
-        <!--<item name="android:preferenceCategoryStyle">@style/Preference.Freeme.Category</item>-->
-        <!--<item name="android:preferenceStyle">@style/Preference.Freeme</item>-->
-        <!--<item name="android:preferenceInformationStyle">@style/Preference.Freeme.Information</item>-->
-        <!--<item name="android:checkBoxPreferenceStyle">@style/Preference.Freeme.CheckBoxPreference</item>-->
-        <!--<item name="android:switchPreferenceStyle">@style/Preference.Freeme.SwitchPreference</item>-->
-        <!--<item name="*android:seekBarPreferenceStyle">@style/Preference.Freeme.SeekBarPreference</item>-->
-        <!--<item name="android:yesNoPreferenceStyle">@style/Preference.Freeme.DialogPreference.YesNoPreference</item>-->
-        <!--<item name="android:dialogPreferenceStyle">@style/Preference.Freeme.DialogPreference</item>-->
-        <!--<item name="*android:seekBarDialogPreferenceStyle">@style/Preference.Freeme.DialogPreference.SeekBarPreference</item>-->
-        <!--<item name="android:editTextPreferenceStyle">@style/Preference.Freeme.DialogPreference.EditTextPreference</item>-->
-        <!--<item name="android:ringtonePreferenceStyle">@style/Preference.Freeme.RingtonePreference</item>-->
-        <!--<item name="android:preferenceLayoutChild">@layout/preference_child_freeme</item>-->
-        <!--<item name="*android:preferencePanelStyle">@style/PreferencePanel.Freeme</item>-->
-        <!--<item name="*android:preferenceHeaderPanelStyle">@style/PreferenceHeaderPanel.Freeme</item>-->
-        <!--<item name="*android:preferenceListStyle">@style/PreferenceHeaderList.Freeme</item>-->
-        <!--<item name="*android:preferenceFragmentListStyle">@style/PreferenceFragmentList.Freeme</item>-->
-        <!--<item name="*android:preferenceFragmentPaddingSide">@dimen/preference_fragment_padding_side_freeme</item>-->
         <item name="android:detailsElementBackground">?android:attr/colorBackground</item>
 
-        <!-- PreferenceFrameLayout attributes -->
-        <!--<item name="*android:preferenceFrameLayoutStyle">@style/Widget.Freeme.PreferenceFrameLayout</item>-->
-
-        <!-- Search widget styles -->
-        <!--<item name="*android:searchWidgetCorpusItemBackground">@*android:color/search_widget_corpus_item_background</item>-->
-
-        <!-- Action bar styles -->
-        <!--<item name="android:actionDropDownStyle">@style/Widget.Freeme.Light.Spinner.DropDown.ActionBar</item>-->
-        <!--<item name="android:actionButtonStyle">@style/Widget.Freeme.Light.ActionButton</item>-->
-        <!--<item name="android:actionOverflowButtonStyle">@style/Widget.Freeme.Light.ActionButton.Overflow</item>-->
-        <!--<item name="android:actionOverflowMenuStyle">@style/Widget.Freeme.Light.PopupMenu.Overflow</item>-->
-        <!--<item name="android:actionModeBackground">@drawable/cab_background_top_freeme</item>-->
-        <!--<item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_freeme</item>-->
-        <!--<item name="android:actionModeCloseDrawable">@drawable/ic_ab_done_freeme</item>-->
-        <!--<item name="android:actionBarTabStyle">@style/Widget.Freeme.Light.ActionBar.TabView</item>-->
-        <!--<item name="android:actionBarTabBarStyle">@style/Widget.Freeme.Light.ActionBar.TabBar</item>-->
-        <!--<item name="android:actionBarTabTextStyle">@style/Widget.Freeme.Light.ActionBar.TabText</item>-->
-        <!--<item name="android:actionModeStyle">@style/Widget.Freeme.Light.ActionMode</item>-->
-        <!--<item name="android:actionModeCloseButtonStyle">@style/Widget.Freeme.Light.ActionButton.CloseMode</item>-->
-        <!--<item name="android:actionBarStyle">@style/Widget.Freeme.Light.ActionBar.Solid</item>-->
-        <!--<item name="android:actionBarSize">@dimen/action_bar_default_height_freeme</item>-->
-        <!--<item name="*android:actionModePopupWindowStyle">@style/Widget.Freeme.Light.PopupWindow.ActionMode</item>-->
-        <!--<item name="android:actionMenuTextAppearance">@style/TextAppearance.Freeme.Widget.ActionBar.Menu</item>-->
         <item name="android:actionMenuTextColor">@color/primary_text_freeme_light</item>
         <item name="android:actionBarWidgetTheme">@null</item>
         <item name="android:actionBarPopupTheme">@null</item>
         <item name="android:actionBarTheme">@null</item><!-- actionbar overflow color-->
         <item name="android:actionBarItemBackground">@drawable/action_item_background_borderless_freeme</item>
-
-        <!--<item name="android:actionModeCutDrawable">@drawable/ic_menu_cut_freeme</item>-->
-        <!--<item name="android:actionModeCopyDrawable">@drawable/ic_menu_copy_freeme</item>-->
-        <!--<item name="android:actionModePasteDrawable">@drawable/ic_menu_paste_freeme</item>-->
-        <!--<item name="android:actionModeSelectAllDrawable">@drawable/ic_menu_selectall_freeme</item>-->
-        <!--<item name="android:actionModeShareDrawable">@drawable/ic_menu_share_freeme</item>-->
-        <!--<item name="android:actionModeFindDrawable">@drawable/ic_menu_find_freeme</item>-->
-        <!--<item name="android:actionModeWebSearchDrawable">@drawable/ic_menu_search_freeme</item>-->
-
-        <!--<item name="android:toolbarStyle">@style/Widget.Freeme.Toolbar</item>-->
 
         <item name="android:dividerVertical">?android:attr/listDivider</item>
         <item name="android:dividerHorizontal">?android:attr/listDivider</item>
@@ -343,21 +156,7 @@
 
         <item name="android:actionBarDivider">@null</item>
 
-        <!-- SearchView attributes -->
-        <!--<item name="android:searchViewStyle">@style/Widget.Freeme.Light.SearchView</item>-->
-        <!--<item name="*android:searchDialogTheme">@style/Theme.Freeme.Light.SearchBar</item>-->
 
-        <!-- NumberPicker style -->
-        <!--<item name="android:numberPickerStyle">@style/Widget.Freeme.Light.NumberPicker</item>-->
-
-        <!--&lt;!&ndash; CalendarView style&ndash;&gt;-->
-        <!--<item name="android:calendarViewStyle">@style/Widget.Freeme.Light.CalendarView</item>-->
-
-        <!--&lt;!&ndash; TimePicker style &ndash;&gt;-->
-        <!--<item name="android:timePickerStyle">@style/Widget.Freeme.Light.TimePicker</item>-->
-
-        <!-- TimePicker dialog theme -->
-        <!--<item name="android:timePickerDialogTheme">?android:alertDialogTheme</item>-->
 
         <!-- DatePicker style -->
         <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>

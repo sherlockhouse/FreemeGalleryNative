@@ -4,8 +4,8 @@
     <style name="Theme.Refocus" parent="@android:style/Theme.Material.Light">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
-        <item name="android:windowTranslucentNavigation">true</item>
-        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:fitsSystemWindows">false</item>
     </style>
@@ -284,5 +284,175 @@
 
         <!--<item name="android:windowContentOverlay">@null</item>-->
     </style>
+    <style name="GalleryTheme" parent="@android:style/Theme.Material.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <!--<item name="@*android:panelMenuListTheme">@*android:style/Theme.Material.Light.CompactMenu</item>-->
+        <item name="listPreferredItemHeightSmall">?android:attr/listPreferredItemHeightSmall</item>
+        <item name="switchStyle">@android:style/Widget.CompoundButton</item>
+        <item name="android:actionBarStyle">@style/GalleryActionBar</item>
+        <item name="android:actionModeStyle">@style/GalleryActionMode</item>
+        <item name="android:colorForeground">@color/foreground_freeme_light</item>
+        <item name="android:colorForegroundInverse">@color/foreground_freeme_dark</item>
+        <item name="android:colorBackground">@color/background_freeme_light</item>
+        <!--<item name="android:colorBackgroundFloating">@color/background_floating_freeme_light</item>-->
+        <!--<item name="android:colorBackgroundCacheHint">@color/background_cache_hint_selector_freeme_light</item>-->
+        <item name="android:disabledAlpha">@dimen/disabled_alpha_freeme_light</item>
+        <item name="android:backgroundDimAmount">0.6</item>
 
+        <!--Text styles-->
+        <!--<item name="android:textAppearance">@style/TextAppearance.Freeme</item>-->
+        <!--<item name="android:textAppearanceInverse">@style/TextAppearance.Freeme.Inverse</item>-->
+
+        <item name="android:textColorPrimary">@color/primary_text_freeme_light</item>
+        <item name="android:textColorPrimaryInverse">@color/primary_text_freeme_dark</item>
+        <!--<item name="*android:textColorPrimaryActivated">@color/primary_text_inverse_when_activated_freeme</item>-->
+        <item name="android:textColorSecondary">@color/secondary_text_freeme_light</item>
+        <item name="android:textColorSecondaryInverse">@color/secondary_text_freeme_dark</item>
+        <!--<item name="*android:textColorSecondaryActivated">@color/secondary_text_inverse_when_activated_freeme</item>-->
+        <item name="android:textColorTertiary">@color/secondary_text_freeme_light</item>
+        <item name="android:textColorTertiaryInverse">@color/secondary_text_freeme_dark</item>
+        <item name="android:textColorLink">?android:attr/colorAccent</item>
+        <item name="android:textColorLinkInverse">?android:attr/colorAccent</item>
+        <!--<item name="*android:textColorSearchUrl">@color/search_url_text_freeme_light</item>-->
+        <item name="android:textColorAlertDialogListItem">@color/primary_text_freeme_light</item>
+
+
+
+        <item name="android:editTextColor">?android:attr/textColorPrimary</item>
+
+
+        <!-- List attributes -->
+        <item name="android:listPreferredItemHeight">58dip</item>
+        <item name="android:listPreferredItemHeightSmall">54dip</item>
+        <item name="android:listPreferredItemHeightLarge">80dip</item>
+
+        <item name="android:listDividerAlertDialog">@null</item>
+
+        <item name="android:expandableListPreferredItemPaddingLeft">40dip</item>
+        <item name="android:expandableListPreferredChildPaddingLeft">?android:attr/expandableListPreferredItemPaddingLeft</item>
+
+        <item name="android:expandableListPreferredItemIndicatorLeft">3dip</item>
+        <item name="android:expandableListPreferredItemIndicatorRight">0dip</item>
+        <item name="android:expandableListPreferredChildIndicatorLeft">?android:attr/expandableListPreferredItemIndicatorLeft</item>
+        <item name="android:expandableListPreferredChildIndicatorRight">?android:attr/expandableListPreferredItemIndicatorRight</item>
+
+        <!--<item name="*android:findOnPageNextDrawable">@drawable/ic_find_next_freeme</item>-->
+        <!--<item name="*android:findOnPagePreviousDrawable">@drawable/ic_find_previous_freeme</item>-->
+
+        <!-- Gallery attributes -->
+        <!--<item name="android:galleryItemBackground">@*android:drawable/gallery_item_background</item>-->
+
+        <!-- Window attributes -->
+        <item name="android:windowBackground">?android:attr/colorBackground</item>
+        <item name="android:windowClipToOutline">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowOverscan">false</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowShowWallpaper">false</item>
+        <!--<item name="android:windowTitleStyle">@style/WindowTitle.Freeme</item>-->
+        <!--<item name="android:windowTitleSize">@dimen/action_bar_default_height_freeme</item>-->
+        <!--<item name="android:windowTitleBackgroundStyle">@style/WindowTitleBackground.Freeme</item>-->
+        <!--<item name="android:windowAnimationStyle">@style/Animation.Freeme.Activity</item>-->
+        <item name="android:windowSoftInputMode">stateUnspecified|adjustUnspecified</item>
+        <item name="android:windowActionModeOverlay">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--<item name="*android:windowActionBarFullscreenDecorLayout">@*android:layout/screen_toolbar</item>-->
+        <!--<item name="android:statusBarColor">?android:attr/colorPrimaryDark</item>-->
+        <item name="android:navigationBarColor">?android:attr/colorPrimaryDark</item>
+        <item name="android:windowEnterTransition">@android:transition/fade</item>
+        <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
+        <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <item name="android:windowContentTransitions">false</item>
+        <item name="android:windowActivityTransitions">true</item>
+
+        <!-- Dialog attributes -->
+        <item name="android:dialogTheme">@style/FreemeBaseDialog</item>
+        <!--<item name="*android:dialogTitleIconsDecorLayout">@layout/dialog_title_icons_freeme</item>-->
+        <!--<item name="*android:dialogCustomTitleDecorLayout">@layout/dialog_custom_title_freeme</item>-->
+        <!--<item name="*android:dialogTitleDecorLayout">@layout/dialog_title_freeme</item>-->
+
+        <!--AlertDialog attributes-->
+        <item name="android:alertDialogTheme">@style/Theme.Freeme.Light.Dialog.Alert</item>
+        <!--<item name="android:alertDialogStyle">@style/AlertDialog.Freeme.Light</item>-->
+        <item name="*android:alertDialogCenterButtons">false</item>
+        <!--<item name="android:alertDialogIcon">@drawable/ic_dialog_alert_freeme</item>-->
+
+        <!-- Presentation attributes -->
+        <!--<item name="android:presentationTheme">@style/Theme.Freeme.Light.Dialog.Presentation</item>-->
+
+        <!-- Toast attributes -->
+        <!--<item name="*android:toastFrameBackground">@*android:drawable/toast_frame</item>-->
+
+        <!-- Panel attributes -->
+        <item name="android:panelBackground">?android:attr/colorBackground</item>
+        <!--<item name="android:panelFullBackground">@*android:drawable/menu_background_fill_parent_width</item>-->
+        <!-- These three attributes do not seems to be used by the framework. Declared public though -->
+        <item name="android:panelColorBackground">#000</item>
+        <item name="android:panelColorForeground">?android:attr/textColorPrimary</item>
+        <item name="android:panelTextAppearance">?android:attr/textAppearance</item>
+
+        <!--<item name="*android:panelMenuIsCompact">true</item>-->
+        <!--<item name="*android:panelMenuListWidth">250dip</item>-->
+        <!--<item name="*android:panelMenuListTheme">@style/Theme.Freeme.Light.CompactMenu</item>-->
+
+        <!-- Scrollbar attributes -->
+        <item name="android:scrollbarFadeDuration">250</item>
+        <item name="android:scrollbarDefaultDelayBeforeFade">400</item>
+        <item name="android:scrollbarSize">10dp</item>
+        <!--<item name="android:scrollbarThumbHorizontal">@drawable/scrollbar_handle_freeme_light</item>-->
+        <!--<item name="android:scrollbarThumbVertical">@drawable/scrollbar_handle_freeme_light</item>-->
+        <item name="android:scrollbarTrackHorizontal">@null</item>
+        <item name="android:scrollbarTrackVertical">@null</item>
+
+        <item name="android:detailsElementBackground">?android:attr/colorBackground</item>
+
+        <item name="android:actionMenuTextColor">@color/primary_text_freeme_light</item>
+        <item name="android:actionBarWidgetTheme">@null</item>
+        <item name="android:actionBarPopupTheme">@null</item>
+        <item name="android:actionBarTheme">@null</item><!-- actionbar overflow color-->
+        <item name="android:actionBarItemBackground">@drawable/action_item_background_borderless_freeme</item>
+
+        <item name="android:dividerVertical">?android:attr/listDivider</item>
+        <item name="android:dividerHorizontal">?android:attr/listDivider</item>
+        <!--<item name="android:buttonBarStyle">@style/Widget.Freeme.Light.ButtonBar</item>-->
+        <!--<item name="android:buttonBarButtonStyle">@style/Widget.Freeme.Light.Button.ButtonBar.AlertDialog</item>-->
+        <!--<item name="android:segmentedButtonStyle">@style/Widget.Freeme.Light.SegmentedButton</item>-->
+
+        <item name="android:actionBarDivider">@null</item>
+
+
+
+        <!-- DatePicker style -->
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+
+        <!-- DatePicker dialog theme -->
+        <item name="android:datePickerDialogTheme">?android:alertDialogTheme</item>
+
+        <!-- TODO: This belongs in a FastScroll style -->
+        <!--<item name="android:fastScrollThumbDrawable">@drawable/fastscroll_thumb_freeme</item>-->
+        <!--<item name="android:fastScrollPreviewBackgroundLeft">@drawable/fastscroll_label_left_freeme</item>-->
+        <!--<item name="android:fastScrollPreviewBackgroundRight">@drawable/fastscroll_label_right_freeme</item>-->
+        <!--<item name="android:fastScrollTrackDrawable">@drawable/fastscroll_track_freeme</item>-->
+        <item name="android:fastScrollOverlayPosition">aboveThumb</item>
+
+        <!-- Color palette -->
+        <item name="android:colorPrimaryDark">@color/primary_dark_freeme_light</item>
+        <item name="android:colorPrimary">@color/primary_freeme_light</item>
+        <item name="android:colorAccent">@color/theme_color</item>
+        <item name="android:colorEdgeEffect">?android:attr/colorPrimary</item>
+
+        <item name="android:colorControlNormal">?android:attr/textColorSecondary</item>
+        <item name="android:colorControlActivated">?android:attr/colorAccent</item>
+
+        <!--<item name="android:colorControlHighlight">@color/ripple_freeme_light</item>-->
+        <!--<item name="android:colorButtonNormal">@color/btn_default_freeme_light</item>-->
+        <!--<item name="*android:colorSwitchThumbNormal">@color/switch_thumb_freeme_light</item>-->
+
+        <!--<item name="android:windowContentOverlay">@null</item>-->
+    </style>
 </resources>
