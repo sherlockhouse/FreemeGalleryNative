@@ -9,4 +9,9 @@
     <string name="baby">萌寶</string>
     <string name="dog">狗</string>
     <string name="cat">貓</string>
+
+    <string name="photos_permissions_required_storage_permission_dialog_message">Freeme 相册必须获取对您设备存储空间的访问权限才能运行。</string>
+    <string name="photos_permissions_required_storage_permission_dialog_positive_button">在設定中開啟</string>
+    <string name="photos_permissions_required_storage_permission_dialog_title">無法存取相片</string>
+
 </resources>

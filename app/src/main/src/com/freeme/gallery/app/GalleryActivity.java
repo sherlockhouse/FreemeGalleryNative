@@ -911,13 +911,9 @@ public final class GalleryActivity extends AbstractGalleryActivity
                     break;
                 }
 
-                if (Manifest.permission.READ_PHONE_STATE.equals(permissions[i])
-                        && grantResults[i] == PackageManager.PERMISSION_DENIED) {
-                    PermissionHelper.showDeniedPrompt(this);
-                    break;
-                }
             }
             Log.i(TAG, "<onRequestPermissionsResult> permission denied, finish");
+            startActivity(new Intent(this, NoPermissionActivity.class));
             finish();
         }
     }
@@ -946,8 +942,8 @@ public final class GalleryActivity extends AbstractGalleryActivity
         for (int i = 0; i < count; i++) {
             mOnPageChangeListeners.get(i).onPageSelected(position);
         }
-        getGalleryActionBar().onBottomTabSelected(position);
 
+        getGalleryActionBar().onBottomTabSelected(position);
     }
 
     @Override

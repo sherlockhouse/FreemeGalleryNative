@@ -286,6 +286,9 @@ public class LocalAlbum extends MediaSet implements IBucketAlbum {
             mDataVersion = nextVersionNumber();
             mCachedCount = INVALID_COUNT;
         }
+        if (mBucketId == MediaSetUtils.CAMERA_BUCKET_ID) {
+            mCachedCount = INVALID_COUNT;
+        }
         return mDataVersion;
     }
 

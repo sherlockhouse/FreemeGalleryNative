@@ -335,4 +335,9 @@
         <item name="android:drawablePadding">8dp</item>
         <item name="android:background">@drawable/bg_pressed</item>
     </style>
+
+    <style name="quantum_text_headline_black">
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
 </resources>

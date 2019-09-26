@@ -775,6 +775,9 @@ public class DateSlotViewManager {
             row = overIndex / mUnitCount;
             col = overIndex - row * mUnitCount;
             int x = mHorizontalPadding + col * mItemWidth;
+            if (col > mUnitCount - 3) {
+                x += (col - 1);
+            }
             int y = mVerticalPadding + row * mItemHeight + frontHeight;
             rect.set(x, y, x + mSlotWidth, y + mSlotHeight);
         }

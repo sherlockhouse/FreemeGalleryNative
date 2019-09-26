@@ -9,4 +9,8 @@
     <string name="baby">Baby</string>
     <string name="dog">Dog</string>
     <string name="cat">Cat</string>
+
+    <string name="photos_permissions_required_storage_permission_dialog_message">Freeme Gallery doesn\'t work without access to your device\'s storage.</string>
+    <string name="photos_permissions_required_storage_permission_dialog_positive_button">Turn on in settings</string>
+    <string name="photos_permissions_required_storage_permission_dialog_title">Can\'t access photos</string>
 </resources>

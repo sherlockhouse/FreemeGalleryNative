@@ -142,7 +142,7 @@ android {
             buildConfigField STRING, COMMUNITY_REQUEST_URL, COMMUNITY_REQUEST_URL_OFFICIAL
             // Support print
             buildConfigField BOOLEAN, SUPPORT_PRINT, FALSE
-            buildConfigField BOOLEAN, CUSTOM_SHARE, TRUE
+            buildConfigField BOOLEAN, CUSTOM_SHARE, FALSE
             manifestPlaceholders = META_OFFICIAL
             signingConfig signingConfigs.platform
         }

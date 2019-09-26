@@ -49,13 +49,6 @@
     <uses-permission android:name="com.freeme.gallery.permission.GALLERY_PROVIDER"/>
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS"/>
     <uses-permission android:name="android.permission.INTERACT_ACROSS_USERS_FULL"/>
-    <!-- Added by tyd Linguanrong for droi push, 16-3-7 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- Tyd -->
-
-    <!--For updateself-->
-    <!--<uses-permission android:name="android.permission.INSTALL_PACKAGES"/>-->
-    <!--tyd-->
 
     <supports-screens
         android:anyDensity="true"
@@ -685,6 +678,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".app.NoPermissionActivity"
+            android:theme="@style/Theme.GalleryBase"
+            android:exported="false"/>
     </application>
 
 </manifest>

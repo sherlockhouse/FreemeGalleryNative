@@ -28,7 +28,6 @@ public class PermissionHelper {
         ArrayList<String> permissionsNeeded = new ArrayList<String>();
         permissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE);
         permissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-        permissionsNeeded.add(Manifest.permission.READ_PHONE_STATE);
         // check status of permissions, get which permissions need to request
         ArrayList<String> permissionsNeedRequest = new ArrayList<String>();
         for (String permission : permissionsNeeded) {
