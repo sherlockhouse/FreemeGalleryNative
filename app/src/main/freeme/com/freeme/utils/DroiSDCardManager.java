@@ -46,6 +46,7 @@ public class DroiSDCardManager {
             Object result = getVolumeList.invoke(mStorageManager);
             final int length = Array.getLength(result);
             for (int i = 0; i < length; i++) {
+                if (length < 2) return null;
                 Object storageVolumeElement = Array.get(result, i);
                 String path = (String) getPath.invoke(storageVolumeElement);
                 String state = (String) getState.invoke(storageVolumeElement);
